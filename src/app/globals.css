@@ -1,26 +1,460 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-wusla: #008080;
+  --color-wusla-light: #20b2aa;
+  --color-wusla-dark: #006666;
+  --color-accent: #6366f1;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Seamless Infinite Scrolling Animations */
+@keyframes scroll-right {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes scroll-right-fast {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-right {
+  animation: scroll-right 25s linear infinite;
+}
+
+.animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+.animate-scroll-right-fast {
+  animation: scroll-right-fast 20s linear infinite;
+}
+
+.animate-scroll-right-slow {
+  animation: scroll-right 35s linear infinite;
+}
+
+/* Floating animations for tech icons */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 128, 128, 0.6);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Comprehensive gradient fade effects for all edges */
+.scroll-fade {
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0;
+  margin: 20px 0;
+}
+
+/* Additional side fade enhancement */
+.scroll-fade-enhanced {
+  position: relative;
+}
+
+.scroll-fade-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0.9) 20%, rgba(17, 24, 39, 0.5) 60%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 45;
+}
+
+.scroll-fade-enhanced::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0.9) 20%, rgba(17, 24, 39, 0.5) 60%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 45;
+}
+
+/* Multi-directional fade container */
+.scroll-fade-vertical {
+  position: relative;
+}
+
+/* Super Strong Left fade */
+.scroll-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 400px;
+  height: 100%;
+  background: linear-gradient(to right, #111827 0%, #111827 5%, rgba(17, 24, 39, 0.95) 15%, rgba(17, 24, 39, 0.8) 35%, rgba(17, 24, 39, 0.4) 65%, rgba(17, 24, 39, 0.1) 85%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Super Strong Right fade */
+.scroll-fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 400px;
+  height: 100%;
+  background: linear-gradient(to left, #111827 0%, #111827 5%, rgba(17, 24, 39, 0.95) 15%, rgba(17, 24, 39, 0.8) 35%, rgba(17, 24, 39, 0.4) 65%, rgba(17, 24, 39, 0.1) 85%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Top fade */
+.scroll-fade-vertical::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0.95) 20%, rgba(17, 24, 39, 0.7) 60%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 35;
+}
+
+/* Bottom fade */
+.scroll-fade-vertical::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, rgba(17, 24, 39, 1) 0%, rgba(17, 24, 39, 0.95) 20%, rgba(17, 24, 39, 0.7) 60%, rgba(17, 24, 39, 0) 100%);
+  pointer-events: none;
+  z-index: 35;
+}
+
+/* Enhanced scroll container with better spacing */
+.scroll-container {
+  display: flex;
+  width: 200%;
+  gap: 2rem;
+  padding: 20px 0;
+}
+
+/* Fade overlay for tooltips */
+.tech-tooltip-container {
+  position: relative;
+  z-index: 50;
+}
+
+/* Dark mode gradient adjustments */
+@media (prefers-color-scheme: dark) {
+  .scroll-fade::before {
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade::after {
+    background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade-vertical::before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade-vertical::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+/* Fade in animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Enhanced Technology Tooltip Styles */
+.tech-tooltip {
+  position: relative;
+}
+
+.tech-tooltip::after {
+  content: attr(data-tooltip);
+  position: fixed;
+  bottom: auto;
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120%);
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  max-width: 200px;
+  text-align: center;
+}
+
+.tech-tooltip::before {
+  content: '';
+  position: fixed;
+  top: auto;
+  left: 50%;
+  transform: translateX(-50%) translateY(-110%);
+  border: 8px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9998;
+}
+
+.tech-tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-130%);
+}
+
+.tech-tooltip:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-120%);
+}
+
+/* Tooltip positioning for edge cases - show below icon */
+.tech-tooltip.tooltip-top::after {
+  position: absolute;
+  bottom: auto;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(15px);
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  max-width: 200px;
+  text-align: center;
+}
+
+.tech-tooltip.tooltip-top::before {
+  position: absolute;
+  bottom: auto;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  border: 8px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.95);
+  border-top-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9998;
+}
+
+.tech-tooltip.tooltip-top:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(20px);
+}
+
+.tech-tooltip.tooltip-top:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .scroll-fade::before {
+    background: linear-gradient(to right, #000000 0%, #000000 5%, rgba(0, 0, 0, 0.95) 15%, rgba(0, 0, 0, 0.8) 35%, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.1) 85%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade::after {
+    background: linear-gradient(to left, #000000 0%, #000000 5%, rgba(0, 0, 0, 0.95) 15%, rgba(0, 0, 0, 0.8) 35%, rgba(0, 0, 0, 0.4) 65%, rgba(0, 0, 0, 0.1) 85%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade-vertical::before {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade-vertical::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.95) 20%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .tech-tooltip::after {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .tech-tooltip::before {
+    border-top-color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .tech-tooltip.tooltip-top::after {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .tech-tooltip.tooltip-top::before {
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+    border-top-color: transparent;
+  }
+  
+  /* Enhanced side fade for dark mode */
+  .scroll-fade-enhanced::before {
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  .scroll-fade-enhanced::after {
+    background: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+/* Mobile tooltip adjustments */
+@media (max-width: 768px) {
+  .tech-tooltip::after {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    position: absolute;
+    transform: translateX(-50%) translateY(-120%);
+  }
+  
+  .tech-tooltip::before {
+    border-width: 6px;
+    position: absolute;
+    transform: translateX(-50%) translateY(-110%);
+  }
+  
+  /* Show tooltip on tap for mobile */
+  .tech-tooltip:active::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-130%);
+  }
+  
+  .tech-tooltip:active::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-120%);
+  }
+  
+  .tech-tooltip.tooltip-top:active::after {
+    transform: translateX(-50%) translateY(130%);
+  }
+  
+  .tech-tooltip.tooltip-top:active::before {
+    transform: translateX(-50%) translateY(120%);
+  }
+}
+
+/* Floating animation for hero elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-700 {
+  animation-delay: 0.7s;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-from), var(--tw-gradient-to));
+}
+
+/* Dotted grid background */
+.dotted-grid {
+  background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dotted-grid-dark {
+  background-image: radial-gradient(circle, #4b5563 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }

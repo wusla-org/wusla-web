@@ -1,12 +1,22 @@
 {
   "name": "wusla-website",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "description": "WUSLA - Professional web development, mobile apps, and cloud solutions. Building digital excellence with modern technology stacks.",
+  "keywords": ["nextjs", "react", "tailwindcss", "web-development", "portfolio", "business-website", "wusla"],
+  "author": "WUSLA Team",
+  "license": "MIT",
+  "homepage": "https://wusla.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wusla-team/wusla-website.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "export": "next build && next export"
   },
   "dependencies": {
     "react": "19.1.0",
