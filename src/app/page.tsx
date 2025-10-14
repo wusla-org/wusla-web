@@ -193,7 +193,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="bg-black overflow-hidden">
+    <div className="bg-[#0a0a0a] overflow-hidden">
       {/* Navigation */}
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -215,6 +215,19 @@ export default function Home() {
             WUSLA
           </motion.div>
           <div className="hidden lg:flex space-x-8">
+            <motion.a
+              href="/aether"
+              className={`transition-colors duration-300 text-sm font-bold ${
+                isScrolled
+                  ? 'text-teal-accent hover:text-teal-light'
+                  : 'text-teal-accent hover:text-teal-light'
+              }`}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              Aether App 🚀
+            </motion.a>
             {['Services', 'Work', 'About', 'Contact'].map((item, index) => (
               <motion.a
                 key={item}
@@ -226,7 +239,7 @@ export default function Home() {
                 }`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
+                transition={{ delay: 0.4 + index * 0.1 }}
               >
                 {item}
               </motion.a>
@@ -248,323 +261,180 @@ export default function Home() {
         </div>
       </motion.nav>
 
-      {/* Revolutionary Hero Section */}
+      {/* Hero Section - Aether App Launch */}
       <motion.section
         ref={heroRef}
-        className="min-h-screen relative overflow-hidden bg-black pt-20 pb-12"
+        className="min-h-screen relative overflow-hidden bg-[#0a0a0a] pt-20 pb-12"
         style={{ opacity: heroOpacity }}
       >
-        {/* Animated Background Grid */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(#008080 1px, transparent 1px), linear-gradient(90deg, #008080 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
+        {/* Gradient Orb Background - Emerald Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[120px]"></div>
 
-        {/* Gradient Orb */}
-        <motion.div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-teal-accent/20 rounded-full blur-[100px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3]
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        ></motion.div>
-
-        <div className="container-fluid relative z-10 flex flex-col items-center justify-center min-h-screen">
-          {/* Top Badge */}
+        <div className="container-fluid relative z-10 flex flex-col lg:flex-row items-center justify-center min-h-screen gap-12">
+          {/* Left: Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mb-8"
+            className="flex-1 text-center lg:text-left max-w-2xl"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <span className="px-4 py-2 bg-teal-accent/10 border border-teal-accent/30 rounded-full text-teal-accent text-sm font-semibold">
-              Full-Stack Development • Kerala, India → Worldwide
-            </span>
-          </motion.div>
+            {/* Badge */}
+            <motion.div
+              className="inline-block mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="px-4 py-2 bg-teal-accent/10 border border-teal-accent/30 rounded-full text-teal-accent text-sm font-bold">
+                NOW LAUNCHING
+              </span>
+            </motion.div>
 
-          {/* Revolutionary Headline */}
-          <motion.div
-            className="text-center mb-12 max-w-5xl"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h1 className="text-white font-bold mb-6" style={{
-              fontSize: 'clamp(3rem, 10vw, 7rem)',
-              lineHeight: '0.95',
-              letterSpacing: '-0.04em',
-              textTransform: 'uppercase'
-            }}>
-              Build Apps<br />
-              <span className="text-teal-accent">Launch Fast</span>
+            {/* Headline */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+              Meet<br />
+              <span className="text-teal-accent">
+                Aether
+              </span>
             </h1>
-            <p className="text-gray-400 text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-              From concept to production in 30 days. Mobile apps, web platforms, and desktop solutions.
-              <span className="text-white font-semibold"> 100K+ active users trust our code.</span>
+
+            <p className="text-xl md:text-2xl text-gray-400 mb-4 leading-relaxed">
+              Your life, organized.<br />
+              <span className="text-white font-semibold">Notes, tasks, diary & calendar in one beautiful app.</span>
             </p>
-          </motion.div>
 
-          {/* CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row items-center gap-4 mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <a
-              href="#contact"
-              className="px-10 py-5 bg-teal-accent text-black text-lg font-bold rounded-lg hover:bg-teal-accent/90 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-teal-accent/50"
-            >
-              Start Your Project →
-            </a>
-            <a
-              href="#work"
-              className="px-10 py-5 border-2 border-white text-white text-lg font-bold rounded-lg hover:bg-white hover:text-black transition-all duration-300"
-            >
-              View Portfolio
-            </a>
-          </motion.div>
+            <p className="text-lg text-teal-accent font-semibold mb-8">
+              100% Private • 100% Offline • 100% Free
+            </p>
 
-          {/* Trust Badges */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            {[
-              { value: '50+', label: 'Projects Delivered', icon: '✓' },
-              { value: '100K+', label: 'Active Users', icon: '👥' },
-              { value: '₹2Cr+', label: 'Revenue Generated', icon: '💰' },
-              { value: '24hrs', label: 'Response Time', icon: '⚡' }
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-2xl mb-1">{stat.icon}</div>
-                <div className="text-3xl md:text-4xl font-bold text-teal-accent mb-1">{stat.value}</div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
+              <a
+                href="/aether"
+                className="px-10 py-5 bg-teal-accent text-black text-lg font-bold rounded-xl hover:shadow-lg hover:shadow-teal-accent/50 transform hover:scale-105 transition-all duration-300 text-center"
+              >
+                Learn More →
+              </a>
+              <a
+                href="/aether#waitlist"
+                className="px-10 py-5 border-2 border-teal-accent text-teal-accent text-lg font-bold rounded-xl hover:bg-teal-accent/10 transition-all duration-300 text-center"
+              >
+                Join Waitlist
+              </a>
+            </div>
 
-          {/* Design Showcase */}
-          <motion.div
-            className="relative max-w-7xl mx-auto"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-              {/* Website Preview - Clean Browser Mockup */}
-              <div className="lg:col-span-7">
-                <motion.div
-                  className="relative group"
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Browser Window */}
-                  <div className="bg-white rounded-xl overflow-hidden shadow-2xl">
-                    {/* Browser Chrome */}
-                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b border-gray-200">
-                      <div className="flex gap-1.5">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                      </div>
-                      <div className="flex-1 mx-4 bg-white rounded px-3 py-1.5 text-xs text-gray-500 border border-gray-200">
-                        https://yourwebsite.com
-                      </div>
-                    </div>
-
-                    {/* Website Content */}
-                    <div className="bg-white p-8">
-                      {/* Navigation */}
-                      <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200">
-                        <div className="text-xl font-bold text-gray-900">Brand</div>
-                        <div className="flex gap-6 text-sm text-gray-600">
-                          <span>Home</span>
-                          <span>Services</span>
-                          <span>About</span>
-                          <span>Contact</span>
-                        </div>
-                      </div>
-
-                      {/* Hero Content */}
-                      <div className="mb-8">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                          Elevate Your Business
-                        </h2>
-                        <p className="text-gray-600 mb-6 max-w-lg">
-                          Premium solutions designed to help your business grow and succeed in the digital world
-                        </p>
-                        <div className="flex gap-3">
-                          <button className="px-5 py-2.5 bg-black text-white text-sm font-medium rounded-lg">
-                            Get Started
-                          </button>
-                          <button className="px-5 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg">
-                            Learn More
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Feature Grid */}
-                      <div className="grid grid-cols-3 gap-4">
-                        {[
-                          { icon: '⚡', title: 'Fast', desc: 'Lightning speed' },
-                          { icon: '🎯', title: 'Focused', desc: 'User-centered' },
-                          { icon: '🔒', title: 'Secure', desc: 'Protected data' }
-                        ].map((item, idx) => (
-                          <div key={idx} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                            <div className="text-2xl mb-2">{item.icon}</div>
-                            <div className="text-sm font-semibold text-gray-900 mb-1">{item.title}</div>
-                            <div className="text-xs text-gray-500">{item.desc}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+              {[
+                { value: '4-in-1', label: 'Features' },
+                { value: '0KB', label: 'Tracked' },
+                { value: '100%', label: 'Offline' },
+                { value: 'Free', label: 'Forever' }
+              ].map((stat, i) => (
+                <div key={i} className="text-center lg:text-left">
+                  <div className="text-2xl font-bold text-teal-accent mb-1">
+                    {stat.value}
                   </div>
-
-                  <div className="mt-4 text-center">
-                    <span className="text-sm text-white/50">Responsive Web Design</span>
+                  <div className="text-xs text-gray-500 uppercase tracking-wider">
+                    {stat.label}
                   </div>
-                </motion.div>
-              </div>
-
-              {/* Mobile App Previews */}
-              <div className="lg:col-span-5 flex justify-center gap-6">
-                {/* App 1 - Dashboard */}
-                <motion.div
-                  className="relative"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1 }}
-                  whileHover={{ y: -6 }}
-                >
-                  <div className="w-[170px] bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-7 bg-gray-900 rounded-b-3xl z-10"></div>
-
-                    {/* Screen */}
-                    <div className="bg-white rounded-[1.8rem] overflow-hidden h-[360px]">
-                      <div className="p-5 h-full flex flex-col bg-gradient-to-br from-gray-50 to-white">
-                        {/* Status Bar */}
-                        <div className="flex justify-between text-xs text-gray-900 mb-6 pt-2">
-                          <span className="font-semibold">9:41</span>
-                          <span>100%</span>
-                        </div>
-
-                        {/* Header */}
-                        <div className="mb-6">
-                          <h3 className="text-lg font-bold text-gray-900 mb-1">Dashboard</h3>
-                          <p className="text-xs text-gray-500">Welcome back!</p>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 gap-3 mb-6">
-                          {[
-                            { label: 'Revenue', value: '$12.5K', trend: '+12%' },
-                            { label: 'Orders', value: '234', trend: '+8%' }
-                          ].map((stat, idx) => (
-                            <div key={idx} className="bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
-                              <div className="text-xs text-gray-500 mb-1">{stat.label}</div>
-                              <div className="text-base font-bold text-gray-900">{stat.value}</div>
-                              <div className="text-xs text-green-600">{stat.trend}</div>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Chart Area */}
-                        <div className="flex-1 bg-white rounded-xl border border-gray-200 p-3 flex items-end gap-1">
-                          {[40, 70, 50, 80, 60, 90, 75].map((h, i) => (
-                            <div key={i} className="flex-1 bg-gray-900 rounded-sm" style={{ height: `${h}%` }}></div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* App 2 - Profile */}
-                <motion.div
-                  className="relative mt-12"
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
-                  whileHover={{ y: -6 }}
-                >
-                  <div className="w-[170px] bg-gray-900 rounded-[2.5rem] p-3 shadow-2xl">
-                    {/* Notch */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-7 bg-gray-900 rounded-b-3xl z-10"></div>
-
-                    {/* Screen */}
-                    <div className="bg-gray-900 rounded-[1.8rem] overflow-hidden h-[360px]">
-                      <div className="p-5 h-full flex flex-col">
-                        {/* Status Bar */}
-                        <div className="flex justify-between text-xs text-white/60 mb-8 pt-2">
-                          <span>9:41</span>
-                          <span>100%</span>
-                        </div>
-
-                        {/* Profile Header */}
-                        <div className="text-center mb-8">
-                          <div className="w-16 h-16 bg-white rounded-full mx-auto mb-3"></div>
-                          <div className="text-white font-bold text-sm mb-1">Alex Johnson</div>
-                          <div className="text-white/50 text-xs">alex@email.com</div>
-                        </div>
-
-                        {/* Menu Items */}
-                        <div className="space-y-2 flex-1">
-                          {[
-                            { icon: '👤', label: 'Profile Settings' },
-                            { icon: '🔔', label: 'Notifications' },
-                            { icon: '🎨', label: 'Appearance' },
-                            { icon: '🔐', label: 'Privacy' }
-                          ].map((item, idx) => (
-                            <div key={idx} className="flex items-center gap-3 bg-white/10 rounded-xl p-3 backdrop-blur-sm">
-                              <span className="text-lg">{item.icon}</span>
-                              <span className="text-white text-xs font-medium">{item.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-
-              <div className="lg:col-span-12 text-center mt-4">
-                <span className="text-sm text-white/50">Native Mobile Applications</span>
-              </div>
+                </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Simple Stats */}
+          {/* Right: Phone Mockup with Logo */}
           <motion.div
-            className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
+            className="flex-1 flex justify-center items-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {[
-              { value: '50+', label: 'Projects' },
-              { value: '100%', label: 'Satisfaction' },
-              { value: '24/7', label: 'Support' },
-              { value: '5.0', label: 'Rating' }
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
-                <div className="text-sm text-white/50">{stat.label}</div>
+            <motion.div
+              className="relative"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {/* Phone Frame */}
+              <div className="w-[280px] md:w-[320px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl relative">
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-gray-900 rounded-b-3xl z-10"></div>
+
+                {/* Screen */}
+                <div className="bg-gradient-to-br from-gray-50 to-white rounded-[2.5rem] overflow-hidden h-[600px] md:h-[680px] relative">
+                  {/* Status Bar */}
+                  <div className="flex justify-between items-center px-8 pt-10 pb-4 text-xs text-gray-900">
+                    <span className="font-semibold">9:41</span>
+                    <span>100%</span>
+                  </div>
+
+                  {/* Content - Centered Logo */}
+                  <div className="flex flex-col items-center justify-center h-full px-8 -mt-12">
+                    {/* Aether Logo */}
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                      <Image
+                        src="/assets/aether/icon.png"
+                        alt="Aether"
+                        width={180}
+                        height={180}
+                        className="rounded-[2.5rem] shadow-2xl mb-8"
+                      />
+                    </motion.div>
+
+                    {/* App Name */}
+                    <h2 className="text-4xl font-bold text-gray-900 mb-3">Aether</h2>
+                    <p className="text-gray-600 text-center text-sm mb-8 max-w-xs">
+                      Your personal productivity companion
+                    </p>
+
+                    {/* Feature Pills */}
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {['Notes', 'Tasks', 'Diary', 'Calendar'].map((feature, i) => (
+                        <motion.span
+                          key={i}
+                          className="px-4 py-2 bg-teal-accent/10 border border-teal-accent/30 rounded-full text-teal-dark text-xs font-semibold"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.8 + i * 0.1 }}
+                        >
+                          {feature}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Indicator */}
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-gray-900 rounded-full"></div>
+                </div>
               </div>
-            ))}
+
+              {/* Floating Elements */}
+              <motion.div
+                className="absolute -right-8 top-20 px-4 py-3 bg-teal-accent text-black text-sm font-bold rounded-xl shadow-lg"
+                animate={{ x: [0, 10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                Coming Soon
+              </motion.div>
+
+              <motion.div
+                className="absolute -left-8 bottom-32 px-4 py-3 bg-white border border-gray-200 text-gray-900 text-sm font-semibold rounded-xl shadow-lg"
+                animate={{ x: [0, -10, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+              >
+                Play Store
+              </motion.div>
+            </motion.div>
           </motion.div>
         </div>
       </motion.section>
 
       {/* Services Section - Minimal & Bold */}
-      <section id="services" className="py-32 bg-black border-t border-gray-800">
+      <section id="services" className="py-32 bg-[#1a1a18] border-t border-gray-800">
         <div className="container-fluid">
           <motion.div
             className="mb-20"
@@ -671,7 +541,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section - Interactive Grid */}
-      <section id="work" className="py-32 bg-black border-t border-gray-800">
+      <section id="work" className="py-32 bg-[#0a0a0a] border-t border-gray-800">
         <div className="container-fluid">
           <motion.div
             className="mb-12"
@@ -969,61 +839,89 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About + Currently Building Section */}
-      <section id="about" className="py-32 bg-gray-900 border-t border-gray-800">
-        <div className="container-fluid max-w-6xl mx-auto">
-          {/* About WUSLA */}
+      {/* About Section */}
+      <section id="about" className="py-20 md:py-32 bg-[#1a1a18] border-t border-gray-800">
+        <div className="container-fluid">
           <motion.div
-            className="mb-20"
+            className="max-w-7xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 uppercase" style={{ letterSpacing: '-0.03em' }}>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-12 uppercase" style={{ letterSpacing: '-0.03em' }}>
               About WUSLA
             </h2>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
-                <p className="text-2xl text-white font-semibold">
+
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+              {/* Left Column - Story */}
+              <div className="space-y-6">
+                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed">
                   Combining youthful energy with cutting-edge technical expertise, WUSLA delivers mobile apps and web solutions for ambitious brands.
                 </p>
-                <p>
+                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
                   Founded by a passionate developer specializing in React Native and full-stack development, WUSLA has delivered modern apps for startups and organizations across Kerala and beyond.
                 </p>
-                <p>
-                  <span className="text-white font-semibold">50+ projects launched.</span> From food delivery apps with 50K+ downloads to hospital systems managing 50K+ patient records. Every project built with clean code and scalable architecture.
+                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                  <span className="text-emerald-400 font-bold">50+ projects launched.</span> From food delivery apps with 50K+ downloads to hospital systems managing 50K+ patient records. Every project built with clean code and scalable architecture.
                 </p>
+
+                {/* Stats Cards */}
+                <div className="grid grid-cols-2 gap-4 pt-6">
+                  <div className="bg-gray-800/50 rounded-xl p-5 border border-gray-700">
+                    <div className="text-3xl font-bold text-emerald-400 mb-2">50+</div>
+                    <div className="text-sm text-gray-400">Projects Delivered</div>
+                  </div>
+                  <div className="bg-gray-800/50 rounded-xl p-5 border border-gray-700">
+                    <div className="text-3xl font-bold text-emerald-400 mb-2">100K+</div>
+                    <div className="text-sm text-gray-400">Active Users</div>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-white font-bold text-xl mb-3">Our Approach</h3>
-                  <ul className="space-y-3 text-gray-300">
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-accent mt-1">→</span>
-                      <span>Ship fast: MVP in 2-3 weeks, full production in 30 days</span>
+
+              {/* Right Column - Approach & Tech */}
+              <div className="space-y-8">
+                {/* Our Approach */}
+                <div className="bg-gray-800/30 rounded-2xl p-6 md:p-8 border border-gray-700">
+                  <h3 className="text-white font-bold text-2xl mb-6">Our Approach</h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <span className="text-emerald-400 text-xl mt-1">⚡</span>
+                      <div>
+                        <span className="text-white font-semibold">Ship Fast</span>
+                        <p className="text-gray-400 text-sm mt-1">MVP in 2-3 weeks, full production in 30 days</p>
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-accent mt-1">→</span>
-                      <span>Quality code: TypeScript, comprehensive testing, CI/CD</span>
+                    <li className="flex items-start gap-3">
+                      <span className="text-emerald-400 text-xl mt-1">✨</span>
+                      <div>
+                        <span className="text-white font-semibold">Quality Code</span>
+                        <p className="text-gray-400 text-sm mt-1">TypeScript, comprehensive testing, CI/CD</p>
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-accent mt-1">→</span>
-                      <span>Results-driven: Focus on user growth and business metrics</span>
+                    <li className="flex items-start gap-3">
+                      <span className="text-emerald-400 text-xl mt-1">📈</span>
+                      <div>
+                        <span className="text-white font-semibold">Results-Driven</span>
+                        <p className="text-gray-400 text-sm mt-1">Focus on user growth and business metrics</p>
+                      </div>
                     </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-accent mt-1">→</span>
-                      <span>24/7 support: Quick responses, continuous improvement</span>
+                    <li className="flex items-start gap-3">
+                      <span className="text-emerald-400 text-xl mt-1">🛟</span>
+                      <div>
+                        <span className="text-white font-semibold">24/7 Support</span>
+                        <p className="text-gray-400 text-sm mt-1">Quick responses, continuous improvement</p>
+                      </div>
                     </li>
                   </ul>
                 </div>
 
                 {/* Tech Stack */}
                 <div>
-                  <h3 className="text-white font-bold text-xl mb-3">Tech Stack</h3>
+                  <h3 className="text-white font-bold text-xl mb-4">Tech Stack</h3>
                   <div className="flex flex-wrap gap-2">
                     {['React Native', 'Next.js', 'Node.js', 'Electron', 'TypeScript', 'PostgreSQL', 'Firebase', 'AWS', 'Redis', 'Docker'].map((skill) => (
-                      <span key={skill} className="px-3 py-1.5 bg-gray-800 border border-gray-700 rounded-lg text-xs font-semibold text-white">
+                      <span key={skill} className="px-4 py-2 bg-gray-800/80 border border-gray-700 rounded-lg text-sm font-semibold text-white hover:border-emerald-500 transition-colors">
                         {skill}
                       </span>
                     ))}
@@ -1032,179 +930,281 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Currently Building */}
+      {/* Currently Building Section */}
+      <section className="py-20 md:py-32 bg-[#2d2d2d] border-t border-gray-800">
+        <div className="container-fluid">
           <motion.div
+            className="max-w-7xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 uppercase" style={{ letterSpacing: '-0.03em' }}>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 uppercase" style={{ letterSpacing: '-0.03em' }}>
               Currently Building
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  project: 'Hostel Management App',
-                  status: 'In Development',
-                  eta: 'Dec 2024',
-                  features: ['QR attendance system', 'Complaint tracking', 'Mess menu management'],
-                  tech: 'React Native • Firebase'
-                },
-                {
-                  project: 'E-Learning Platform',
-                  status: 'Beta Testing',
-                  eta: 'Nov 2024',
-                  features: ['Live classes', 'Assignment tracking', 'Student analytics'],
-                  tech: 'Next.js • WebRTC'
-                },
-                {
-                  project: 'Inventory System',
-                  status: 'Deployment Phase',
-                  eta: 'Ready',
-                  features: ['Real-time stock updates', 'Multi-location support', 'Auto-reorder alerts'],
-                  tech: 'React • Node.js'
-                }
-              ].map((item, i) => (
-                <div key={i} className="bg-gray-800 border border-gray-700 rounded-xl p-6 hover:border-teal-accent transition-all">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-bold text-white">{item.project}</h3>
-                    <span className="px-2 py-1 bg-teal-accent/20 text-teal-accent text-xs font-bold rounded">
-                      {item.status}
+            <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl">
+              Our latest project: A privacy-first productivity app that keeps your life organized.
+            </p>
+
+            {/* Aether Showcase */}
+            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border-2 border-emerald-500/30 rounded-2xl p-8 md:p-12 hover:border-emerald-500/50 transition-all">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                {/* Left: Info */}
+                <div>
+                  <div className="flex items-center gap-4 mb-4">
+                    <h3 className="text-4xl md:text-5xl font-bold text-white">Aether</h3>
+                    <span className="px-4 py-1.5 bg-emerald-500/20 text-emerald-400 text-sm font-bold rounded-full border border-emerald-500/30">
+                      LAUNCHING SOON
                     </span>
                   </div>
-                  <p className="text-sm text-gray-400 mb-4">ETA: {item.eta}</p>
-                  <ul className="space-y-2 mb-4">
-                    {item.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
-                        <span className="text-teal-accent">•</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-xs font-mono text-gray-500">{item.tech}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
 
-          {/* GitHub Activity */}
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <a
-              href="https://github.com/arsh-wusla"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 border border-gray-700 text-white rounded-lg hover:border-teal-accent transition-all"
-            >
-              <span>🔗</span>
-              <span className="font-semibold">View GitHub Activity</span>
-              <span className="text-teal-accent">→</span>
-            </a>
+                  <p className="text-xl text-gray-300 mb-6">
+                    All-in-one productivity suite combining notes, tasks, diary, and calendar in a beautiful, privacy-first mobile app.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                      <div className="text-2xl font-bold text-emerald-400 mb-1">100%</div>
+                      <div className="text-xs text-gray-400 uppercase tracking-wider">Offline</div>
+                    </div>
+                    <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                      <div className="text-2xl font-bold text-emerald-400 mb-1">0KB</div>
+                      <div className="text-xs text-gray-400 uppercase tracking-wider">Data Tracked</div>
+                    </div>
+                    <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                      <div className="text-2xl font-bold text-emerald-400 mb-1">4-in-1</div>
+                      <div className="text-xs text-gray-400 uppercase tracking-wider">Features</div>
+                    </div>
+                    <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                      <div className="text-2xl font-bold text-emerald-400 mb-1">Free</div>
+                      <div className="text-xs text-gray-400 uppercase tracking-wider">Forever</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 mb-6">
+                    <a
+                      href="/aether"
+                      className="px-8 py-3 bg-emerald-500 text-white font-bold rounded-lg hover:bg-emerald-600 transition-all inline-flex items-center gap-2"
+                    >
+                      <span>Learn More</span>
+                      <span>→</span>
+                    </a>
+                    <a
+                      href="/aether#waitlist"
+                      className="px-8 py-3 border-2 border-emerald-500 text-emerald-400 font-bold rounded-lg hover:bg-emerald-500/10 transition-all"
+                    >
+                      Join Waitlist
+                    </a>
+                  </div>
+
+                  <p className="text-xs font-mono text-gray-500">
+                    React Native • SQLite • Expo • Hugging Face AI
+                  </p>
+                </div>
+
+                {/* Right: Features */}
+                <div className="space-y-4">
+                  <h4 className="text-xl font-bold text-white mb-4">Key Features</h4>
+
+                  <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📝</span>
+                      <div>
+                        <h5 className="text-white font-semibold mb-1">Rich Notes</h5>
+                        <p className="text-sm text-gray-400">Markdown support, folders, tags, and search</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">✓</span>
+                      <div>
+                        <h5 className="text-white font-semibold mb-1">Smart Tasks</h5>
+                        <p className="text-sm text-gray-400">Priorities, due dates, and categories</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📔</span>
+                      <div>
+                        <h5 className="text-white font-semibold mb-1">Personal Diary</h5>
+                        <p className="text-sm text-gray-400">Journal entries with mood tracking</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-800/30 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📅</span>
+                      <div>
+                        <h5 className="text-white font-semibold mb-1">Calendar</h5>
+                        <p className="text-sm text-gray-400">Events, reminders, and planning</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-emerald-500/10 to-purple-500/10 rounded-lg p-4 border border-emerald-500/30">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🤖</span>
+                      <div>
+                        <h5 className="text-emerald-400 font-semibold mb-1">AI-Powered (Optional)</h5>
+                        <p className="text-sm text-gray-400">Offline AI features with Hugging Face</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* GitHub Activity */}
+            <div className="mt-16 text-center">
+              <a
+                href="https://github.com/arsh-wusla"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800/50 border-2 border-gray-700 text-white text-lg font-semibold rounded-xl hover:border-emerald-500 hover:bg-gray-800 transition-all"
+              >
+                <span className="text-2xl">💻</span>
+                <span>View GitHub Activity</span>
+                <span className="text-emerald-400">→</span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section - Bold CTA */}
-      <section id="contact" className="py-32 bg-black border-t border-gray-800">
+      {/* Contact Section */}
+      <section id="contact" className="py-20 md:py-32 bg-[#0a0a0a] border-t border-emerald-500/20">
         <div className="container-fluid">
-          <div className="max-w-5xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-6xl md:text-8xl font-bold text-white mb-8 uppercase" style={{ letterSpacing: '-0.04em' }}>
-                Let&apos;s Build<br />
-                <span className="text-teal-accent">Something Great</span>
-              </h2>
-              <p className="text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
-                Got an app idea? Need a React Native expert? Let&apos;s talk about turning your vision into reality.
-              </p>
+          <motion.div
+            className="max-w-5xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 uppercase leading-tight" style={{ letterSpacing: '-0.04em' }}>
+              Let&apos;s Build<br />
+              <span className="text-emerald-400">Something Great</span>
+            </h2>
+            <p className="text-lg md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Got an app idea? Need a React Native expert? Let&apos;s talk about turning your vision into reality.
+            </p>
 
-              {/* Contact Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                <a
-                  href="mailto:wuslateam@gmail.com"
-                  className="px-12 py-6 bg-teal-accent text-black text-xl font-bold rounded-lg hover:bg-teal-accent/90 transform hover:scale-105 transition-all duration-300"
-                >
-                  Email Me →
-                </a>
-                <a
-                  href="https://wa.me/918921581089?text=Hi!%20I%20want%20to%20discuss%20my%20project."
-                  className="px-12 py-6 border-2 border-white text-white text-xl font-bold rounded-lg hover:bg-white hover:text-black transition-all duration-300"
-                >
-                  WhatsApp Chat
+            {/* Contact Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <a
+                href="mailto:wuslateam@gmail.com"
+                className="px-10 py-5 bg-emerald-500 text-white text-lg md:text-xl font-bold rounded-xl hover:bg-emerald-600 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-emerald-500/20"
+              >
+                <span className="inline-flex items-center gap-2">
+                  📧 Email Me
+                </span>
+              </a>
+              <a
+                href="https://wa.me/918921581089?text=Hi!%20I%20want%20to%20discuss%20my%20project."
+                className="px-10 py-5 border-2 border-emerald-500 text-emerald-400 text-lg md:text-xl font-bold rounded-xl hover:bg-emerald-500/10 transition-all duration-300"
+              >
+                <span className="inline-flex items-center gap-2">
+                  💬 WhatsApp Chat
+                </span>
+              </a>
+            </div>
+
+            {/* Contact Details Grid */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pt-12 border-t border-gray-800">
+              <div className="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+                <div className="text-sm text-gray-500 uppercase tracking-wider mb-3 font-bold">Email</div>
+                <a href="mailto:wuslateam@gmail.com" className="text-white text-lg font-semibold hover:text-emerald-400 transition-colors">
+                  wuslateam@gmail.com
                 </a>
               </div>
-
-              {/* Contact Details */}
-              <div className="grid md:grid-cols-3 gap-8 pt-12 border-t border-gray-800">
-                <div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-2">Email</div>
-                  <a href="mailto:wuslateam@gmail.com" className="text-white text-lg font-semibold hover:text-teal-accent">
-                    wuslateam@gmail.com
-                  </a>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-2">Location</div>
-                  <p className="text-white text-lg font-semibold">Kerala, India</p>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-2">Response Time</div>
-                  <p className="text-white text-lg font-semibold">Within 24 hours</p>
-                </div>
+              <div className="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+                <div className="text-sm text-gray-500 uppercase tracking-wider mb-3 font-bold">Location</div>
+                <p className="text-white text-lg font-semibold">Kerala, India</p>
               </div>
-
-            </motion.div>
-          </div>
+              <div className="bg-gray-900/50 rounded-xl p-6 border border-gray-800 sm:col-span-2 lg:col-span-1">
+                <div className="text-sm text-gray-500 uppercase tracking-wider mb-3 font-bold">Response Time</div>
+                <p className="text-emerald-400 text-lg font-semibold">Within 24 hours</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 py-12">
+      <footer className="bg-[#1a1a18] border-t border-gray-800 py-12 md:py-16">
         <div className="container-fluid">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8 mb-8">
-              <div className="md:col-span-2">
-                <h3 className="text-2xl font-bold text-white mb-4">WUSLA</h3>
-                <p className="text-gray-400 mb-4">
-                  Building exceptional digital experiences for businesses worldwide.
+          <div className="max-w-7xl mx-auto">
+            {/* Main Footer Content */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12">
+              {/* Brand Column */}
+              <div className="lg:col-span-2">
+                <h3 className="text-3xl font-bold text-white mb-4">WUSLA</h3>
+                <p className="text-gray-400 mb-6 leading-relaxed max-w-md">
+                  Building exceptional digital experiences for businesses worldwide. Specialized in React Native mobile apps, Next.js websites, and Electron desktop applications.
                 </p>
+                <div className="flex gap-4">
+                  <a href="https://github.com/arsh-wusla" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-emerald-400 transition-colors">
+                    <span className="text-2xl">💻</span>
+                  </a>
+                </div>
               </div>
 
+              {/* Quick Links */}
               <div>
-                <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-                <ul className="space-y-2">
-                  {['Services', 'Work', 'About', 'Contact'].map((link) => (
-                    <li key={link}>
-                      <a href={`#${link.toLowerCase()}`} className="text-gray-400 hover:text-teal-accent transition-colors">
-                        {link}
+                <h4 className="text-white font-bold text-lg mb-4">Quick Links</h4>
+                <ul className="space-y-3">
+                  {[
+                    { name: 'Aether App', href: '/aether' },
+                    { name: 'Services', href: '#services' },
+                    { name: 'Portfolio', href: '#work' },
+                    { name: 'About', href: '#about' },
+                    { name: 'Contact', href: '#contact' }
+                  ].map((link) => (
+                    <li key={link.name}>
+                      <a href={link.href} className="text-gray-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-2">
+                        <span className="text-emerald-500">→</span>
+                        {link.name}
                       </a>
                     </li>
                   ))}
                 </ul>
               </div>
 
+              {/* Contact Info */}
               <div>
-                <h4 className="text-white font-semibold mb-4">Contact</h4>
-                <ul className="space-y-2 text-gray-400">
-                  <li>wuslateam@gmail.com</li>
-                  <li>Kerala, India</li>
+                <h4 className="text-white font-bold text-lg mb-4">Get In Touch</h4>
+                <ul className="space-y-3">
+                  <li>
+                    <a href="mailto:wuslateam@gmail.com" className="text-gray-400 hover:text-emerald-400 transition-colors">
+                      wuslateam@gmail.com
+                    </a>
+                  </li>
+                  <li className="text-gray-400">
+                    Kerala, India
+                  </li>
+                  <li className="text-emerald-400 font-semibold">
+                    Response: 24 hours
+                  </li>
                 </ul>
               </div>
             </div>
 
-            <div className="border-t border-gray-800 pt-8 text-center">
+            {/* Bottom Bar */}
+            <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-500 text-sm">
                 © 2024 WUSLA. All rights reserved.
+              </p>
+              <p className="text-gray-500 text-sm">
+                Built with <span className="text-emerald-400">Next.js</span> & <span className="text-emerald-400">Tailwind CSS</span>
               </p>
             </div>
           </div>
