@@ -6,7 +6,14 @@
       "Bash(npm run build:*)",
       "Bash(git remote add:*)",
       "Bash(git add:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Read(/D:\\WUSLA\\website\\wusla-website/**)",
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:magicteal.com)",
+      "Bash(npx next build:*)"
     ],
     "deny": [],
     "ask": []

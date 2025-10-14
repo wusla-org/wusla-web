@@ -1,0 +1,113 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Enterprise Web Platform",
+      "category": "Full-Stack Development",
+      "description": "Scalable web application built with modern frameworks for business growth. Features enterprise-grade architecture, real-time data processing, and comprehensive user management system.",
+      "technologies": ["React", "Next.js", "Node.js", "Cloud Infrastructure"],
+      "images": [
+        "/images/projects/enterprise-1.jpg",
+        "/images/projects/enterprise-2.jpg"
+      ],
+      "status": "In Development",
+      "scope": "Enterprise Solution",
+      "featured": true,
+      "completedDate": "2024-09-15",
+      "client": "Enterprise Technology Company",
+      "testimonial": "WUSLA's enterprise approach and technical expertise are exactly what we needed for our complex business requirements."
+    },
+    {
+      "id": 2,
+      "title": "Cross-Platform Mobile Solution",
+      "category": "Mobile Development",
+      "description": "Native performance mobile application with seamless user experience. Built with cross-platform technology ensuring consistent functionality across iOS and Android devices.",
+      "technologies": ["React Native", "Mobile Optimization", "Cloud Backend"],
+      "images": [
+        "/images/projects/mobile-1.jpg",
+        "/images/projects/mobile-2.jpg"
+      ],
+      "status": "Planning Phase",
+      "scope": "Cross-Platform App",
+      "featured": true,
+      "completedDate": "2024-11-20",
+      "client": "Mobile-First Startup",
+      "testimonial": "The planning phase showed incredible attention to detail and understanding of our mobile strategy requirements."
+    },
+    {
+      "id": 3,
+      "title": "AI-Powered Business Tool",
+      "category": "AI Integration",
+      "description": "Intelligent features powered by machine learning for enhanced productivity. Includes automated data analysis, smart recommendations, and predictive analytics for business optimization.",
+      "technologies": ["AI/ML", "Data Processing", "Modern Frontend"],
+      "images": [
+        "/images/projects/ai-tool-1.jpg",
+        "/images/projects/ai-tool-2.jpg"
+      ],
+      "status": "Research Phase",
+      "scope": "AI Enhancement",
+      "featured": false,
+      "completedDate": "2024-12-30",
+      "client": "Data Analytics Company",
+      "testimonial": "Impressed by the research depth and innovative approach to integrating AI into our existing business processes."
+    },
+    {
+      "id": 4,
+      "title": "Cloud Infrastructure Solutions",
+      "category": "Cloud Solutions",
+      "description": "Comprehensive cloud architecture design and implementation. Includes automated deployment pipelines, scalable infrastructure, and enterprise security protocols.",
+      "technologies": ["AWS", "Docker", "Kubernetes", "CI/CD"],
+      "images": [
+        "/images/projects/cloud-1.jpg",
+        "/images/projects/cloud-2.jpg"
+      ],
+      "status": "Implementation",
+      "scope": "Infrastructure Modernization",
+      "featured": true,
+      "completedDate": "2024-08-10",
+      "client": "Growing Tech Company",
+      "testimonial": "Our infrastructure scaling challenges were solved with WUSLA's cloud expertise and forward-thinking approach."
+    },
+    {
+      "id": 5,
+      "title": "Technology Consulting Project",
+      "category": "Technology Consulting",
+      "description": "Strategic technology planning and architecture consultation. Comprehensive technology stack evaluation, digital transformation roadmap, and implementation guidance.",
+      "technologies": ["Strategic Planning", "Architecture Design", "Technology Assessment"],
+      "images": [
+        "/images/projects/consulting-1.jpg",
+        "/images/projects/consulting-2.jpg"
+      ],
+      "status": "Ongoing",
+      "scope": "Digital Transformation",
+      "featured": false,
+      "completedDate": "2024-10-05",
+      "client": "Traditional Business",
+      "testimonial": "The consulting approach provided clear direction for our digital transformation journey with practical implementation steps."
+    },
+    {
+      "id": 6,
+      "title": "Modern Web Application",
+      "category": "Full-Stack Development",
+      "description": "Contemporary web application with focus on performance, user experience, and scalability. Features modern design principles and responsive architecture.",
+      "technologies": ["React", "TypeScript", "Node.js", "Modern CSS"],
+      "images": [
+        "/images/projects/webapp-1.jpg",
+        "/images/projects/webapp-2.jpg"
+      ],
+      "status": "Completed",
+      "scope": "Full-Stack Web App",
+      "featured": true,
+      "completedDate": "2024-07-22",
+      "client": "Digital Innovation Startup",
+      "testimonial": "The modern approach and clean execution perfectly matched our vision for a contemporary digital presence."
+    }
+  ],
+  "categories": ["All", "Full-Stack Development", "Mobile Development", "Cloud Solutions", "AI Integration", "Technology Consulting"],
+  "capabilities": {
+    "totalTechnologies": "15+",
+    "focusAreas": "6",
+    "approachType": "Enterprise-Grade",
+    "clientBase": "Startups to Enterprise"
+  }
+}
