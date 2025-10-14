@@ -1201,7 +1201,7 @@ export default function Home() {
             {/* Bottom Bar */}
             <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-500 text-sm">
-                © 2024 WUSLA. All rights reserved.
+                © 2025 WUSLA. All rights reserved.
               </p>
               <p className="text-gray-500 text-sm">
                 Built with <span className="text-emerald-400">Next.js</span> & <span className="text-emerald-400">Tailwind CSS</span>
