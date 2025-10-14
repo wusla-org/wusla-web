@@ -699,6 +699,20 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
+                title: "Aether",
+                category: "Mobile App • Productivity",
+                tech: "React Native • SQLite • Expo • Hugging Face AI",
+                users: "Privacy-First",
+                description: "All-in-one productivity app with notes, tasks, diary, and calendar - completely offline with AI features",
+                fullDescription: "Aether is a comprehensive productivity application that combines notes, tasks, diary entries, and calendar management in one beautiful interface. Built with privacy as the core principle - all data stored locally on device with optional AI-powered features for content enhancement.",
+                challenges: "Local-first architecture with SQLite, offline AI processing, complex state management across multiple features, seamless data synchronization between modules, privacy-focused design without compromising functionality",
+                results: "Launching on Play Store, 100% local data storage, zero tracking, optional AI features with Hugging Face integration, comprehensive privacy policy",
+                image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop",
+                color: "from-indigo-500 to-purple-600",
+                github: "https://github.com/arsh-wusla",
+                privacy: "/privacy/aether"
+              },
+              {
                 title: "FoodHub Delivery",
                 category: "Mobile App",
                 tech: "React Native • Firebase • Maps API",
@@ -806,6 +820,19 @@ export default function Home() {
                 {(() => {
                   const projects = [
                     {
+                      title: "Aether",
+                      category: "Mobile App • Productivity",
+                      tech: "React Native • SQLite • Expo • Hugging Face AI",
+                      users: "Privacy-First",
+                      fullDescription: "Aether is a comprehensive productivity application that combines notes, tasks, diary entries, and calendar management in one beautiful interface. Built with privacy as the core principle - all data stored locally on device with optional AI-powered features for content enhancement.",
+                      challenges: "Local-first architecture with SQLite, offline AI processing, complex state management across multiple features, seamless data synchronization between modules, privacy-focused design without compromising functionality",
+                      results: "Launching on Play Store, 100% local data storage, zero tracking, optional AI features with Hugging Face integration, comprehensive privacy policy",
+                      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop",
+                      color: "from-indigo-500 to-purple-600",
+                      github: "https://github.com/arsh-wusla",
+                      privacy: "/privacy/aether"
+                    },
+                    {
                       title: "FoodHub Delivery",
                       category: "Mobile App",
                       tech: "React Native • Firebase • Maps API",
@@ -886,20 +913,51 @@ export default function Home() {
                             <p className="leading-relaxed text-white font-semibold">{project.results}</p>
                           </div>
                         </div>
-                        <div className="mt-8 pt-8 border-t border-gray-800 flex gap-4">
-                          <a
-                            href="#contact"
-                            onClick={() => setSelectedProject(null)}
-                            className="px-8 py-3 bg-teal-accent text-black font-bold rounded-lg hover:bg-teal-accent/90 transition-all"
-                          >
-                            Start Similar Project
-                          </a>
-                          <button
-                            onClick={() => setSelectedProject(null)}
-                            className="px-8 py-3 border border-gray-700 text-white font-bold rounded-lg hover:bg-gray-800 transition-all"
-                          >
-                            Close
-                          </button>
+                        <div className="mt-8 pt-8 border-t border-gray-800">
+                          {/* Project Links */}
+                          {(project.github || project.privacy) && (
+                            <div className="flex flex-wrap gap-3 mb-6">
+                              {project.github && (
+                                <a
+                                  href={project.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 border border-gray-700 text-white text-sm font-semibold rounded-lg hover:border-teal-accent transition-all"
+                                >
+                                  <span>💻</span>
+                                  <span>View on GitHub</span>
+                                </a>
+                              )}
+                              {project.privacy && (
+                                <a
+                                  href={project.privacy}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-800 border border-gray-700 text-white text-sm font-semibold rounded-lg hover:border-teal-accent transition-all"
+                                >
+                                  <span>🔒</span>
+                                  <span>Privacy Policy</span>
+                                </a>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Action Buttons */}
+                          <div className="flex gap-4">
+                            <a
+                              href="#contact"
+                              onClick={() => setSelectedProject(null)}
+                              className="px-8 py-3 bg-teal-accent text-black font-bold rounded-lg hover:bg-teal-accent/90 transition-all"
+                            >
+                              Start Similar Project
+                            </a>
+                            <button
+                              onClick={() => setSelectedProject(null)}
+                              className="px-8 py-3 border border-gray-700 text-white font-bold rounded-lg hover:bg-gray-800 transition-all"
+                            >
+                              Close
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </>
