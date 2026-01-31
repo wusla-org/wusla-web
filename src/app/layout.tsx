@@ -2,45 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "WUSLA - Full-Stack Development | Mobile, Web & Desktop Apps | Kerala",
-  description: "WUSLA delivers mobile apps, web platforms, and desktop solutions. 50+ projects launched, 100K+ active users, ₹2Cr+ revenue generated. From concept to production in 30 days. React Native, Next.js, Electron expertise.",
-  keywords: "full-stack developer Kerala, mobile app development India, web development Kerala, desktop app development, React Native, Next.js, Electron, startup development, enterprise solutions, freelance developer Kerala",
+  title: "WUSLA | Premium Digital Agency | Web & Mobile App Development",
+  description: "WUSLA is a digital agency crafting high-performance mobile apps, web platforms, and desktop software. We convert complex ideas into elegant solutions.",
+  keywords: "WUSLA, Web Development, React Native, Next.js, Digital Agency, Kerala, App Development",
   authors: [{ name: "WUSLA Team" }],
-  creator: "WUSLA",
-  publisher: "WUSLA",
-  metadataBase: new URL("https://wusla.com"),
   openGraph: {
-    title: "WUSLA - React Native & Mobile App Development from Kerala",
-    description: "Expert mobile app development with React Native. Cross-platform apps for iOS & Android. Based in Kerala, India with Arabic market expertise.",
+    title: "WUSLA - Redefining Digital Experiences",
+    description: "Premium web and mobile application development agency.",
     url: "https://wusla.com",
     siteName: "WUSLA",
     type: "website",
-    locale: "en_IN",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "WUSLA - React Native Mobile App Development",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "WUSLA - React Native Development from Kerala",
-    description: "Expert mobile app development with React Native. Cross-platform iOS & Android apps.",
-    images: ["/og-image.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 
@@ -49,9 +20,34 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // AEO: Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "WUSLA",
+    "url": "https://wusla.com",
+    "logo": "https://wusla.com/logo.png",
+    "sameAs": [
+      "https://twitter.com/wusla",
+      "https://github.com/wusla",
+      "https://linkedin.com/company/wusla"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "hello@wusla.com",
+      "contactType": "customer service"
+    }
+  };
+
   return (
     <html lang="en">
-      <body className="antialiased font-primary">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+      </head>
+      <body className="antialiased font-sans bg-background text-text-primary">
         {children}
       </body>
     </html>
