@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SmoothScroll from "../components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "WUSLA | Premium Digital Agency | Web & Mobile App Development",
@@ -27,6 +28,7 @@ export default function RootLayout({
     "name": "WUSLA",
     "url": "https://wusla.com",
     "logo": "https://wusla.com/logo.png",
+    "description": "Premium digital agency specializing in high-performance web and mobile applications.",
     "sameAs": [
       "https://twitter.com/wusla",
       "https://github.com/wusla",
@@ -48,6 +50,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased font-sans bg-background text-text-primary">
+        <SmoothScroll />
         {children}
       </body>
     </html>

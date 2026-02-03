@@ -7,7 +7,13 @@ export default function Contact() {
     return (
         <section id="contact" className="py-32 bg-surface">
             <div className="container-custom">
-                <div className="max-w-4xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-4xl mx-auto"
+                >
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Something Great</h2>
                         <p className="text-secondary text-lg">
@@ -67,7 +73,7 @@ export default function Contact() {
                             </button>
                         </div>
                     </form>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
