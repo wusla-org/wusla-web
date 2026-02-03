@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Play } from "lucide-react";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function Hero() {
     };
 
     // Staggered Text Variants
-    const container = {
+    const container: Variants = {
         hidden: { opacity: 0 },
         show: {
             opacity: 1,
@@ -29,7 +29,7 @@ export default function Hero() {
         }
     };
 
-    const item = {
+    const item: Variants = {
         hidden: { opacity: 0, y: 50, rotateX: -45 },
         show: {
             opacity: 1,

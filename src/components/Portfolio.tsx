@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const projects = [
     {
@@ -67,10 +68,11 @@ export default function Portfolio() {
                         >
                             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-surface-hover">
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                                <img
+                                <Image
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                    fill
+                                    className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                                 />
                             </div>
 

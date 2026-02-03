@@ -15,7 +15,7 @@ export default function Contact() {
                     className="max-w-4xl mx-auto"
                 >
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Something Great</h2>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Let&apos;s Build Something Great</h2>
                         <p className="text-secondary text-lg">
                             Ready to start your project? Get in touch for a free consultation.
                         </p>

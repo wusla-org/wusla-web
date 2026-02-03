@@ -30,7 +30,7 @@ const services = [
     }
 ];
 
-function MagicCard({ service, index }: { service: any, index: number }) {
+function MagicCard({ service, index }: { service: { icon: React.ReactNode; title: string; description: string; colSpan: string }, index: number }) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
@@ -87,7 +87,7 @@ export default function Services() {
                 <div className="text-center max-w-2xl mx-auto mb-20 relative z-10">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Expertise</h2>
                     <p className="text-secondary text-lg">
-                        We don't just write code. We engineer digital ecosystems designed to dominate your market.
+                        We don&apos;t just write code. We engineer digital ecosystems designed to dominate your market.
                     </p>
                 </div>
 
