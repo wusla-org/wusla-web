@@ -28,7 +28,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="min-h-screen bg-background text-text-primary selection:bg-white/20 selection:text-white overflow-x-hidden">
+      <main className="min-h-screen bg-background text-text-primary selection:bg-brand-accent selection:text-white">
         <MouseSpotlight />
         <Navbar />
         <Hero />

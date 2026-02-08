@@ -1,15 +1,35 @@
 import type { Metadata } from "next";
+import { Inter, Oswald, Caveat } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "../components/SmoothScroll";
+import CurtainLoader from "../components/CurtainLoader";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "WUSLA | Premium Digital Agency | Web & Mobile App Development",
+  title: "WUSLA | Create the Unexpected",
   description: "WUSLA is a digital agency crafting high-performance mobile apps, web platforms, and desktop software. We convert complex ideas into elegant solutions.",
   keywords: "WUSLA, Web Development, React Native, Next.js, Digital Agency, Kerala, App Development",
   authors: [{ name: "WUSLA Team" }],
   openGraph: {
-    title: "WUSLA - Redefining Digital Experiences",
-    description: "Premium web and mobile application development agency.",
+    title: "WUSLA - Create the Unexpected",
+    description: "Premium digital agency.",
     url: "https://wusla.com",
     siteName: "WUSLA",
     type: "website",
@@ -42,14 +62,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${oswald.variable} ${caveat.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="antialiased font-sans bg-background text-text-primary">
+      <body className="antialiased font-sans bg-background text-text-primary selection:bg-brand-accent selection:text-brand-white">
+        <CurtainLoader />
         <SmoothScroll />
         {children}
       </body>

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, Search, Sparkles } from "lucide-react";
+import SearchOverlay from "./SearchOverlay";
 
 const navLinks = [
     { name: "Services", href: "#services" },
@@ -15,10 +16,11 @@ const navLinks = [
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 20);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -30,95 +32,106 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-4" : "bg-transparent py-6"
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md py-4 border-b border-white/5" : "bg-transparent py-6"
                     }`}
             >
                 <div className="container-custom flex items-center justify-between">
-                    {/* Logo */}
-                    <Link href="/" className="group relative z-50">
-                        <span className="font-technical text-2xl font-bold tracking-tighter text-white">
+
+                    {/* LEFT: Menu Trigger (Fooror Style) */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(true)}
+                        className="flex items-center gap-3 group"
+                    >
+                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
+                            <Menu className="w-5 h-5 text-white group-hover:text-brand-navy transition-colors" />
+                        </div>
+                        <span className="hidden md:block text-sm font-medium tracking-wider uppercase opacity-80 group-hover:opacity-100 transition-opacity">Menu</span>
+                    </button>
+
+                    {/* CENTER: Logo */}
+                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 group">
+                        <span className="font-display text-3xl font-bold tracking-tighter text-white group-hover:text-brand-accent transition-colors duration-300">
                             WUSLA
-                            <span className="text-secondary-dark/50">.</span>
                         </span>
                     </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="text-sm font-medium text-secondary hover:text-white transition-colors relative group"
-                            >
-                                {link.name}
-                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all group-hover:w-full opacity-50" />
-                            </Link>
-                        ))}
-                    </div>
+                    {/* RIGHT: Search & CTA */}
+                    <div className="flex items-center gap-4 md:gap-6">
+                        <button
+                            onClick={() => setIsSearchOpen(true)}
+                            className="text-white/80 hover:text-brand-accent transition-colors"
+                        >
+                            <Search className="w-6 h-6" />
+                        </button>
 
-                    {/* CTA Button */}
-                    <div className="hidden md:block">
                         <Link
                             href="#contact"
-                            className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black text-sm font-semibold rounded-full hover:bg-gray-200 transition-all"
+                            className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-brand-yellow text-brand-navy font-bold text-sm tracking-wide rounded-full hover:bg-white transition-all transform hover:scale-105"
                         >
-                            Start Project
-                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            <span>Let's Talk</span>
+                            <Sparkles className="w-4 h-4" />
                         </Link>
                     </div>
-
-                    {/* Mobile Toggle */}
-                    <button
-                        className="md:hidden relative z-50 text-white"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    >
-                        {isMobileMenuOpen ? <X /> : <Menu />}
-                    </button>
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu Overlay */}
+            {/* Search Overlay */}
+            <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
+            {/* Full Screen Menu Overlay */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: "-100%" }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: "-100%" }}
-                        transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-                        className="fixed inset-0 z-40 bg-background flex flex-col items-center justify-center space-y-8 md:hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="fixed inset-0 z-50 bg-brand-navy/95 backdrop-blur-xl text-white flex flex-col"
                     >
-                        {navLinks.map((link, i) => (
-                            <motion.div
-                                key={link.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 + i * 0.1 }}
-                            >
-                                <Link
-                                    href={link.href}
-                                    className="font-technical text-4xl font-bold text-white tracking-tight"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {link.name}
-                                </Link>
-                            </motion.div>
-                        ))}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            <Link
-                                href="#contact"
-                                className="mt-8 px-8 py-4 bg-white text-black font-bold rounded-full inline-block"
+                        <div className="container-custom py-8 flex justify-between items-center">
+                            <span className="font-display text-2xl font-bold">WUSLA</span>
+                            <button
                                 onClick={() => setIsMobileMenuOpen(false)}
+                                className="w-12 h-12 rounded-full border border-brand-navy/20 flex items-center justify-center hover:bg-brand-navy hover:text-brand-accent transition-all"
                             >
-                                Start Project
-                            </Link>
-                        </motion.div>
+                                <X className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 container-custom flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-6">
+                            {navLinks.map((link, i) => (
+                                <motion.div
+                                    key={link.name}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                                >
+                                    <Link
+                                        href={link.href}
+                                        className="font-display text-6xl md:text-8xl font-bold tracking-tighter hover:text-white transition-colors relative group block"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        <span className="absolute -left-12 top-1/2 -translate-y-1/2 text-2xl font-hand opacity-0 group-hover:opacity-100 transition-opacity">
+                                            0{i + 1}
+                                        </span>
+                                        {link.name}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <div className="container-custom py-10 border-t border-brand-navy/10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-60 text-sm font-medium">
+                            <p>© 2026 WUSLA. All Rights Reserved.</p>
+                            <div className="flex gap-6">
+                                <a href="#" className="hover:underline">Instagram</a>
+                                <a href="#" className="hover:underline">LinkedIn</a>
+                                <a href="#" className="hover:underline">Twitter</a>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
         </>
     );
 }
+

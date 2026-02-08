@@ -22,8 +22,9 @@ export default function MouseSpotlight() {
             ref={containerRef}
             className="pointer-events-none fixed inset-0 z-50 transition-opacity duration-300"
             style={{
-                background: `radial-gradient(600px circle at var(--x) var(--y), rgba(0, 128, 128, 0.15), transparent 40%)`
+                background: `radial-gradient(600px circle at var(--x) var(--y), rgba(0, 111, 74, 0.15), transparent 40%)`
             }}
         />
     );
 }
+

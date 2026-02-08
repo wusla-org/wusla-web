@@ -1,119 +1,91 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @theme inline {
-  /* Ultra-Modern Minimalist Palette */
-  --color-background: #030303;
-  /* Deepest Matte Black */
-  --color-surface: #0A0A0A;
-  /* Primary Surface */
-  --color-primary: #008080;
-  /* Teal Emerald - Brand Color */
-  --color-primary-glow: rgba(0, 128, 128, 0.5);
-  --color-surface-hover: #121212;
-  /* Surface Hover */
-  --color-border: #1F1F22;
-  /* Subtle Border */
-  --color-border-hover: #3F3F46;
-  /* Lighter Border */
+  /* Fooror-Inspired Palette - Gray Experiment */
+  --color-background: #242424;
+  /* Charcoal Gray */
+  --color-surface: #2E2E2E;
+  /* Lighter Gray */
+
+  /* Brand Colors */
+  --color-brand-navy: #242424;
+  --color-brand-accent: #006F4A;
+  /* Deep Emerald */
+  --color-brand-white: #FFFFFF;
 
   /* Text Colors */
-  --color-text-primary: #EDEDED;
-  /* Primary White-ish */
+  --color-text-primary: #FFFFFF;
   --color-text-secondary: #A1A1AA;
-  /* Muted Gray */
-  --color-text-tertiary: #52525B;
-  /* Darker Gray */
-
-  /* Accents - "High Voltage" */
-  --color-accent-primary: #FFFFFF;
-  /* Stark White for primary actions */
-  --color-accent-glow: rgba(255, 255, 255, 0.15);
-
-  /* Status Colors */
-  --color-success: #00CC66;
-  --color-warning: #FFCC00;
-  --color-error: #FF3333;
+  --color-text-accent: #006F4A;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-mono: 'Space Grotesk', monospace;
-  /* Using Space Grotesk for "technical" headers */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), sans-serif;
+  --font-hand: var(--font-caveat), cursive;
 
-  /* Spacing & Layout */
-  --container-width: 1200px;
-  --header-height: 80px;
-
-  /* Animation */
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  /* Spacing */
+  --container-width: 1280px;
+  --header-height: 90px;
 }
 
-* {
-  box-sizing: border-box;
-}
-
+/* Base Styles */
 html {
   scroll-behavior: smooth;
-  height: 100%;
+  background-color: var(--color-background);
 }
 
 body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-text-primary);
-  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  height: 100%;
 }
 
 /* Typography Utilities */
-.font-technical {
-  font-family: var(--font-mono);
+.font-display {
+  font-family: var(--font-display);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-sans);
-  letter-spacing: -0.02em;
-  font-weight: 600;
-  color: var(--color-text-primary);
+.font-hand {
+  font-family: var(--font-hand);
 }
 
-.text-gradient {
-  background: linear-gradient(to bottom right, #FFFFFF, #999999);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Layout Utilities */
+/* Container Utility */
 .container-custom {
+  width: 100%;
   max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  /* 24px */
+  padding-right: 1.5rem;
+  /* 24px */
 }
 
-/* Glassmorphism Utilities */
-.glass-panel {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
+@media (min-width: 768px) {
+  .container-custom {
+    padding-left: 3rem;
+    /* 48px */
+    padding-right: 3rem;
+    /* 48px */
+  }
 }
 
-.glass-nav {
-  background: rgba(3, 3, 3, 0.8);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* Custom Utilities */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  color: transparent;
 }
 
-/* Custom Scrollbar */
+.text-stroke-accent {
+  -webkit-text-stroke: 1px var(--color-brand-accent);
+  color: transparent;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -121,16 +93,6 @@ h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Selection */
-::selection {
-  background: rgba(255, 255, 255, 0.2);
-  color: #FFF;
+  background: var(--color-brand-accent);
+  border-radius: 3px;
 }
