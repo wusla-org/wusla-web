@@ -28,7 +28,7 @@ export default function Hero() {
                 >
                     <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-sm font-medium text-white/80 tracking-wide uppercase">
                         <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-                        Available for New Projects
+                        Open for Select Projects
                     </span>
                 </motion.div>
 
@@ -36,14 +36,13 @@ export default function Hero() {
                 <Parallax offset={-30} className="w-full max-w-7xl mx-auto mb-16">
                     <div className="relative flex flex-col items-center justify-center font-display font-bold tracking-tighter leading-[0.9] text-white">
 
-                        {/* Top Line */}
                         <motion.h1
                             initial={{ y: 100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
                             className="text-[clamp(4rem,11vw,12rem)] z-10"
                         >
-                            WE BUILD
+                            I BUILD
                         </motion.h1>
 
                         {/* Middle Line + Accent */}
@@ -62,7 +61,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, scale: 0.8, x: 50 }}
                                 animate={{ opacity: 1, scale: 1, x: 0 }}
                                 transition={{ delay: 0.8, duration: 1 }}
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-hand text-brand-accent text-[clamp(3rem,8vw,9rem)] z-0 mix-blend-overlay opacity-60 pointer-events-none whitespace-nowrap"
+                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-hand text-brand-accent text-[clamp(2.5rem,7vw,8rem)] z-0 mix-blend-overlay opacity-60 pointer-events-none whitespace-nowrap"
                             >
                                 digital futures
                             </motion.div>

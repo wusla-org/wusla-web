@@ -5,7 +5,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { ArrowUpRight, Star } from "lucide-react";
 import Link from "next/link";
 import TransitionLink from "./TransitionLink";
-import { fetchRepositories, Repository } from "@/utils/github";
+// import { fetchRepositories, Repository } from "@/utils/github";
 
 export default function Portfolio() {
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -14,8 +14,11 @@ export default function Portfolio() {
         target: targetRef,
     });
 
-    // State for repositories
-    const [repos, setRepos] = useState<Repository[]>([]);
+    // State for scroll range
+    const [scrollRange, setScrollRange] = useState(0);
+
+    // Transform vertical scroll (0 to 1) into horizontal content movement (pixels)
+    const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${scrollRange}px`]);
 
     useEffect(() => {
         const updateScrollRange = () => {
@@ -26,23 +29,14 @@ export default function Portfolio() {
             }
         };
 
-        updateScrollRange();
+        // Small delay to ensure DOM is ready
+        const timer = setTimeout(updateScrollRange, 100);
         window.addEventListener("resize", updateScrollRange);
-        return () => window.removeEventListener("resize", updateScrollRange);
-    }, [repos]);
 
-    // State for scroll range
-    const [scrollRange, setScrollRange] = useState(0);
-
-    // Transform vertical scroll (0 to 1) into horizontal content movement (pixels)
-    const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${scrollRange}px`]);
-
-    useEffect(() => {
-        const loadRepos = async () => {
-            const data = await fetchRepositories();
-            setRepos(data.slice(0, 6));
+        return () => {
+            window.removeEventListener("resize", updateScrollRange);
+            clearTimeout(timer);
         };
-        loadRepos();
     }, []);
 
     return (
@@ -63,7 +57,7 @@ export default function Portfolio() {
                     {/* Header Overlay (Static within the sticky view) */}
                     <div className="absolute top-8 left-4 md:left-12 z-20 pointer-events-none mix-blend-difference">
                         <h2 className="text-5xl md:text-8xl font-display font-bold text-white uppercase tracking-tighter">
-                            Open <span className="text-brand-accent">Source</span>
+                            Selected <span className="text-brand-accent">Work</span>
                         </h2>
                         <div className="flex items-center gap-2 text-white/50 font-medium mt-2">
                             <span>Scroll Down</span>
@@ -77,55 +71,109 @@ export default function Portfolio() {
                         {/* Intro text spacer */}
                         <div className="w-[80vw] md:w-[600px] flex-shrink-0 flex flex-col justify-center px-8">
                             <p className="text-secondary text-2xl md:text-3xl leading-relaxed max-w-lg mt-32">
-                                Building the future of the web. <br />
-                                <span className="text-brand-accent">Real code. Real impact.</span>
+                                I don&apos;t just build websites. <br />
+                                <span className="text-brand-accent">I build digital businesses.</span>
                             </p>
                         </div>
 
-                        {/* Repositories */}
-                        {repos.map((repo) => (
-                            <div
-                                key={repo.id}
-                                className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
-                                <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
+                        {/* Static Project 1: Export-Import */}
+                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
+                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
 
-                                <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
-                                    <div className="flex justify-between items-start mb-auto">
-                                        <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm font-bold uppercase tracking-wider text-brand-accent">
-                                            {repo.language || "Code"}
-                                        </span>
-                                        <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
-                                            <ArrowUpRight className="w-6 h-6" />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
-                                            {repo.name}
-                                        </h3>
-                                        <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
-                                            {repo.description || "Building the future for the open web."}
-                                        </p>
-                                        <div className="flex items-center gap-6 pt-8 border-t border-white/10">
-                                            <div className="flex items-center gap-2 text-white/60">
-                                                <Star className="w-5 h-5 text-brand-accent" />
-                                                <span className="font-mono text-lg">{repo.stargazers_count}</span>
-                                            </div>
-                                        </div>
+                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
+                                <div className="flex justify-between items-start mb-auto">
+                                    <span className="px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 rounded-full text-sm font-bold uppercase tracking-wider">
+                                        In Development
+                                    </span>
+                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                                        <ArrowUpRight className="w-6 h-6" />
                                     </div>
                                 </div>
 
-                                <a
-                                    href={repo.html_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="absolute inset-0 z-20"
-                                    aria-label={`View ${repo.name} on GitHub`}
-                                />
+                                <div>
+                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
+                                        Export-Import Platform
+                                    </h3>
+                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
+                                        B2B website with product catalog, inquiry system, and mobile-responsive design for international trade.
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
+                                        {["Next.js", "Tailwind CSS", "WhatsApp API"].map((tech) => (
+                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Static Project 2: Portfolio Template */}
+                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
+                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
+
+                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
+                                <div className="flex justify-between items-start mb-auto">
+                                    <span className="px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent rounded-full text-sm font-bold uppercase tracking-wider">
+                                        Live
+                                    </span>
+                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                                        <ArrowUpRight className="w-6 h-6" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
+                                        Portfolio Template
+                                    </h3>
+                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
+                                        Modern developer portfolio with dark mode, responsive design, and smooth animations.
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
+                                        {["Next.js 14", "Tailwind", "Framer Motion"].map((tech) => (
+                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Static Project 3: Business Landing Page */}
+                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
+                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
+
+                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
+                                <div className="flex justify-between items-start mb-auto">
+                                    <span className="px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent rounded-full text-sm font-bold uppercase tracking-wider">
+                                        Live
+                                    </span>
+                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
+                                        <ArrowUpRight className="w-6 h-6" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
+                                        Business Landing Page
+                                    </h3>
+                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
+                                        High-converting landing page with modern UI, contact forms, and performance optimization.
+                                    </p>
+                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
+                                        {["Next.js", "SEO", "Optimization"].map((tech) => (
+                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* View All Folder Card */}
                         <TransitionLink

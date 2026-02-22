@@ -19,14 +19,40 @@ export default function Footer() {
                             </span>
                         </Link>
                         <p className="text-secondary text-lg max-w-md leading-relaxed">
-                            Crafting high-performance digital experiences. We build the future of web and mobile interfaces for ambitious brands.
+                            Crafting high-performance digital experiences. I build the future of web and mobile interfaces for ambitious brands.
                         </p>
 
-                        <div className="flex gap-4 pt-4">
+                    </div>
+
+                    {/* SItemap */}
+                    <div className="space-y-6">
+                        <h4 className="font-display font-medium text-white/40 uppercase tracking-widest text-sm">Explore</h4>
+                        <ul className="space-y-4">
                             {[
-                                { icon: Twitter, href: "https://twitter.com/wusla" },
-                                { icon: Github, href: "https://github.com/wusla" },
-                                { icon: Linkedin, href: "https://linkedin.com/company/wusla" },
+                                { name: "Home", href: "/" },
+                                { name: "Services", href: "#services" },
+                                { name: "Work", href: "#work" },
+                                { name: "Process", href: "#process" },
+                                { name: "Contact", href: "#contact" }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="text-xl text-white font-medium hover:text-brand-accent transition-colors flex items-center gap-2 group">
+                                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-accent" />
+                                        {item.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Connect */}
+                    <div className="space-y-6">
+                        <h4 className="font-display font-medium text-white/40 uppercase tracking-widest text-sm">Connect</h4>
+                        <div className="flex gap-4">
+                            {[
+                                { icon: Github, href: "https://github.com/mohammedarsh" }, // Replace with actual
+                                { icon: Twitter, href: "https://twitter.com/mohammedarsh" }, // Replace with actual
+                                { icon: Linkedin, href: "https://linkedin.com/in/mohammedarsh" }, // Replace with actual
                                 { icon: Mail, href: "mailto:hello@wusla.com" },
                             ].map((social, i) => (
                                 <a
@@ -34,48 +60,12 @@ export default function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-brand-navy hover:bg-brand-yellow hover:border-brand-yellow transition-all duration-300 group"
+                                    className="w-12 h-12 flex items-center justify-center rounded-full border border-white/10 text-white/60 hover:text-brand-navy hover:bg-brand-accent hover:border-brand-accent transition-all duration-300 group"
                                 >
                                     <social.icon size={20} className="group-hover:scale-110 transition-transform" />
                                 </a>
                             ))}
                         </div>
-                    </div>
-
-                    {/* SItemap */}
-                    <div className="space-y-6">
-                        <h4 className="font-display font-medium text-white/40 uppercase tracking-widest text-sm">Explore</h4>
-                        <ul className="space-y-4">
-                            {["Services", "Our Work", "About Us", "Insights", "Contact"].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-xl text-white font-medium hover:text-brand-accent transition-colors flex items-center gap-2 group">
-                                        <ArrowUpRight className="w-5 h-5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-accent" />
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Services */}
-                    <div className="space-y-6">
-                        <h4 className="font-display font-medium text-white/40 uppercase tracking-widest text-sm">Services</h4>
-                        <ul className="space-y-4">
-                            {[
-                                "Web Development",
-                                "Mobile Ecosystems",
-                                "UI/UX Design",
-                                "Performance",
-                                "Desktop Apps",
-                            ].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-secondary hover:text-white transition-colors text-base relative group">
-                                        {item}
-                                        <span className="absolute -bottom-1 left-0 w-0 h-px bg-brand-yellow transition-all group-hover:w-full opacity-50" />
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
                 </div>
 

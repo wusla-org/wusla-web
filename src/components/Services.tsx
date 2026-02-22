@@ -5,32 +5,36 @@ import { Smartphone, Globe, Layout, Database, ChevronRight, Activity } from "luc
 
 const services = [
     {
-        icon: <Smartphone className="w-8 h-8 text-brand-accent" />,
-        title: "Mobile Ecosystems",
-        description: "Native-performance apps for iOS and Android. Gesture-driven interfaces that feel alive.",
+        icon: <Globe className="w-8 h-8 text-brand-accent" />,
+        title: "Web Platforms",
+        description: "High-performance web applications built for speed and SEO. Mobile-first and conversion-focused.",
+        tech: "Next.js 14, React, Tailwind CSS, SEO Optimization",
         colSpan: "md:col-span-2"
     },
     {
         icon: <Layout className="w-8 h-8 text-white" />,
         title: "UI/UX Design",
-        description: "Radical minimalism meets functional beauty. Designs that convert.",
+        description: "Modern, minimalist interfaces that focus on user experience and brand identity.",
+        tech: "Figma, Framer Motion, Responsive Design",
         colSpan: "md:col-span-1"
     },
     {
-        icon: <Globe className="w-8 h-8 text-white" />,
-        title: "Web Platforms",
-        description: "Next.js applications optimized for speed, SEO, and AI interaction.",
+        icon: <Database className="w-8 h-8 text-white" />,
+        title: "Full-Stack Ops",
+        description: "Secure backends, APIs, and database architecture for scalable applications.",
+        tech: "Node.js, Supabase, PostgreSQL, REST APIs",
         colSpan: "md:col-span-1"
     },
     {
-        icon: <Database className="w-8 h-8 text-brand-accent" />,
-        title: "Full-Stack Solutions",
-        description: "End-to-end development from database design to frontend implementation. Secure and scalable.",
+        icon: <Smartphone className="w-8 h-8 text-brand-accent" />,
+        title: "Mobile Business",
+        description: "Responsive web apps that feel native on every device. PWA and mobile-optimized sites.",
+        tech: "React, Mobile-First CSS, Touch Gestures",
         colSpan: "md:col-span-2"
     }
 ];
 
-function MagicCard({ service, index }: { service: { icon: React.ReactNode; title: string; description: string; colSpan: string }, index: number }) {
+function MagicCard({ service, index }: { service: { icon: React.ReactNode; title: string; description: string; tech: string; colSpan: string }, index: number }) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
@@ -70,10 +74,17 @@ function MagicCard({ service, index }: { service: { icon: React.ReactNode; title
                     <p className="text-secondary leading-relaxed mb-6 group-hover:text-white/80 transition-colors">
                         {service.description}
                     </p>
+                    {/* Tech Stack Badge */}
+                    <div className="mt-4 pt-4 border-t border-white/5">
+                        <p className="text-xs font-mono text-brand-accent uppercase tracking-wider mb-2 opacity-80">Tech Stack</p>
+                        <p className="text-sm text-white/60 font-medium group-hover:text-white/90 transition-colors">
+                            {service.tech}
+                        </p>
+                    </div>
                 </div>
 
-                <div className="flex items-center text-sm font-bold text-brand-accent opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 uppercase tracking-widest">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
+                <div className="mt-8 flex items-center text-sm font-bold text-brand-accent opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 uppercase tracking-widest">
+                    Start Project <ChevronRight className="w-4 h-4 ml-1" />
                 </div>
             </div>
         </motion.div>
@@ -87,10 +98,10 @@ export default function Services() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                     <div>
                         <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 uppercase tracking-tighter">
-                            Our <span className="text-stroke-accent">Expertise</span>
+                            What <span className="text-stroke-accent">I Do</span>
                         </h2>
                         <p className="text-secondary text-lg max-w-xl">
-                            We don&apos;t just write code. We engineer digital ecosystems designed to dominate your market.
+                            I build high-performance web applications using modern technologies. Specialized in business websites, landing pages, and full-stack solutions.
                         </p>
                     </div>
                     <Activity className="w-12 h-12 text-brand-accent animate-pulse hidden md:block" />
