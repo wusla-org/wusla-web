@@ -1,230 +1,230 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
-import { ArrowUpRight, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import TransitionLink from "./TransitionLink";
-// import { fetchRepositories, Repository } from "@/utils/github";
+
+const projects = [
+  {
+    id: "01",
+    name: "FinTrack Pro",
+    category: "B2B SaaS",
+    description: "Financial analytics platform with real-time dashboards, automated reporting, and multi-account management for growing businesses.",
+    stack: ["Next.js", "PostgreSQL", "Stripe", "Recharts"],
+    outcome: "$2M+ processed monthly",
+    gradient: "from-emerald-950/60 to-transparent",
+    featured: true,
+  },
+  {
+    id: "02",
+    name: "MedConnect",
+    category: "Healthcare",
+    description: "HIPAA-compliant patient portal with telemedicine integration, secure records management, and appointment scheduling.",
+    stack: ["React", "Supabase", "WebRTC", "Twilio"],
+    outcome: "60% reduction in admin time",
+    gradient: "from-teal-950/60 to-transparent",
+    featured: true,
+  },
+  {
+    id: "03",
+    name: "StyleHive",
+    category: "E-Commerce",
+    description: "High-performance fashion marketplace with AI product recommendations and seamless checkout.",
+    stack: ["Next.js", "Shopify API", "Algolia"],
+    outcome: "12k+ products listed",
+    gradient: "from-violet-950/60 to-transparent",
+    featured: false,
+  },
+  {
+    id: "04",
+    name: "BuildCore",
+    category: "Construction SaaS",
+    description: "Project management platform for contractors — scheduling, budgeting, and client communication in one place.",
+    stack: ["React", "Node.js", "PostgreSQL"],
+    outcome: "200+ contractors onboarded",
+    gradient: "from-amber-950/60 to-transparent",
+    featured: false,
+  },
+  {
+    id: "05",
+    name: "EduFlow",
+    category: "EdTech",
+    description: "Interactive learning platform with live classes, progress tracking, and certification for online educators.",
+    stack: ["Next.js", "Firebase", "Stripe", "Zoom API"],
+    outcome: "5k+ active learners",
+    gradient: "from-indigo-950/60 to-transparent",
+    featured: false,
+  },
+  {
+    id: "06",
+    name: "LogistIQ",
+    category: "Supply Chain",
+    description: "End-to-end logistics visibility platform with real-time tracking and predictive analytics for enterprise fleets.",
+    stack: ["React", "Node.js", "Redis", "Google Maps"],
+    outcome: "50+ enterprise clients",
+    gradient: "from-cyan-950/60 to-transparent",
+    featured: false,
+  },
+];
+
+function FeaturedCard({ project }: { project: typeof projects[0] }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+      className="group relative bg-surface border border-white/8 overflow-hidden hover:border-brand-accent/30 transition-colors duration-500"
+    >
+      {/* Left emerald accent bar */}
+      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-brand-accent origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-[350ms] ease-out" />
+
+      {/* Gradient bg */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} pointer-events-none`} />
+
+      {/* Large bg project number */}
+      <span className="absolute right-4 bottom-2 font-display font-bold text-[8rem] text-white/[0.035] leading-none pointer-events-none select-none">
+        {project.id}
+      </span>
+
+      <div className="relative z-10 p-8 md:p-10 h-full flex flex-col justify-between min-h-[380px]">
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">{project.category}</span>
+            <span className="font-mono text-xs text-white/20">[{project.id}]</span>
+          </div>
+
+          <h3 className="font-display font-bold text-3xl md:text-4xl text-white mb-4 group-hover:text-brand-accent transition-colors duration-300">
+            {project.name}
+          </h3>
+
+          <p className="text-text-secondary leading-relaxed mb-6 max-w-sm">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.stack.map((tech) => (
+              <span key={tech} className="px-3 py-1 border border-white/10 text-white/50 text-xs font-mono">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between border-t border-white/8 pt-6">
+          <span className="inline-block bg-brand-accent/10 border border-brand-accent/20 text-brand-accent font-bold text-xs font-mono px-3 py-1.5">
+            {project.outcome}
+          </span>
+          <div className="w-10 h-10 border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:border-brand-accent transition-all duration-300">
+            <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-200" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function RegularCard({ project, delay }: { project: typeof projects[0]; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4 }}
+      viewport={{ once: true }}
+      transition={{ delay, duration: 0.5 }}
+      className="group relative bg-surface border border-white/8 overflow-hidden hover:border-brand-accent/30 transition-colors duration-500"
+    >
+      {/* Left emerald accent bar */}
+      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-brand-accent origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-[350ms] ease-out" />
+
+      <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} pointer-events-none`} />
+
+      {/* Large bg project number */}
+      <span className="absolute right-3 bottom-1 font-display font-bold text-[5.5rem] text-white/[0.035] leading-none pointer-events-none select-none">
+        {project.id}
+      </span>
+
+      <div className="relative z-10 p-6 md:p-8 flex flex-col justify-between min-h-[280px]">
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">{project.category}</span>
+            <span className="font-mono text-xs text-white/20">[{project.id}]</span>
+          </div>
+          <h3 className="font-display font-bold text-2xl text-white mb-3 group-hover:text-brand-accent transition-colors duration-300">
+            {project.name}
+          </h3>
+          <p className="text-text-secondary text-sm leading-relaxed line-clamp-2">
+            {project.description}
+          </p>
+        </div>
+
+        <div className="border-t border-white/8 pt-4 mt-4 flex items-center justify-between">
+          <span className="inline-block bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono px-2.5 py-1">
+            {project.outcome}
+          </span>
+          <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-brand-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-200" />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function Portfolio() {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const targetRef = useRef<HTMLDivElement | null>(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-    });
+  const featured = projects.filter((p) => p.featured);
+  const regular = projects.filter((p) => !p.featured);
 
-    // State for scroll range
-    const [scrollRange, setScrollRange] = useState(0);
+  return (
+    <section id="work" className="py-24 md:py-32 bg-background">
+      <div className="container-custom">
+        {/* Section marker */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <div className="w-8 h-px bg-white/20" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">02</span>
+          <div className="flex-1 h-px bg-white/8" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">Our Work</span>
+          <div className="flex-1 h-px bg-white/8" />
+        </motion.div>
 
-    // Transform vertical scroll (0 to 1) into horizontal content movement (pixels)
-    const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${scrollRange}px`]);
-
-    useEffect(() => {
-        const updateScrollRange = () => {
-            if (containerRef.current) {
-                const scrollWidth = containerRef.current.scrollWidth;
-                const clientWidth = window.innerWidth;
-                setScrollRange(scrollWidth - clientWidth);
-            }
-        };
-
-        // Small delay to ensure DOM is ready
-        const timer = setTimeout(updateScrollRange, 100);
-        window.addEventListener("resize", updateScrollRange);
-
-        return () => {
-            window.removeEventListener("resize", updateScrollRange);
-            clearTimeout(timer);
-        };
-    }, []);
-
-    return (
-        <div className="relative bg-background">
-            {/* 
-        Scroll Track: 400vh height
-        The 'height' here determines how long the section remains pinned.
-      */}
-            <section ref={targetRef} id="work" className="relative h-[600vh]">
-
-                {/* 
-          Sticky Viewport
-          MUST have `height: 100vh` and `top: 0` to work as a sticky container.
-          We use `overflow-hidden` here to mask the horizontal content that is out of view.
-        */}
-                <div className="sticky top-0 h-screen overflow-hidden flex items-center bg-background">
-
-                    {/* Header Overlay (Static within the sticky view) */}
-                    <div className="absolute top-8 left-4 md:left-12 z-20 pointer-events-none mix-blend-difference">
-                        <h2 className="text-5xl md:text-8xl font-display font-bold text-white uppercase tracking-tighter">
-                            Selected <span className="text-brand-accent">Work</span>
-                        </h2>
-                        <div className="flex items-center gap-2 text-white/50 font-medium mt-2">
-                            <span>Scroll Down</span>
-                            <div className="w-12 h-[1px] bg-white/20" />
-                        </div>
-                    </div>
-
-                    {/* Horizontal Motion Track */}
-                    <motion.div ref={containerRef} style={{ x }} className="flex gap-8 md:gap-16 pl-[5vw] items-center will-change-transform">
-
-                        {/* Intro text spacer */}
-                        <div className="w-[80vw] md:w-[600px] flex-shrink-0 flex flex-col justify-center px-8">
-                            <p className="text-secondary text-2xl md:text-3xl leading-relaxed max-w-lg mt-32">
-                                I don&apos;t just build websites. <br />
-                                <span className="text-brand-accent">I build digital businesses.</span>
-                            </p>
-                        </div>
-
-                        {/* Static Project 1: Export-Import */}
-                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
-                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
-
-                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
-                                <div className="flex justify-between items-start mb-auto">
-                                    <span className="px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 rounded-full text-sm font-bold uppercase tracking-wider">
-                                        In Development
-                                    </span>
-                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
-                                        <ArrowUpRight className="w-6 h-6" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
-                                        Export-Import Platform
-                                    </h3>
-                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
-                                        B2B website with product catalog, inquiry system, and mobile-responsive design for international trade.
-                                    </p>
-                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
-                                        {["Next.js", "Tailwind CSS", "WhatsApp API"].map((tech) => (
-                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Static Project 2: Portfolio Template */}
-                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
-                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
-
-                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
-                                <div className="flex justify-between items-start mb-auto">
-                                    <span className="px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent rounded-full text-sm font-bold uppercase tracking-wider">
-                                        Live
-                                    </span>
-                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
-                                        <ArrowUpRight className="w-6 h-6" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
-                                        Portfolio Template
-                                    </h3>
-                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
-                                        Modern developer portfolio with dark mode, responsive design, and smooth animations.
-                                    </p>
-                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
-                                        {["Next.js 14", "Tailwind", "Framer Motion"].map((tech) => (
-                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Static Project 3: Business Landing Page */}
-                        <div className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[600px] flex-shrink-0 bg-surface rounded-[40px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col">
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50" />
-                            <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] group-hover:bg-brand-accent/20 transition-colors duration-500" />
-
-                            <div className="relative h-full p-8 md:p-12 flex flex-col z-10">
-                                <div className="flex justify-between items-start mb-auto">
-                                    <span className="px-4 py-1.5 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent rounded-full text-sm font-bold uppercase tracking-wider">
-                                        Live
-                                    </span>
-                                    <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-all duration-300">
-                                        <ArrowUpRight className="w-6 h-6" />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 group-hover:text-brand-accent transition-colors break-words">
-                                        Business Landing Page
-                                    </h3>
-                                    <p className="text-secondary text-xl leading-relaxed line-clamp-4 group-hover:text-white/80 transition-colors mb-8">
-                                        High-converting landing page with modern UI, contact forms, and performance optimization.
-                                    </p>
-                                    <div className="flex flex-wrap gap-3 pt-8 border-t border-white/10">
-                                        {["Next.js", "SEO", "Optimization"].map((tech) => (
-                                            <span key={tech} className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-white/60">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* View All Folder Card */}
-                        <TransitionLink
-                            href="/projects"
-                            className="group relative h-[60vh] md:h-[70vh] w-[85vw] md:w-[400px] flex-shrink-0 flex items-center justify-center mr-[7.5vw] md:mr-[calc(50vw-200px)] perspective-1000"
-                        >
-                            <div className="relative w-64 h-48 md:w-80 md:h-60 transition-transform duration-500 group-hover:scale-105">
-                                {/* Back Folder Plate */}
-                                <div className="absolute inset-0 bg-white/10 rounded-tr-[100px] rounded-tl-lg rounded-bl-lg rounded-br-lg border border-white/5" />
-
-                                {/* Paper Stack (Multiple items popping up) */}
-                                <motion.div
-                                    className="absolute inset-x-6 bottom-4 top-10 bg-white/80 rounded-t-lg shadow-lg z-0"
-                                    initial={{ y: 0, scale: 0.95 }}
-                                    whileHover={{ y: -60, rotate: -3 }}
-                                    transition={{ duration: 0.4, delay: 0.1 }}
-                                />
-                                <motion.div
-                                    className="absolute inset-x-4 bottom-4 top-8 bg-white/90 rounded-t-lg shadow-lg z-10 flex items-center justify-center"
-                                    initial={{ y: 0 }}
-                                    whileHover={{ y: -50, rotate: 2 }}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
-                                >
-                                    <span className="font-display font-bold text-background text-2xl tracking-widest uppercase">
-                                        All Projects
-                                    </span>
-                                </motion.div>
-
-                                {/* Front Folder Flap */}
-                                <motion.div
-                                    className="absolute inset-0 bg-surface border border-white/10 rounded-tr-[100px] rounded-tl-lg rounded-bl-lg rounded-br-lg z-20 origin-bottom"
-                                    style={{ transformStyle: "preserve-3d" }}
-                                    initial={{ rotateX: 0 }}
-                                    whileHover={{ rotateX: -25 }}
-                                    transition={{ duration: 0.5, ease: "backOut" }}
-                                >
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 rounded-lg" />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-20 h-20 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-brand-accent group-hover:border-brand-accent transition-colors duration-300">
-                                            <ArrowUpRight className="w-10 h-10 text-white group-hover:text-background" />
-                                        </div>
-                                    </div>
-                                    {/* Folder Tab Detail */}
-                                    <div className="absolute -top-3 left-0 w-1/3 h-4 bg-surface border-t border-l border-r border-white/10 rounded-t-lg" />
-                                </motion.div>
-                            </div>
-                        </TransitionLink>
-
-                    </motion.div>
-                </div>
-            </section>
+        <div className="mb-12">
+          <h2 className="font-display font-bold text-white text-5xl md:text-7xl tracking-tighter leading-tight mb-4">
+            Selected <span className="text-stroke-accent">Projects</span>
+          </h2>
+          <p className="text-text-secondary text-lg max-w-xl">
+            Platforms and products we have shipped for clients across industries.
+          </p>
         </div>
-    );
+
+        {/* Featured grid — 2 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {featured.map((project) => (
+            <FeaturedCard key={project.id} project={project} />
+          ))}
+        </div>
+
+        {/* Regular grid — 2×2 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+          {regular.map((project, i) => (
+            <RegularCard key={project.id} project={project} delay={i * 0.08} />
+          ))}
+        </div>
+
+        {/* View all */}
+        <div className="flex justify-end">
+          <Link
+            href="/projects"
+            className="group flex items-center gap-3 text-white/50 text-sm font-mono uppercase tracking-widest hover:text-white transition-colors border-b border-transparent hover:border-white pb-0.5"
+          >
+            View All Projects
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
 }

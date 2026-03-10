@@ -1,103 +1,155 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Contact() {
-    return (
-        <section id="contact" className="py-32 bg-background relative overflow-hidden">
-            {/* Decorative Background */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+  return (
+    <section id="contact" className="py-24 md:py-32 bg-background">
+      <div className="container-custom">
+        {/* Section marker */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <div className="w-8 h-px bg-white/20" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">05</span>
+          <div className="flex-1 h-px bg-white/8" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">Start a Project</span>
+          <div className="flex-1 h-px bg-white/8" />
+        </motion.div>
 
-            <div className="container-custom relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-5xl mx-auto"
-                >
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-white uppercase tracking-tighter">
-                            Let&apos;s <span className="text-brand-accent">Build</span>
-                        </h2>
-                        <p className="text-secondary text-xl max-w-2xl mx-auto">
-                            Ready to dominate your market? Tell us about your project.
-                        </p>
-                    </div>
+        {/* Scarcity banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-14 flex items-start gap-3 border border-brand-accent/25 bg-brand-accent/5 px-5 py-4"
+        >
+          <span className="w-2 h-2 rounded-full bg-brand-accent mt-1 flex-shrink-0" style={{ animation: "pulse 2s infinite" }} />
+          <div>
+            <p className="text-white text-sm font-semibold mb-0.5">2 project slots available for Q2 2026</p>
+            <p className="text-text-secondary text-sm">We take on limited projects to ensure quality. Reserve your spot early.</p>
+          </div>
+        </motion.div>
 
-                    <form className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                        <div className="space-y-2 group">
-                            <label htmlFor="name" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 font-medium"
-                                placeholder="YOUR NAME"
-                            />
-                        </div>
-                        <div className="space-y-2 group">
-                            <label htmlFor="email" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 font-medium"
-                                placeholder="YOUR@EMAIL.COM"
-                            />
-                        </div>
-                        <div className="md:col-span-1 space-y-2 group">
-                            <label htmlFor="service" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Service</label>
-                            <select
-                                id="service"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl appearance-none cursor-pointer"
-                            >
-                                <option className="bg-brand-navy text-white">Full-Stack Web App</option>
-                                <option className="bg-brand-navy text-white">Business Website</option>
-                                <option className="bg-brand-navy text-white">Landing Page</option>
-                                <option className="bg-brand-navy text-white">UI/UX Design</option>
-                            </select>
-                        </div>
-                        <div className="md:col-span-1 space-y-2 group">
-                            <label htmlFor="budget" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Budget Range</label>
-                            <select
-                                id="budget"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl appearance-none cursor-pointer"
-                            >
-                                <option className="bg-brand-navy text-white">₹20k - ₹30k</option>
-                                <option className="bg-brand-navy text-white">₹30k - ₹50k</option>
-                                <option className="bg-brand-navy text-white">₹50k+</option>
-                                <option className="bg-brand-navy text-white">Not Sure</option>
-                            </select>
-                        </div>
-                        <div className="md:col-span-2 space-y-2 mb-8 group">
-                            <label htmlFor="message" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Project Details</label>
-                            <textarea
-                                id="message"
-                                rows={2}
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 resize-none font-medium"
-                                placeholder="TELL US ABOUT THE FUTURE..."
-                            ></textarea>
-                        </div>
-
-                        <div className="md:col-span-2 pt-8 flex flex-col items-center gap-4">
-                            <button
-                                type="submit"
-                                className="group relative px-10 py-5 bg-white text-brand-navy font-bold text-lg rounded-full overflow-hidden hover:scale-105 transition-all duration-300 w-full md:w-auto"
-                            >
-                                <span className="relative z-10 flex items-center justify-center gap-3">
-                                    INITIATE PROJECT
-                                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                                </span>
-                                <div className="absolute inset-0 bg-brand-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
-                            </button>
-                            <p className="text-white/40 text-sm font-medium">
-                                Response time: Within 24 hours
-                            </p>
-                        </div>
-                    </form>
-                </motion.div>
+        <div className="grid md:grid-cols-12 gap-16">
+          {/* Left — statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="md:col-span-5"
+          >
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-white tracking-tighter leading-tight mb-6">
+              Let&apos;s Build<br />
+              <span className="text-brand-accent">Something</span><br />
+              Real.
+            </h2>
+            <p className="text-text-secondary text-lg leading-relaxed mb-8">
+              Tell us about your project. We respond within 24 hours and we will schedule a discovery call to define the best path forward.
+            </p>
+            <div className="space-y-4 text-text-secondary text-sm font-mono">
+              <div className="flex items-center gap-3">
+                <span className="text-brand-accent">→</span>
+                <span>wuslateam@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-brand-accent">→</span>
+                <span>Response within 24 hours</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-brand-accent">→</span>
+                <span>Free discovery call</span>
+              </div>
             </div>
-        </section>
-    );
-}
+          </motion.div>
 
+          {/* Right — form */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.6 }}
+            className="md:col-span-7"
+          >
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-xs font-mono text-brand-accent uppercase tracking-widest">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full py-4 bg-transparent border-b border-white/15 focus:border-brand-accent focus:outline-none transition-colors text-white text-lg placeholder:text-white/15"
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-xs font-mono text-brand-accent uppercase tracking-widest">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full py-4 bg-transparent border-b border-white/15 focus:border-brand-accent focus:outline-none transition-colors text-white text-lg placeholder:text-white/15"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label htmlFor="service" className="text-xs font-mono text-brand-accent uppercase tracking-widest">Service</label>
+                  <select
+                    id="service"
+                    className="w-full py-4 bg-transparent border-b border-white/15 focus:border-brand-accent focus:outline-none transition-colors text-white text-lg appearance-none cursor-pointer"
+                  >
+                    <option className="bg-background text-white">Web Application</option>
+                    <option className="bg-background text-white">Product Design</option>
+                    <option className="bg-background text-white">Backend & APIs</option>
+                    <option className="bg-background text-white">Mobile App</option>
+                    <option className="bg-background text-white">E-Commerce</option>
+                    <option className="bg-background text-white">Other</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="budget" className="text-xs font-mono text-brand-accent uppercase tracking-widest">Budget (USD)</label>
+                  <select
+                    id="budget"
+                    className="w-full py-4 bg-transparent border-b border-white/15 focus:border-brand-accent focus:outline-none transition-colors text-white text-lg appearance-none cursor-pointer"
+                  >
+                    <option className="bg-background text-white">$5k – $15k</option>
+                    <option className="bg-background text-white">$15k – $30k</option>
+                    <option className="bg-background text-white">$30k – $60k</option>
+                    <option className="bg-background text-white">$60k+</option>
+                    <option className="bg-background text-white">Not Sure</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="text-xs font-mono text-brand-accent uppercase tracking-widest">Project Details</label>
+                <textarea
+                  id="message"
+                  rows={3}
+                  className="w-full py-4 bg-transparent border-b border-white/15 focus:border-brand-accent focus:outline-none transition-colors text-white text-lg placeholder:text-white/15 resize-none"
+                  placeholder="Tell us about your project..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="group flex items-center gap-3 px-10 py-5 bg-brand-accent text-white font-bold text-sm uppercase tracking-widest hover:bg-white hover:text-background transition-all duration-300"
+              >
+                <span>Reserve My Project Slot</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

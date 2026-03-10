@@ -1,48 +1,42 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Database, Layout, Server, Zap, GitBranch } from "lucide-react";
 
 const technologies = [
-    { name: "Next.js", icon: <Zap className="w-6 h-6" /> },
-    { name: "React", icon: <Code2 className="w-6 h-6" /> },
-    { name: "Tailwind CSS", icon: <Layout className="w-6 h-6" /> },
-    { name: "Node.js", icon: <Server className="w-6 h-6" /> },
-    { name: "Supabase", icon: <Database className="w-6 h-6" /> },
-    { name: "Git", icon: <GitBranch className="w-6 h-6" /> },
+  "Next.js", "React", "TypeScript", "Tailwind CSS",
+  "Node.js", "PostgreSQL", "Supabase", "Vercel",
+  "Figma", "Firebase", "React Native", "Stripe",
+  "Redis", "GraphQL", "Docker", "AWS",
 ];
 
 export default function TechStack() {
-    return (
-        <section className="py-12 border-b border-white/5 bg-background">
-            <div className="container-custom">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="text-left">
-                        <h3 className="text-white font-bold text-lg uppercase tracking-wider mb-1">
-                            Technologies I Work With
-                        </h3>
-                        <p className="text-secondary text-sm">
-                            Modern, scalable, production-ready stack.
-                        </p>
-                    </div>
+  const doubled = [...technologies, ...technologies];
 
-                    <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-                        {technologies.map((tech, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.05 }}
-                                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-brand-accent/50 transition-colors"
-                            >
-                                {tech.icon}
-                                <span className="font-medium text-sm">{tech.name}</span>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
+  return (
+    <section className="py-10 border-y border-white/8 bg-surface overflow-hidden">
+      <div className="flex items-center gap-8 mb-6 container-custom">
+        <span className="font-mono text-xs text-text-secondary uppercase tracking-widest flex-shrink-0">
+          Technologies We Use
+        </span>
+        <div className="flex-1 h-px bg-white/8" />
+      </div>
+
+      <div className="relative">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex gap-6 w-max"
+        >
+          {doubled.map((tech, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 px-5 py-2.5 border border-white/8 text-white/50 text-sm font-mono hover:text-white hover:border-brand-accent/30 transition-colors cursor-default"
+            >
+              {tech}
             </div>
-        </section>
-    );
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
 }

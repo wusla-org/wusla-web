@@ -1,27 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme inline {
-  /* Fooror-Inspired Palette - Gray Experiment */
-  --color-background: #242424;
-  /* Charcoal Gray */
-  --color-surface: #2E2E2E;
-  /* Lighter Gray */
-
-  /* Brand Colors */
-  --color-brand-navy: #242424;
-  --color-brand-accent: #006F4A;
-  /* Deep Emerald */
+  /* Colors */
+  --color-background: #0F0F0F;
+  --color-surface: #181818;
+  --color-brand-navy: #0F0F0F;
+  --color-brand-accent: #00875A;
   --color-brand-white: #FFFFFF;
 
   /* Text Colors */
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #A1A1AA;
-  --color-text-accent: #006F4A;
+  --color-text-accent: #00875A;
 
-  /* Typography */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-oswald), sans-serif;
+  /* Typography — map next/font variables to tailwind utilities */
+  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), sans-serif;
   --font-hand: var(--font-caveat), cursive;
 
   /* Spacing */
@@ -43,6 +37,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Dot-grid texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Typography Utilities */
 .font-display {
   font-family: var(--font-display);
@@ -52,6 +57,31 @@ body {
   font-family: var(--font-hand);
 }
 
+/* Section label utility */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #A1A1AA;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  flex: 1;
+}
+
+.section-label::before {
+  width: 2rem;
+  flex: 0 0 2rem;
+}
+
 /* Container Utility */
 .container-custom {
   width: 100%;
@@ -59,17 +89,13 @@ body {
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
-  /* 24px */
   padding-right: 1.5rem;
-  /* 24px */
 }
 
 @media (min-width: 768px) {
   .container-custom {
     padding-left: 3rem;
-    /* 48px */
     padding-right: 3rem;
-    /* 48px */
   }
 }
 

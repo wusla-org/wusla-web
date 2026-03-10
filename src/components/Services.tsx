@@ -1,119 +1,111 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { Smartphone, Globe, Layout, Database, ChevronRight, Activity } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
-    {
-        icon: <Globe className="w-8 h-8 text-brand-accent" />,
-        title: "Web Platforms",
-        description: "High-performance web applications built for speed and SEO. Mobile-first and conversion-focused.",
-        tech: "Next.js 14, React, Tailwind CSS, SEO Optimization",
-        colSpan: "md:col-span-2"
-    },
-    {
-        icon: <Layout className="w-8 h-8 text-white" />,
-        title: "UI/UX Design",
-        description: "Modern, minimalist interfaces that focus on user experience and brand identity.",
-        tech: "Figma, Framer Motion, Responsive Design",
-        colSpan: "md:col-span-1"
-    },
-    {
-        icon: <Database className="w-8 h-8 text-white" />,
-        title: "Full-Stack Ops",
-        description: "Secure backends, APIs, and database architecture for scalable applications.",
-        tech: "Node.js, Supabase, PostgreSQL, REST APIs",
-        colSpan: "md:col-span-1"
-    },
-    {
-        icon: <Smartphone className="w-8 h-8 text-brand-accent" />,
-        title: "Mobile Business",
-        description: "Responsive web apps that feel native on every device. PWA and mobile-optimized sites.",
-        tech: "React, Mobile-First CSS, Touch Gestures",
-        colSpan: "md:col-span-2"
-    }
+  {
+    num: "01",
+    title: "Web Applications",
+    description: "High-performance web apps built for scale. We build SaaS products, internal tools, and customer-facing platforms using Next.js, React, and modern infrastructure.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    num: "02",
+    title: "Product Design",
+    description: "From user research to high-fidelity prototypes. We design interfaces that reduce friction, build trust, and convert visitors into customers.",
+    tech: ["Figma", "Framer", "User Research", "Design Systems"],
+  },
+  {
+    num: "03",
+    title: "Backend & APIs",
+    description: "Secure, scalable server-side architecture. REST and GraphQL APIs, database design, authentication, and cloud infrastructure that handles growth.",
+    tech: ["Node.js", "PostgreSQL", "Supabase", "AWS", "Redis"],
+  },
+  {
+    num: "04",
+    title: "Mobile Platforms",
+    description: "Cross-platform mobile applications and Progressive Web Apps. Native-feeling experiences that work everywhere your users are.",
+    tech: ["React Native", "Expo", "PWA", "iOS", "Android"],
+  },
+  {
+    num: "05",
+    title: "E-Commerce",
+    description: "Conversion-optimized storefronts and marketplaces. From Shopify customizations to fully custom commerce platforms with integrated payments.",
+    tech: ["Shopify", "Stripe", "Next.js Commerce", "Algolia"],
+  },
 ];
 
-function MagicCard({ service, index }: { service: { icon: React.ReactNode; title: string; description: string; tech: string; colSpan: string }, index: number }) {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - left);
-        mouseY.set(clientY - top);
-    }
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className={`${service.colSpan} group relative rounded-none bg-white/5 border border-white/10 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500`}
-            onMouseMove={handleMouseMove}
-        >
-            <motion.div
-                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
-                style={{
-                    background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 111, 74, 0.1),
-              transparent 80%
-            )
-          `,
-                }}
-            />
-            <div className="relative h-full p-10 flex flex-col justify-between z-10">
-                <div>
-                    <div className="mb-6 p-3 bg-white/5 rounded-full w-fit group-hover:scale-110 transition-transform duration-300 border border-white/5 group-hover:border-brand-accent/30">
-                        {service.icon}
-                    </div>
-                    <h3 className="text-3xl font-display font-bold text-white mb-4 uppercase tracking-tight">{service.title}</h3>
-                    <p className="text-secondary leading-relaxed mb-6 group-hover:text-white/80 transition-colors">
-                        {service.description}
-                    </p>
-                    {/* Tech Stack Badge */}
-                    <div className="mt-4 pt-4 border-t border-white/5">
-                        <p className="text-xs font-mono text-brand-accent uppercase tracking-wider mb-2 opacity-80">Tech Stack</p>
-                        <p className="text-sm text-white/60 font-medium group-hover:text-white/90 transition-colors">
-                            {service.tech}
-                        </p>
-                    </div>
-                </div>
-
-                <div className="mt-8 flex items-center text-sm font-bold text-brand-accent opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 uppercase tracking-widest">
-                    Start Project <ChevronRight className="w-4 h-4 ml-1" />
-                </div>
-            </div>
-        </motion.div>
-    );
-}
-
 export default function Services() {
-    return (
-        <section id="services" className="py-20 md:py-32 bg-surface rounded-[40px] md:rounded-[60px] mx-2 md:mx-4 my-4 overflow-hidden relative">
-            <div className="container-custom relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                    <div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 uppercase tracking-tighter">
-                            What <span className="text-stroke-accent">I Do</span>
-                        </h2>
-                        <p className="text-secondary text-lg max-w-xl">
-                            I build high-performance web applications using modern technologies. Specialized in business websites, landing pages, and full-stack solutions.
-                        </p>
-                    </div>
-                    <Activity className="w-12 h-12 text-brand-accent animate-pulse hidden md:block" />
-                </div>
+  return (
+    <section id="services" className="py-24 md:py-32 bg-surface">
+      <div className="container-custom">
+        {/* Section marker */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <div className="w-8 h-px bg-white/20" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">01</span>
+          <div className="flex-1 h-px bg-white/8" />
+          <span className="font-mono text-xs text-text-secondary uppercase tracking-widest">What We Build</span>
+          <div className="flex-1 h-px bg-white/8" />
+        </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {services.map((service, index) => (
-                        <MagicCard key={index} service={service} index={index} />
-                    ))}
+        <div className="mb-16">
+          <h2 className="font-display font-bold text-5xl md:text-7xl text-white tracking-tighter leading-tight mb-4">
+            Our <span className="text-stroke-accent">Services</span>
+          </h2>
+          <p className="text-text-secondary text-lg max-w-xl">
+            We build software that solves real business problems — not just pretty interfaces.
+          </p>
+        </div>
+
+        {/* Services list */}
+        <div>
+          {services.map((service, i) => (
+            <motion.div
+              key={service.num}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group border-t border-white/8 py-8 grid grid-cols-12 gap-6 hover:border-brand-accent/30 transition-colors duration-300"
+            >
+              {/* Number */}
+              <div className="col-span-2 md:col-span-1">
+                <span className="font-display font-bold text-4xl md:text-5xl text-brand-accent leading-none">
+                  {service.num}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="col-span-10 md:col-span-11 grid md:grid-cols-12 gap-6 items-start">
+                <div className="md:col-span-4">
+                  <h3 className="font-display font-bold text-2xl md:text-3xl text-white group-hover:text-brand-accent transition-colors duration-300 tracking-tight">
+                    {service.title}
+                  </h3>
                 </div>
-            </div>
-        </section>
-    );
+                <div className="md:col-span-5">
+                  <p className="text-text-secondary leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+                <div className="md:col-span-3 flex flex-wrap gap-2">
+                  {service.tech.map((t) => (
+                    <span key={t} className="px-2 py-1 border border-white/10 text-white/40 text-xs font-mono group-hover:border-brand-accent/20 transition-colors">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+          {/* Bottom border */}
+          <div className="border-t border-white/8" />
+        </div>
+      </div>
+    </section>
+  );
 }
-
