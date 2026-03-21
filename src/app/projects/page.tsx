@@ -1,99 +1,232 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Star, GitFork, Code } from "lucide-react";
-import Link from "next/link";
+import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { fetchRepositories, Repository } from "@/utils/github";
+
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  topics: string[];
+  updated_at: string;
+  stargazers_count: number;
+}
+
+const FILTERS = ["ALL", "TYPESCRIPT", "JAVASCRIPT", "PYTHON", "WEB"];
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function RepoRow({ repo }: { repo: GitHubRepo }) {
+  return (
+    <a
+      href={repo.html_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="row-item"
+      style={{ display: "block" }}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_100px]" style={{ gap: "24px", alignItems: "start" }}>
+        <div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "16px", marginBottom: "8px", flexWrap: "wrap" }}>
+            <p style={{ fontSize: "22px", fontWeight: 500, color: "var(--text-primary)" }}>
+              {repo.name}
+            </p>
+            {repo.language && (
+              <p className="label-caps">{repo.language}</p>
+            )}
+          </div>
+          {repo.description && (
+            <p className="body-text" style={{ fontSize: "14px", marginBottom: "8px" }}>
+              {repo.description}
+            </p>
+          )}
+          {repo.topics.length > 0 && (
+            <p className="label-caps" style={{ marginBottom: "6px", fontSize: "10px" }}>
+              {repo.topics.join(", ")}
+            </p>
+          )}
+          <p className="label-caps" style={{ fontSize: "11px" }}>
+            Updated {formatDate(repo.updated_at)}
+          </p>
+        </div>
+        <p className="label-caps hidden md:block" style={{ textAlign: "right" }}>
+          ↗ GITHUB
+        </p>
+      </div>
+    </a>
+  );
+}
+
+function SkeletonRow() {
+  return (
+    <div style={{ padding: "32px 0", borderTop: "1px solid var(--border)" }}>
+      <div style={{ height: "20px", width: "40%", marginBottom: "12px", backgroundColor: "var(--bg-border)", animation: "page-fade 1s ease infinite alternate" }} />
+      <div style={{ height: "14px", width: "65%", marginBottom: "8px", backgroundColor: "var(--bg-border)", animation: "page-fade 1s ease infinite alternate" }} />
+      <div style={{ height: "12px", width: "25%", backgroundColor: "var(--bg-border)", animation: "page-fade 1s ease infinite alternate" }} />
+    </div>
+  );
+}
 
 export default function ProjectsPage() {
-    const [repos, setRepos] = useState<Repository[]>([]);
-    const [loading, setLoading] = useState(true);
+  const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [query, setQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("ALL");
 
-    useEffect(() => {
-        const loadRepos = async () => {
-            const data = await fetchRepositories();
-            // Fetch ALL repos (or at least more than the homepage)
-            setRepos(data);
-            setLoading(false);
-        };
-        loadRepos();
-    }, []);
+  useEffect(() => {
+    fetch("https://api.github.com/orgs/wusla-org/repos?type=public&sort=updated&per_page=100", {
+      headers: { Accept: "application/vnd.github.v3+json" },
+    })
+      .then((r) => {
+        if (!r.ok) throw new Error("API error");
+        return r.json();
+      })
+      .then((data: GitHubRepo[]) => {
+        setRepos(data.filter((r) => r.name !== ".github"));
+        setLoading(false);
+      })
+      .catch(() => { setError(true); setLoading(false); });
+  }, []);
 
-    return (
-        <main className="min-h-screen bg-background text-text-primary selection:bg-brand-accent selection:text-white pb-32">
-            <Navbar />
+  const filtered = useMemo(() => {
+    return repos.filter((repo) => {
+      const matchesFilter =
+        activeFilter === "ALL" ||
+        repo.language?.toUpperCase() === activeFilter ||
+        (activeFilter === "WEB" && repo.topics.some((t) => ["web", "nextjs", "react", "html"].includes(t.toLowerCase())));
 
-            <div className="container-custom pt-40 md:pt-60">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="mb-20 md:mb-32"
-                >
-                    <h1 className="text-6xl md:text-9xl font-display font-bold text-white uppercase tracking-tighter mb-8">
-                        All <span className="text-brand-accent">Projects</span>
-                    </h1>
-                    <p className="text-secondary text-xl md:text-2xl max-w-2xl leading-relaxed">
-                        A complete archive of our open source contributions, experiments, and production-ready codebases.
-                    </p>
-                </motion.div>
+      const q = query.toLowerCase();
+      const matchesQuery =
+        !q ||
+        repo.name.toLowerCase().includes(q) ||
+        repo.description?.toLowerCase().includes(q) ||
+        repo.language?.toLowerCase().includes(q) ||
+        repo.topics.some((t) => t.toLowerCase().includes(q));
 
-                {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {[...Array(6)].map((_, i) => (
-                            <div key={i} className="h-96 rounded-[32px] bg-white/5 animate-pulse" />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {repos.map((repo, i) => (
-                            <motion.div
-                                key={repo.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                                className="group relative h-[400px] bg-surface rounded-[32px] border border-white/5 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500 flex flex-col"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none" />
+      return matchesFilter && matchesQuery;
+    });
+  }, [repos, query, activeFilter]);
 
-                                <div className="relative p-8 flex flex-col h-full z-10">
-                                    <div className="flex justify-between items-start mb-6">
-                                        <span className="px-3 py-1 bg-white/5 rounded-full text-xs font-bold uppercase tracking-wider text-brand-accent border border-white/10">{repo.language || "Code"}</span>
-                                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-accent group-hover:text-white transition-colors">
-                                            <ArrowUpRight className="w-5 h-5" />
-                                        </div>
-                                    </div>
+  return (
+    <>
+      <Navbar />
+      <main>
+        {/* Header */}
+        <section
+          className="section-pad"
+          style={{
+            backgroundColor: "var(--bg)",
+            paddingTop: "calc(var(--nav-height) + 80px)",
+            borderBottom: "1px solid var(--border)",
+          }}
+        >
+          <div className="w-container">
+            <p className="label-caps" style={{ marginBottom: "32px" }}>
+              <span style={{ color: "var(--accent)" }}>WUSLA</span>
+              <span style={{ color: "var(--text-tertiary)" }}>{" — OPEN SOURCE"}</span>
+            </p>
+            <h1 className="headline-hero" style={{ marginBottom: "24px" }}>
+              What we<br />are building.
+            </h1>
+            <p className="body-text" style={{ maxWidth: "480px" }}>
+              Public repositories from the WUSLA org on GitHub.
+            </p>
+          </div>
+        </section>
 
-                                    <h3 className="text-3xl font-display font-bold text-white mb-4 group-hover:text-brand-accent transition-colors">
-                                        {repo.name}
-                                    </h3>
-
-                                    <p className="text-secondary text-base leading-relaxed line-clamp-3 mb-auto">
-                                        {repo.description || "No description provided."}
-                                    </p>
-
-                                    <div className="flex items-center gap-6 pt-6 border-t border-white/10 mt-6 text-sm text-white/50">
-                                        <div className="flex items-center gap-2">
-                                            <Star className="w-4 h-4 text-brand-accent" />
-                                            <span>{repo.stargazers_count}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <span>Updated {new Date(repo.updated_at).toLocaleDateString()}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="absolute inset-0 z-20" aria-label={`View ${repo.name}`} />
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
+        {/* Search + filter */}
+        <section
+          style={{
+            backgroundColor: "var(--bg-subtle)",
+            borderBottom: "1px solid var(--border)",
+            padding: "32px 0",
+          }}
+        >
+          <div className="w-container">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto]" style={{ gap: "32px", alignItems: "end" }}>
+              <div>
+                <label className="label-v4">Search</label>
+                <input
+                  type="text"
+                  className="input-v4"
+                  placeholder="SEARCH PROJECTS"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", paddingBottom: "14px" }}>
+                {FILTERS.map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setActiveFilter(f)}
+                    className="label-caps"
+                    style={{
+                      background: "none",
+                      border: "none",
+                      borderBottom: activeFilter === f ? "1px solid var(--text-primary)" : "1px solid transparent",
+                      cursor: "pointer",
+                      color: activeFilter === f ? "var(--text-primary)" : "var(--text-tertiary)",
+                      paddingBottom: "2px",
+                      transition: "color 150ms ease, border-color 150ms ease",
+                    }}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
             </div>
+          </div>
+        </section>
 
-            <Footer />
-        </main>
-    );
+        {/* Repo list */}
+        <section style={{ backgroundColor: "var(--bg)", padding: "0 0 80px" }}>
+          <div className="w-container" style={{ paddingTop: "0" }}>
+            {loading ? (
+              Array.from({ length: 6 }).map((_, i) => <SkeletonRow key={i} />)
+            ) : error ? (
+              <div style={{ padding: "48px 0", borderTop: "1px solid var(--border)" }}>
+                <p style={{ fontSize: "20px", fontWeight: 500, color: "var(--text-primary)", marginBottom: "16px" }}>
+                  Could not load projects.
+                </p>
+                <a
+                  href="https://github.com/wusla-org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="body-text"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  View them directly at github.com/wusla-org →
+                </a>
+              </div>
+            ) : filtered.length === 0 ? (
+              <div style={{ padding: "48px 0", borderTop: "1px solid var(--border)" }}>
+                <p
+                  className="headline-section"
+                  style={{ color: "var(--text-tertiary)", fontStyle: "italic", fontSize: "clamp(20px,3vw,40px)" }}
+                >
+                  No projects found for &ldquo;{query}&rdquo;
+                </p>
+              </div>
+            ) : (
+              <>
+                {filtered.map((repo) => <RepoRow key={repo.id} repo={repo} />)}
+                <div style={{ borderTop: "1px solid var(--border)", paddingTop: "24px", marginTop: "0" }}>
+                  <p className="label-caps">
+                    {filtered.length} {filtered.length === 1 ? "REPOSITORY" : "REPOSITORIES"}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }

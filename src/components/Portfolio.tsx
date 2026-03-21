@@ -3,6 +3,26 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
+
+function useTilt(maxTilt = 8) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    ref.current.style.transform = `perspective(600px) rotateY(${x * maxTilt * 2}deg) rotateX(${-y * maxTilt * 2}deg)`;
+  }
+
+  function handleMouseLeave() {
+    if (!ref.current) return;
+    ref.current.style.transform = `perspective(600px) rotateY(0deg) rotateX(0deg)`;
+  }
+
+  return { ref, onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave };
+}
 
 const projects = [
   {
@@ -68,11 +88,12 @@ const projects = [
 ];
 
 function FeaturedCard({ project }: { project: typeof projects[0] }) {
+  const tilt = useTilt(8);
   return (
+    <div ref={tilt.ref} onMouseMove={tilt.onMouseMove} onMouseLeave={tilt.onMouseLeave} style={{ transition: "transform 0.15s ease" }}>
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
       className="group relative bg-surface border border-white/8 overflow-hidden hover:border-brand-accent/30 transition-colors duration-500"
@@ -122,15 +143,17 @@ function FeaturedCard({ project }: { project: typeof projects[0] }) {
         </div>
       </div>
     </motion.div>
+    </div>
   );
 }
 
 function RegularCard({ project, delay }: { project: typeof projects[0]; delay: number }) {
+  const tilt = useTilt(8);
   return (
+    <div ref={tilt.ref} onMouseMove={tilt.onMouseMove} onMouseLeave={tilt.onMouseLeave} style={{ transition: "transform 0.15s ease" }}>
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -4 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5 }}
       className="group relative bg-surface border border-white/8 overflow-hidden hover:border-brand-accent/30 transition-colors duration-500"
@@ -167,6 +190,7 @@ function RegularCard({ project, delay }: { project: typeof projects[0]; delay: n
         </div>
       </div>
     </motion.div>
+    </div>
   );
 }
 

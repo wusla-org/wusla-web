@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 const services = [
   {
@@ -35,6 +35,68 @@ const services = [
   },
 ];
 
+function ServiceRow({ service, index }: { service: typeof services[0]; index: number }) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const background = useMotionTemplate`radial-gradient(
+    280px circle at ${mouseX}px ${mouseY}px,
+    rgba(0, 135, 90, 0.10),
+    transparent 80%
+  )`;
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }
+
+  return (
+    <motion.div
+      key={service.num}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      onMouseMove={handleMouseMove}
+      className="group relative border-t border-white/8 py-8 grid grid-cols-12 gap-6 hover:border-brand-accent/30 transition-colors duration-300 overflow-hidden"
+    >
+      {/* Mouse-tracking gradient spotlight */}
+      <motion.div
+        style={{ background }}
+        className="absolute inset-0 pointer-events-none"
+      />
+
+      {/* Number */}
+      <div className="relative col-span-2 md:col-span-1">
+        <span className="font-display font-bold text-4xl md:text-5xl text-brand-accent leading-none">
+          {service.num}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="relative col-span-10 md:col-span-11 grid md:grid-cols-12 gap-6 items-start">
+        <div className="md:col-span-4">
+          <h3 className="font-display font-bold text-2xl md:text-3xl text-white group-hover:text-brand-accent transition-colors duration-300 tracking-tight">
+            {service.title}
+          </h3>
+        </div>
+        <div className="md:col-span-5">
+          <p className="text-text-secondary leading-relaxed">
+            {service.description}
+          </p>
+        </div>
+        <div className="md:col-span-3 flex flex-wrap gap-2">
+          {service.tech.map((t) => (
+            <span key={t} className="px-2 py-1 border border-white/10 text-white/40 text-xs font-mono group-hover:border-brand-accent/20 transition-colors">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Services() {
   return (
     <section id="services" className="py-24 md:py-32 bg-surface">
@@ -65,42 +127,7 @@ export default function Services() {
         {/* Services list */}
         <div>
           {services.map((service, i) => (
-            <motion.div
-              key={service.num}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group border-t border-white/8 py-8 grid grid-cols-12 gap-6 hover:border-brand-accent/30 transition-colors duration-300"
-            >
-              {/* Number */}
-              <div className="col-span-2 md:col-span-1">
-                <span className="font-display font-bold text-4xl md:text-5xl text-brand-accent leading-none">
-                  {service.num}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="col-span-10 md:col-span-11 grid md:grid-cols-12 gap-6 items-start">
-                <div className="md:col-span-4">
-                  <h3 className="font-display font-bold text-2xl md:text-3xl text-white group-hover:text-brand-accent transition-colors duration-300 tracking-tight">
-                    {service.title}
-                  </h3>
-                </div>
-                <div className="md:col-span-5">
-                  <p className="text-text-secondary leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-                <div className="md:col-span-3 flex flex-wrap gap-2">
-                  {service.tech.map((t) => (
-                    <span key={t} className="px-2 py-1 border border-white/10 text-white/40 text-xs font-mono group-hover:border-brand-accent/20 transition-colors">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <ServiceRow key={service.num} service={service} index={i} />
           ))}
           {/* Bottom border */}
           <div className="border-t border-white/8" />

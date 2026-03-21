@@ -1,168 +1,192 @@
-# 🚀 WUSLA - Building Digital Excellence
+# WUSLA — Software Studio
 
-A modern, responsive business website built with Next.js 15, React 19, and Tailwind CSS 4. Showcasing professional web development, mobile apps, and cloud solutions with stunning animations and interactive technology showcase.
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-black?style=flat-square&logo=framer)](https://www.framer.com/motion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](./LICENSE)
 
-![WUSLA Website](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-cyan?style=for-the-badge&logo=tailwindcss)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+> Official website for **WUSLA** — a software studio building web apps, SaaS platforms, mobile apps, and custom digital products for businesses worldwide.
 
-## ✨ Features
-
-- **🎨 Modern Design**: Clean, professional interface with dark/light mode support
-- **⚡ Performance Optimized**: Built with Next.js 15 and React 19 for blazing fast performance
-- **📱 Fully Responsive**: Seamless experience across all devices and screen sizes
-- **🎭 Interactive Animations**: Smooth floating animations and hover effects
-- **🛠️ Technology Showcase**: Infinite scrolling technology grid with authentic brand logos
-- **🎯 Smart Tooltips**: Intelligent positioning that adapts to viewport location
-- **🌟 Advanced Effects**: Comprehensive feathering, gradients, and visual enhancements
-- **🔍 SEO Optimized**: Complete meta tags, Open Graph, and Twitter Card support
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 15 (App Router)
-- **Frontend**: React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **Fonts**: Geist Sans & Geist Mono
-- **Icons**: Custom SVG brand logos
-- **Deployment**: Vercel (recommended)
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/wusla-team/wusla-website.git
-
-# Navigate to project directory
-cd wusla-website
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Visit `http://localhost:3000` to view the website.
-
-## 📁 Project Structure
-
-```
-wusla-website/
-├── src/
-│   ├── app/
-│   │   ├── globals.css          # Global styles and animations
-│   │   ├── layout.tsx           # Root layout with metadata
-│   │   └── page.tsx             # Main homepage component
-├── public/                      # Static assets
-├── package.json                 # Project dependencies
-└── README.md                    # Project documentation
-```
-
-## 🎨 Key Components
-
-### Hero Section
-- Animated gradient backgrounds
-- Floating blur effects
-- Clean typography with brand colors
-- Responsive call-to-action buttons
-
-### Services Section
-- Six detailed service cards
-- Hover effects and animations
-- Comprehensive technology listings
-- Interactive elements
-
-### Technology Showcase
-- **Infinite Scrolling**: Three rows of technology icons
-- **Authentic Brand Logos**: React, Node.js, Python, MongoDB, AWS, Docker, etc.
-- **Smart Tooltips**: Contextual positioning
-- **Smooth Animations**: Floating and scaling effects
-- **Perfect Feathering**: Seamless edge transitions
-
-### Contact Section
-- Interactive contact form
-- Company information
-- Responsive layout
-
-## 🎯 Performance Features
-
-- **Client-Side Rendering**: Optimized for interactivity
-- **Smart Animations**: CSS-only animations for better performance
-- **Responsive Images**: Optimized loading and display
-- **SEO Optimized**: Complete meta tags and structured data
-
-## 🚀 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Visit [vercel.com](https://vercel.com)
-3. Import your GitHub repository
-4. Deploy with one click
-5. Get your live URL: `https://yoursite.vercel.app`
-
-### Build Commands
-
-```bash
-# Development
-npm run dev
-
-# Production build
-npm run build
-
-# Start production server
-npm run start
-
-# Lint code
-npm run lint
-```
-
-## 🎨 Customization
-
-### Colors
-The website uses a teal-based color scheme defined in `globals.css`:
-- Primary: `#008080` (Wusla teal)
-- Light: `#20b2aa` (Wusla light)
-- Dark: `#006666` (Wusla dark)
-
-### Typography
-- **Sans Serif**: Geist Sans (modern, clean)
-- **Monospace**: Geist Mono (code snippets)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🔗 Links
-
-- **Website**: [wusla.com](https://wusla.com)
-- **GitHub**: [github.com/wusla-team](https://github.com/wusla-team)
-- **Contact**: hello@wusla.com
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- Vercel for seamless deployment
-- All the open-source technology brands for their awesome logos
+**→ Live:** [wusla.com](https://wusla.com) &nbsp;**→ Contact:** wuslateam@gmail.com
 
 ---
 
-**Built with ❤️ by WUSLA Team**
+## Tech Stack
 
-*Building the future of technology, one innovative project at a time.*
+| | Technology | Purpose |
+|---|---|---|
+| **Framework** | Next.js 16 (App Router) | Routing, SSG, metadata |
+| **UI** | React 19 + TypeScript | Component model |
+| **Styling** | Tailwind CSS v4 | Utility-first CSS via `@theme inline` |
+| **Animation** | Framer Motion 12 | Scroll reveals, hover physics, curtain transitions |
+| **Scroll** | Lenis | Native-feel smooth scrolling |
+| **Icons** | Lucide React | Consistent icon set |
+| **Deployment** | Vercel | Edge-optimised static deployment |
+
+---
+
+## Getting Started
+
+**Prerequisites:** Node.js 18+
+
+```bash
+git clone https://github.com/wusla-team/wusla-website.git
+cd wusla-website
+npm install
+npm run dev        # → http://localhost:3000
+```
+
+```bash
+npm run build      # Production build (canonical verification)
+npm run lint       # ESLint
+```
+
+There is no test suite. `npm run build` with zero errors is the pass criterion.
+
+---
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── page.tsx              # Main landing page (section composition)
+│   ├── layout.tsx            # Root layout — Google Fonts, JSON-LD schemas
+│   ├── globals.css           # @theme tokens: colors, fonts, spacing
+│   ├── aether/               # Aether mobile app product page
+│   ├── portfolio/            # Portfolio listing
+│   ├── projects/             # Projects detail
+│   ├── sitemap.ts            # Auto-generated sitemap
+│   └── robots.ts             # Crawl rules
+│
+└── components/
+    │
+    ├── ─── Page Sections ───────────────────────────────────────────
+    ├── Hero.tsx              # Curtain headline + work preview cards
+    ├── Services.tsx          # Service cards with mouse-tracking gradient
+    ├── TechStack.tsx         # Seamless marquee strip
+    ├── Portfolio.tsx         # 2+4 project grid, Awwwards hover effects
+    ├── Testimonials.tsx      # Client quote cards
+    ├── Stats.tsx             # Count-up animated numbers
+    ├── Process.tsx           # Engagement process steps
+    ├── FAQ.tsx               # AnimatePresence accordion
+    ├── Contact.tsx           # Contact form + scarcity banner
+    ├── Navbar.tsx            # Responsive nav with mobile menu
+    └── Footer.tsx            # Footer
+    │
+    └── ─── Infrastructure ──────────────────────────────────────────
+        ├── CurtainLoader.tsx # Page transition overlay
+        ├── SmoothScroll.tsx  # Global Lenis instance
+        ├── TransitionLink.tsx# Internal link → triggers curtain
+        ├── Parallax.tsx      # Scroll-driven parallax wrapper
+        ├── MouseSpotlight.tsx# Cursor spotlight effect
+        └── SearchOverlay.tsx # Search UI overlay
+```
+
+**Section order on the landing page:**
+
+```
+Navbar → Hero → Services → TechStack → Portfolio →
+Testimonials → Stats → Process → FAQ → Contact → Footer
+```
+
+---
+
+## Design System
+
+### Colors
+
+| Token | Hex | Role |
+|-------|-----|------|
+| `bg-background` | `#242424` | Page background |
+| `bg-surface` | `#2E2E2E` | Card surfaces |
+| `bg-brand-accent` | `#006F4A` | Emerald brand accent |
+| `text-text-primary` | `#FFFFFF` | Primary text |
+| `text-text-secondary` | `#A1A1AA` | Muted / supporting text |
+
+Defined in the `@theme inline` block in `src/app/globals.css` — no `tailwind.config.js` needed.
+
+### Typography
+
+| Role | Font | Tailwind class |
+|------|------|---------------|
+| Body | Bricolage Grotesque | `font-sans` |
+| Headings / Display | Syne | `font-display` |
+| Decorative | Caveat | `font-hand` |
+
+Loaded via `next/font/google` in `layout.tsx`, exposed as CSS variables.
+
+---
+
+## Animation Patterns
+
+```tsx
+// Scroll reveal (all sections)
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true }}
+
+// Curtain headline reveal (Hero)
+// Parent: overflow-hidden | Child: y "105%" → 0, staggered per word
+<div className="overflow-hidden">
+  <motion.span initial={{ y: "105%" }} animate={{ y: 0 }} />
+</div>
+
+// Awwwards card hover lift (Portfolio)
+whileHover={{ y: -4 }}
+
+// Left accent bar — CSS only, compositor thread
+"origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-[350ms]"
+
+// Seamless marquee (TechStack)
+animate={{ x: ["0%", "-50%"] }}  // array duplicated in data
+
+// Mouse-tracking gradient (Services MagicCard)
+useMotionValue + useMotionTemplate → background radial-gradient
+```
+
+---
+
+## Routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Main landing page |
+| `/aether` | Aether mobile app — standalone indigo/purple design |
+| `/portfolio` | Full portfolio listing |
+| `/projects` | Project detail pages |
+| `/privacy/aether` | Privacy policy for Aether |
+
+> The `/aether` route has its own design system (indigo/purple). Do not import shared section components into it.
+
+---
+
+## Page Transitions
+
+`CurtainLoader` listens for a custom `route-transition-start` DOM event.
+`TransitionLink` dispatches that event before calling `router.push()`.
+Use `TransitionLink` instead of Next.js `<Link>` for internal navigations.
+
+---
+
+## Deployment
+
+Push to `main` — Vercel auto-deploys.
+
+```bash
+# Manual deploy via Vercel CLI
+vercel --prod
+```
+
+---
+
+## License
+
+[MIT](./LICENSE)
+
+---
+
+<div align="center">
+  <strong>WUSLA Team</strong> &nbsp;·&nbsp; <a href="mailto:wuslateam@gmail.com">wuslateam@gmail.com</a> &nbsp;·&nbsp; <a href="https://wusla.com">wusla.com</a>
+</div>

@@ -1,125 +1,263 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Colors */
-  --color-background: #0F0F0F;
-  --color-surface: #181818;
-  --color-brand-navy: #0F0F0F;
-  --color-brand-accent: #00875A;
-  --color-brand-white: #FFFFFF;
+  /* ── V4 design tokens ── */
+  --color-bg:           #0A0A0A;
+  --color-bg-subtle:    #111111;
+  --color-bg-border:    #1A1A1A;
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #888888;
+  --color-text-tertiary: #444444;
+  --color-accent:       #1A4D3C;
+  --color-accent-bright:#22C55E;
+  --color-border:       #222222;
 
-  /* Text Colors */
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A1A1AA;
-  --color-text-accent: #00875A;
+  /* ── Legacy compat (aether page) ── */
+  --color-background:   #0A0A0A;
+  --color-surface:      #111111;
+  --color-brand-accent: #1A4D3C;
+  --color-brand-white:  #FFFFFF;
+  --color-text-primary-compat: #F5F5F5;
+  --color-text-secondary-compat: #888888;
 
-  /* Typography — map next/font variables to tailwind utilities */
-  --font-sans: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-syne), sans-serif;
-  --font-hand: var(--font-caveat), cursive;
-
-  /* Spacing */
-  --container-width: 1280px;
-  --header-height: 90px;
+  /* ── Fonts ── */
+  --font-sans:    var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    ui-monospace, "Courier New", monospace;
 }
 
-/* Base Styles */
+/* ── Custom properties ── */
+:root {
+  --bg:            #0A0A0A;
+  --bg-subtle:     #111111;
+  --bg-border:     #1A1A1A;
+  --text-primary:  #F5F5F5;
+  --text-secondary:#888888;
+  --text-tertiary: #444444;
+  --accent:        #1A4D3C;
+  --accent-bright: #22C55E;
+  --border:        #222222;
+  --nav-height:    64px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   scroll-behavior: smooth;
-  background-color: var(--color-background);
+  background-color: var(--bg);
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
+  background-color: var(--bg);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-size: 16px;
+  line-height: 1.7;
 }
 
-/* Dot-grid texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  z-index: 0;
+/* ── Container ── */
+.w-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-/* Typography Utilities */
-.font-display {
-  font-family: var(--font-display);
-}
-
-.font-hand {
-  font-family: var(--font-hand);
-}
-
-/* Section label utility */
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: ui-monospace, monospace;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #A1A1AA;
-}
-
-.section-label::before,
-.section-label::after {
-  content: '';
-  height: 1px;
-  background: rgba(255, 255, 255, 0.12);
-  flex: 1;
-}
-
-.section-label::before {
-  width: 2rem;
-  flex: 0 0 2rem;
-}
-
-/* Container Utility */
+/* Legacy — keep for aether page */
 .container-custom {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-
 @media (min-width: 768px) {
-  .container-custom {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
+  .container-custom { padding-left: 3rem; padding-right: 3rem; }
 }
 
-/* Custom Utilities */
-.text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-  color: transparent;
+/* ── Section padding ── */
+.section-pad {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+@media (max-width: 768px) {
+  .section-pad { padding-top: 80px; padding-bottom: 80px; }
 }
 
-.text-stroke-accent {
-  -webkit-text-stroke: 1px var(--color-brand-accent);
-  color: transparent;
+/* ── Typography ── */
+.label-caps {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  line-height: 1.4;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
+.headline-hero {
+  font-size: clamp(48px, 8vw, 120px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.headline-section {
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+}
+
+.body-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── Row items (services, projects, process) ── */
+/* Hover: 2px emerald left border — one of the 3 allowed emerald uses */
+.row-item {
+  border-top: 1px solid var(--border);
+  border-left: 2px solid transparent;
+  padding: 36px 0 36px 20px;
+  margin-left: -22px;
+  transition: border-left-color 150ms ease;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.row-item:hover {
+  border-left-color: var(--accent);
+}
+.row-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Buttons ── */
+/* Primary: emerald bg — one of the 3 allowed emerald uses */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 150ms ease;
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn-accent:hover { filter: brightness(1.2); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 150ms ease;
+  padding: 0;
+  line-height: 1;
+}
+.btn-ghost:hover { color: var(--text-primary); }
+
+/* ── Form ── */
+.input-v4 {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 16px;
+  font-family: inherit;
+  padding: 14px 0;
+  outline: none;
+  transition: border-bottom-color 200ms ease;
+  line-height: 1.4;
+}
+.input-v4::placeholder { color: var(--text-tertiary); }
+.input-v4:focus { border-bottom-color: var(--text-tertiary); }
+
+.label-v4 {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+/* ── Availability dot — CSS pulse (one of 3 allowed emerald uses) ── */
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.5; }
+}
+.dot-pulse {
+  display: inline-block;
   width: 6px;
+  height: 6px;
+  background-color: var(--accent-bright);
+  animation: dot-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-background);
+/* ── Ticker marquee — pure CSS ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+.ticker-wrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-brand-accent);
-  border-radius: 3px;
+/* ── Page load fade ── */
+@keyframes page-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
+main {
+  animation: page-fade 300ms ease forwards;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+
+/* ── Legacy shim ── */
+.hero-orb { display: none !important; }
+.font-display { font-family: var(--font-sans); }
