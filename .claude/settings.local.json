@@ -14,7 +14,22 @@
       "Bash(npm install:*)",
       "WebFetch(domain:magicteal.com)",
       "Bash(npx next build:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git worktree:*)",
+      "Bash(cat:*)",
+      "Bash(echo None found:*)",
+      "Bash(echo base: main:*)",
+      "Bash(ls -la /Users/mohammedarsh/Documents/wusla/wusla-web/src/components/*.tsx)",
+      "Bash(lsof:*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "WebSearch",
+      "WebFetch(domain:www.paperstreet.com)",
+      "WebFetch(domain:detachless.com)",
+      "WebFetch(domain:thrivethemes.com)",
+      "WebFetch(domain:basement.studio)",
+      "WebFetch(domain:reallygooddesigns.com)"
     ],
     "deny": [],
     "ask": []

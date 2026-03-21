@@ -1,77 +1,71 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Caveat } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "../components/SmoothScroll";
-import CurtainLoader from "../components/CurtainLoader";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  display: "swap",
-});
-
-const oswald = Oswald({
-  subsets: ["latin"],
-  variable: "--font-oswald",
-  display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-caveat",
+  weight: ["400", "500", "700", "900"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "WUSLA | Create the Unexpected",
-  description: "WUSLA is a digital agency crafting high-performance mobile apps, web platforms, and desktop software. We convert complex ideas into elegant solutions.",
-  keywords: "WUSLA, Web Development, React Native, Next.js, Digital Agency, Kerala, App Development",
-  authors: [{ name: "WUSLA Team" }],
+  metadataBase: new URL("https://wusla.io"),
+  title: {
+    default: "WUSLA | Your Tech Team. Without the Hiring.",
+    template: "%s | WUSLA",
+  },
+  description:
+    "WUSLA is your dedicated tech team. We build web apps, mobile apps, and business systems — and stay involved long after delivery. No recruitment. No onboarding. No disappearing.",
+  keywords:
+    "WUSLA, dedicated tech team, software development, web apps, mobile apps, business systems, no hiring",
+  authors: [{ name: "WUSLA" }],
+  creator: "WUSLA",
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "WUSLA - Create the Unexpected",
-    description: "Premium digital agency.",
-    url: "https://wusla.com",
+    title: "WUSLA | Your Tech Team. Without the Hiring.",
+    description:
+      "Your dedicated tech team. We build, maintain and grow your product — with no recruitment, no onboarding, no disappearing.",
+    url: "https://wusla.io",
     siteName: "WUSLA",
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WUSLA | Your Tech Team. Without the Hiring.",
+    description:
+      "Your dedicated tech team. We build, maintain and grow your product.",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  // AEO: Organization Schema
+}: Readonly<{ children: React.ReactNode }>) {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "WUSLA",
-    "url": "https://wusla.com",
-    "logo": "https://wusla.com/logo.png",
-    "description": "Premium digital agency specializing in high-performance web and mobile applications.",
-    "sameAs": [
-      "https://twitter.com/wusla",
-      "https://github.com/wusla",
-      "https://linkedin.com/company/wusla"
-    ],
-    "contactPoint": {
+    name: "WUSLA",
+    url: "https://wusla.io",
+    description:
+      "Dedicated tech team — web apps, mobile apps, and business systems. No hiring needed.",
+    contactPoint: {
       "@type": "ContactPoint",
-      "email": "hello@wusla.com",
-      "contactType": "customer service"
-    }
+      email: "wuslateam@gmail.com",
+      contactType: "customer service",
+    },
+    sameAs: ["https://github.com/wusla-org"],
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} ${caveat.variable}`}>
+    <html lang="en" className={inter.variable}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="antialiased font-sans bg-background text-text-primary selection:bg-brand-accent selection:text-brand-white">
-        <CurtainLoader />
-        <SmoothScroll />
+      <body className="antialiased">
         {children}
       </body>
     </html>

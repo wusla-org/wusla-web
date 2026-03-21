@@ -1,42 +1,54 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Services from "../components/Services";
-import Portfolio from "../components/Portfolio";
-import Contact from "../components/Contact";
-import Footer from "../components/Footer";
-import MouseSpotlight from "../components/MouseSpotlight";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import ProblemSection from "@/components/ProblemSection";
+import ServicesSection from "@/components/ServicesSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import ProcessSection from "@/components/ProcessSection";
+import WhySection from "@/components/WhySection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
-  // AEO: Structured Data definitions
-  const jsonLd = {
+  const faqSchema = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "WUSLA",
-    "url": "https://wusla.com",
-    "description": "Premium digital agency for web and mobile development.",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://wusla.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What does WUSLA do?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "WUSLA acts as your dedicated tech team — building web apps, mobile apps, and business systems, then staying involved long-term.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How is WUSLA different from hiring developers?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No recruitment, no onboarding, no context loss. WUSLA plugs in from day one and stays as long as you need.",
+        },
+      },
+    ],
   };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-
-      <main className="min-h-screen bg-background text-text-primary selection:bg-brand-accent selection:text-white">
-        <MouseSpotlight />
-        <Navbar />
-        <Hero />
-        <Services />
-        <Portfolio />
-        <Contact />
-        <Footer />
+      <Navbar />
+      <main>
+        <HeroSection />
+        <ProblemSection />
+        <ServicesSection />
+        <ProjectsSection />
+        <ProcessSection />
+        <WhySection />
+        <ContactSection />
       </main>
+      <Footer />
     </>
   );
 }

@@ -2,136 +2,179 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search, Sparkles } from "lucide-react";
-import SearchOverlay from "./SearchOverlay";
-
-const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Work", href: "#work" },
-    { name: "Process", href: "#process" },
-    { name: "About", href: "#about" },
-];
 
 export default function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    return (
-        <>
-            <motion.nav
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md py-4 border-b border-white/5" : "bg-transparent py-6"
-                    }`}
+  return (
+    <>
+      <nav
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "var(--nav-height)",
+          zIndex: 100,
+          backgroundColor: "var(--bg)",
+          borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+          transition: "border-color 200ms ease",
+        }}
+      >
+        <div
+          className="w-container"
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Wordmark */}
+          <Link
+            href="/"
+            style={{
+              fontWeight: 700,
+              fontSize: "18px",
+              color: "var(--accent)",
+              textDecoration: "none",
+              letterSpacing: "-0.03em",
+              transition: "color 150ms ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-bright)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--accent)")}
+          >
+            WUSLA
+          </Link>
+
+          {/* Desktop nav */}
+          <div
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: "32px" }}
+          >
+            {[
+              { label: "Services", href: "/services" },
+              { label: "Projects", href: "/projects" },
+              { label: "About", href: "/about" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  fontSize: "14px",
+                  color: "var(--text-secondary)",
+                  textDecoration: "none",
+                  transition: "color 150ms ease",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = "var(--text-primary)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "var(--text-secondary)")
+                }
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link href="/#contact" className="btn-accent">
+              Let&apos;s Talk
+            </Link>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="flex md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "4px",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+            aria-label="Toggle menu"
+          >
+            <span
+              style={{
+                display: "block",
+                width: "22px",
+                height: "1px",
+                backgroundColor: "var(--text-primary)",
+                transition: "transform 150ms ease, opacity 150ms ease",
+                transform: menuOpen ? "rotate(45deg) translate(4px, 4px)" : "none",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "22px",
+                height: "1px",
+                backgroundColor: "var(--text-primary)",
+                opacity: menuOpen ? 0 : 1,
+                transition: "opacity 150ms ease",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "22px",
+                height: "1px",
+                backgroundColor: "var(--text-primary)",
+                transition: "transform 150ms ease, opacity 150ms ease",
+                transform: menuOpen ? "rotate(-45deg) translate(4px, -4px)" : "none",
+              }}
+            />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile overlay */}
+      {menuOpen && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99,
+            backgroundColor: "var(--bg)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "0 24px",
+          }}
+        >
+          {[
+            { label: "Services", href: "/services" },
+            { label: "Projects", href: "/projects" },
+            { label: "About", href: "/about" },
+            { label: "Let's Talk", href: "/#contact" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontSize: "clamp(32px, 8vw, 56px)",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+                textDecoration: "none",
+                lineHeight: 1.2,
+                marginBottom: "16px",
+                letterSpacing: "-0.02em",
+              }}
             >
-                <div className="container-custom flex items-center justify-between">
-
-                    {/* LEFT: Menu Trigger (Fooror Style) */}
-                    <button
-                        onClick={() => setIsMobileMenuOpen(true)}
-                        className="flex items-center gap-3 group"
-                    >
-                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
-                            <Menu className="w-5 h-5 text-white group-hover:text-brand-navy transition-colors" />
-                        </div>
-                        <span className="hidden md:block text-sm font-medium tracking-wider uppercase opacity-80 group-hover:opacity-100 transition-opacity">Menu</span>
-                    </button>
-
-                    {/* CENTER: Logo */}
-                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 group">
-                        <span className="font-display text-3xl font-bold tracking-tighter text-white group-hover:text-brand-accent transition-colors duration-300">
-                            WUSLA
-                        </span>
-                    </Link>
-
-                    {/* RIGHT: Search & CTA */}
-                    <div className="flex items-center gap-4 md:gap-6">
-                        <button
-                            onClick={() => setIsSearchOpen(true)}
-                            className="text-white/80 hover:text-brand-accent transition-colors"
-                        >
-                            <Search className="w-6 h-6" />
-                        </button>
-
-                        <Link
-                            href="#contact"
-                            className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-brand-yellow text-brand-navy font-bold text-sm tracking-wide rounded-full hover:bg-white transition-all transform hover:scale-105"
-                        >
-                            <span>Let's Talk</span>
-                            <Sparkles className="w-4 h-4" />
-                        </Link>
-                    </div>
-                </div>
-            </motion.nav>
-
-            {/* Search Overlay */}
-            <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-
-            {/* Full Screen Menu Overlay */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-50 bg-brand-navy/95 backdrop-blur-xl text-white flex flex-col"
-                    >
-                        <div className="container-custom py-8 flex justify-between items-center">
-                            <span className="font-display text-2xl font-bold">WUSLA</span>
-                            <button
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-12 h-12 rounded-full border border-brand-navy/20 flex items-center justify-center hover:bg-brand-navy hover:text-brand-accent transition-all"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-
-                        <div className="flex-1 container-custom flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-6">
-                            {navLinks.map((link, i) => (
-                                <motion.div
-                                    key={link.name}
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-                                >
-                                    <Link
-                                        href={link.href}
-                                        className="font-display text-6xl md:text-8xl font-bold tracking-tighter hover:text-white transition-colors relative group block"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        <span className="absolute -left-12 top-1/2 -translate-y-1/2 text-2xl font-hand opacity-0 group-hover:opacity-100 transition-opacity">
-                                            0{i + 1}
-                                        </span>
-                                        {link.name}
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        <div className="container-custom py-10 border-t border-brand-navy/10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-60 text-sm font-medium">
-                            <p>© 2026 WUSLA. All Rights Reserved.</p>
-                            <div className="flex gap-6">
-                                <a href="#" className="hover:underline">Instagram</a>
-                                <a href="#" className="hover:underline">LinkedIn</a>
-                                <a href="#" className="hover:underline">Twitter</a>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
-    );
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </>
+  );
 }
-
