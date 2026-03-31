@@ -1,88 +1,251 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function Contact() {
-    return (
-        <section id="contact" className="py-32 bg-background relative overflow-hidden">
-            {/* Decorative Background */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+  return (
+    <section
+      id="contact"
+      className="py-24 md:py-32"
+      style={{ backgroundColor: "var(--color-bg)" }}
+    >
+      <div className="container-custom">
 
-            <div className="container-custom relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-5xl mx-auto"
+        {/* Header */}
+        <div className="mb-16">
+          <div className="section-label">04 / Contact</div>
+          <h2
+            className="font-display font-bold tracking-tight leading-[1.05]"
+            style={{ fontSize: "clamp(2.4rem,6vw,5rem)", color: "var(--color-text)" }}
+          >
+            Let&apos;s build<br />
+            <span style={{ color: "var(--color-emerald)" }}>something.</span>
+          </h2>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
+
+          {/* Left — info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p
+              className="text-lg leading-relaxed mb-10"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              Tell us about your idea. We&apos;ll reply within 24 hours with a clear plan — no
+              sales pitch, no obligation.
+            </p>
+
+            <div className="flex flex-col gap-6">
+              <div>
+                <p className="text-xs font-mono font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--color-text-muted)" }}>
+                  Email
+                </p>
+                <a
+                  href="mailto:hello@wusla.com"
+                  className="font-display font-bold text-xl transition-colors duration-150"
+                  style={{ color: "var(--color-emerald)" }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLElement).style.opacity = "0.8")
+                  }
+                  onMouseLeave={(e) =>
+                    ((e.currentTarget as HTMLElement).style.opacity = "1")
+                  }
                 >
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl md:text-7xl font-display font-bold mb-6 text-white uppercase tracking-tighter">
-                            Let&apos;s <span className="text-brand-accent">Build</span>
-                        </h2>
-                        <p className="text-secondary text-xl max-w-2xl mx-auto">
-                            Ready to dominate your market? Tell us about your project.
-                        </p>
-                    </div>
+                  hello@wusla.com
+                </a>
+              </div>
 
-                    <form className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                        <div className="space-y-2 group">
-                            <label htmlFor="name" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 font-medium"
-                                placeholder="YOUR NAME"
-                            />
-                        </div>
-                        <div className="space-y-2 group">
-                            <label htmlFor="email" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 font-medium"
-                                placeholder="YOUR@EMAIL.COM"
-                            />
-                        </div>
-                        <div className="md:col-span-2 space-y-2 group">
-                            <label htmlFor="service" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Interest</label>
-                            <select
-                                id="service"
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl appearance-none cursor-pointer"
-                            >
-                                <option className="bg-brand-navy text-white">Mobile Ecosystems</option>
-                                <option className="bg-brand-navy text-white">Web Platform</option>
-                                <option className="bg-brand-navy text-white">Desktop Application</option>
-                                <option className="bg-brand-navy text-white">UI/UX Design</option>
-                            </select>
-                        </div>
-                        <div className="md:col-span-2 space-y-2 mb-8 group">
-                            <label htmlFor="message" className="text-xs font-bold text-brand-accent uppercase tracking-widest">Project Details</label>
-                            <textarea
-                                id="message"
-                                rows={2}
-                                className="w-full py-4 bg-transparent border-b border-white/20 focus:border-brand-accent focus:outline-none transition-colors text-white text-xl placeholder:text-white/10 resize-none font-medium"
-                                placeholder="TELL US ABOUT THE FUTURE..."
-                            ></textarea>
-                        </div>
+              <div>
+                <p className="text-xs font-mono font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--color-text-muted)" }}>
+                  Location
+                </p>
+                <p className="font-medium" style={{ color: "var(--color-text)" }}>
+                  Kerala, India
+                </p>
+              </div>
 
-                        <div className="md:col-span-2 pt-8 flex justify-center">
-                            <button
-                                type="submit"
-                                className="group relative px-10 py-5 bg-white text-brand-navy font-bold text-lg rounded-full overflow-hidden hover:scale-105 transition-all duration-300 w-full md:w-auto"
-                            >
-                                <span className="relative z-10 flex items-center justify-center gap-3">
-                                    INITIATE PROJECT
-                                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                                </span>
-                                <div className="absolute inset-0 bg-brand-accent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></div>
-                            </button>
-                        </div>
-                    </form>
-                </motion.div>
+              <div>
+                <p className="text-xs font-mono font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--color-text-muted)" }}>
+                  Response time
+                </p>
+                <p className="font-medium" style={{ color: "var(--color-text)" }}>
+                  Within 24 hours — usually faster
+                </p>
+              </div>
             </div>
-        </section>
-    );
-}
+          </motion.div>
 
+          {/* Right — form */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="rounded-[14px] p-8 md:p-10"
+            style={{
+              border: "1px solid var(--color-border)",
+              backgroundColor: "var(--color-bg-card)",
+            }}
+          >
+            <form className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="name"
+                    className="text-xs font-mono font-semibold uppercase tracking-widest"
+                    style={{ color: "var(--color-text-muted)" }}
+                  >
+                    Your Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Jane Smith"
+                    className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-150"
+                    style={{
+                      backgroundColor: "var(--color-bg-elevated)",
+                      border: "1px solid var(--color-border)",
+                      color: "var(--color-text)",
+                    }}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 3px rgba(0,208,132,0.12)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="email"
+                    className="text-xs font-mono font-semibold uppercase tracking-widest"
+                    style={{ color: "var(--color-text-muted)" }}
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="jane@startup.com"
+                    className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-150"
+                    style={{
+                      backgroundColor: "var(--color-bg-elevated)",
+                      border: "1px solid var(--color-border)",
+                      color: "var(--color-text)",
+                    }}
+                    onFocus={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 3px rgba(0,208,132,0.12)";
+                    }}
+                    onBlur={(e) => {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+                      (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="service"
+                  className="text-xs font-mono font-semibold uppercase tracking-widest"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  What do you need?
+                </label>
+                <select
+                  id="service"
+                  className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-150 appearance-none cursor-pointer"
+                  style={{
+                    backgroundColor: "var(--color-bg-elevated)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text)",
+                  }}
+                  onFocus={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 3px rgba(0,208,132,0.12)";
+                  }}
+                  onBlur={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }}
+                >
+                  <option value="" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Select a service</option>
+                  <option value="mobile" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Mobile App</option>
+                  <option value="web" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Web Platform</option>
+                  <option value="desktop" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Desktop App</option>
+                  <option value="design" style={{ backgroundColor: "var(--color-bg-elevated)" }}>UI / UX Design</option>
+                  <option value="team" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Dedicated Team</option>
+                  <option value="mvp" style={{ backgroundColor: "var(--color-bg-elevated)" }}>Fast MVP</option>
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="message"
+                  className="text-xs font-mono font-semibold uppercase tracking-widest"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  Tell us about your project
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  placeholder="What are you building? What's the timeline? Any context helps..."
+                  className="w-full rounded-lg px-4 py-3 text-sm outline-none transition-all duration-150 resize-none"
+                  style={{
+                    backgroundColor: "var(--color-bg-elevated)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text)",
+                  }}
+                  onFocus={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 3px rgba(0,208,132,0.12)";
+                  }}
+                  onBlur={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="group w-full inline-flex items-center justify-center gap-2 font-semibold text-base px-6 py-4 rounded-lg transition-all duration-200"
+                style={{ backgroundColor: "var(--color-emerald)", color: "#000" }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.backgroundColor = "var(--color-emerald-dark)";
+                  el.style.boxShadow = "0 0 32px rgba(0,208,132,0.35)";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.backgroundColor = "var(--color-emerald)";
+                  el.style.boxShadow = "none";
+                }}
+              >
+                Send Message
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+
+              <p
+                className="text-xs text-center"
+                style={{ color: "var(--color-text-muted)", opacity: 0.7 }}
+              >
+                We reply within 24 hours — usually much faster.
+              </p>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

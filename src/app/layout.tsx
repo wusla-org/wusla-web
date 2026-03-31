@@ -1,35 +1,30 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, Caveat } from "next/font/google";
+import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "../components/SmoothScroll";
-import CurtainLoader from "../components/CurtainLoader";
 
-const inter = Inter({
+const syne = Syne({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-syne",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const oswald = Oswald({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-oswald",
+  variable: "--font-dm-sans",
   display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  variable: "--font-caveat",
-  display: "swap",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "WUSLA | Create the Unexpected",
-  description: "WUSLA is a digital agency crafting high-performance mobile apps, web platforms, and desktop software. We convert complex ideas into elegant solutions.",
-  keywords: "WUSLA, Web Development, React Native, Next.js, Digital Agency, Kerala, App Development",
-  authors: [{ name: "WUSLA Team" }],
+  title: "WUSLA — Your Dedicated Software Team",
+  description:
+    "WUSLA acts as your dedicated software team on contract. Mobile apps, web platforms, desktop software, and UI/UX design for startups and growing businesses.",
+  keywords: "software team, mobile app development, web development, startup, WUSLA, Kerala",
+  authors: [{ name: "WUSLA" }],
   openGraph: {
-    title: "WUSLA - Create the Unexpected",
-    description: "Premium digital agency.",
+    title: "WUSLA — Your Dedicated Software Team",
+    description: "Mobile apps, web platforms & more — on contract, on your terms.",
     url: "https://wusla.com",
     siteName: "WUSLA",
     type: "website",
@@ -38,40 +33,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  // AEO: Organization Schema
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "WUSLA",
-    "url": "https://wusla.com",
-    "logo": "https://wusla.com/logo.png",
-    "description": "Premium digital agency specializing in high-performance web and mobile applications.",
-    "sameAs": [
-      "https://twitter.com/wusla",
-      "https://github.com/wusla",
-      "https://linkedin.com/company/wusla"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "hello@wusla.com",
-      "contactType": "customer service"
-    }
-  };
-
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} ${caveat.variable}`}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-      </head>
-      <body className="antialiased font-sans bg-background text-text-primary selection:bg-brand-accent selection:text-brand-white">
-        <CurtainLoader />
-        <SmoothScroll />
+    <html lang="en" className={`${syne.variable} ${dmSans.variable}`}>
+      <body className="antialiased" style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}>
         {children}
       </body>
     </html>

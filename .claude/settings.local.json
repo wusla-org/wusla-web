@@ -14,7 +14,12 @@
       "Bash(npm install:*)",
       "WebFetch(domain:magicteal.com)",
       "Bash(npx next build:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npx next:*)",
+      "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/public/assets/wusla_square.png)",
+      "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/src/app/icon.png)",
+      "Bash(grep -l \"SearchOverlay\\\\|CurtainLoader\\\\|SmoothScroll\\\\|Parallax\\\\|TransitionLink\\\\|MouseSpotlight\\\\|Portfolio\\\\|FeaturedProject\" /Users/mohammedarsh/Documents/wusla/wusla-web/src/components/*.tsx)",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []

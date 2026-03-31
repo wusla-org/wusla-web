@@ -3,135 +3,174 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Search, Sparkles } from "lucide-react";
-import SearchOverlay from "./SearchOverlay";
+import { Menu, X } from "lucide-react";
 
-const navLinks = [
-    { name: "Services", href: "#services" },
-    { name: "Work", href: "#work" },
-    { name: "Process", href: "#process" },
-    { name: "About", href: "#about" },
+const links = [
+  { label: "Services", href: "#services" },
+  { label: "Our Work", href: "#work" },
+  { label: "Why Us",   href: "#why-us" },
+  { label: "Contact",  href: "#contact" },
 ];
 
 export default function Navbar() {
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen]         = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
 
-    return (
-        <>
-            <motion.nav
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md py-4 border-b border-white/5" : "bg-transparent py-6"
-                    }`}
+  return (
+    <>
+      <header
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: scrolled ? "rgba(7,12,16,0.85)" : "transparent",
+          backdropFilter:   scrolled ? "blur(16px)" : "none",
+          borderBottom:     scrolled ? "1px solid var(--color-border)" : "none",
+          padding:          scrolled ? "14px 0" : "20px 0",
+        }}
+      >
+        <div className="container-custom flex items-center justify-between">
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <span className="font-display text-xl font-bold tracking-tight" style={{ color: "var(--color-text)" }}>
+              wusla
+            </span>
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: "var(--color-emerald)",
+                boxShadow: "0 0 8px var(--color-emerald)",
+                animation: "pulse 2s infinite",
+              }}
+            />
+          </Link>
+
+          {/* Desktop links */}
+          <nav className="hidden md:flex items-center gap-8">
+            {links.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="text-sm font-medium transition-colors duration-150"
+                style={{ color: "var(--color-text-muted)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA + mobile */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="#contact"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200"
+              style={{
+                backgroundColor: "var(--color-emerald)",
+                color: "#000",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--color-emerald-dark)";
+                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(0,208,132,0.35)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--color-emerald)";
+                (e.currentTarget as HTMLElement).style.boxShadow = "none";
+              }}
             >
-                <div className="container-custom flex items-center justify-between">
+              Start a Project
+            </Link>
 
-                    {/* LEFT: Menu Trigger (Fooror Style) */}
-                    <button
-                        onClick={() => setIsMobileMenuOpen(true)}
-                        className="flex items-center gap-3 group"
-                    >
-                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
-                            <Menu className="w-5 h-5 text-white group-hover:text-brand-navy transition-colors" />
-                        </div>
-                        <span className="hidden md:block text-sm font-medium tracking-wider uppercase opacity-80 group-hover:opacity-100 transition-opacity">Menu</span>
-                    </button>
+            <button
+              className="md:hidden p-2 rounded-lg transition-colors"
+              style={{ color: "var(--color-text-muted)" }}
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </header>
 
-                    {/* CENTER: Logo */}
-                    <Link href="/" className="absolute left-1/2 -translate-x-1/2 group">
-                        <span className="font-display text-3xl font-bold tracking-tighter text-white group-hover:text-brand-accent transition-colors duration-300">
-                            WUSLA
-                        </span>
-                    </Link>
+      {/* Mobile overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex flex-col"
+            style={{ backgroundColor: "var(--color-bg)" }}
+          >
+            <div
+              className="container-custom flex items-center justify-between py-5"
+              style={{ borderBottom: "1px solid var(--color-border)" }}
+            >
+              <span className="font-display text-xl font-bold" style={{ color: "var(--color-text)" }}>
+                wusla<span style={{ color: "var(--color-emerald)" }}>.</span>
+              </span>
+              <button
+                onClick={() => setOpen(false)}
+                className="p-2 rounded-lg"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-                    {/* RIGHT: Search & CTA */}
-                    <div className="flex items-center gap-4 md:gap-6">
-                        <button
-                            onClick={() => setIsSearchOpen(true)}
-                            className="text-white/80 hover:text-brand-accent transition-colors"
-                        >
-                            <Search className="w-6 h-6" />
-                        </button>
+            <nav className="flex-1 container-custom flex flex-col justify-center gap-1">
+              {links.map((l, i) => (
+                <motion.div
+                  key={l.label}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07 }}
+                >
+                  <Link
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between py-5 font-display text-3xl font-bold transition-colors"
+                    style={{
+                      color: "var(--color-text)",
+                      borderBottom: "1px solid var(--color-border)",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-emerald)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+                  >
+                    <span>{l.label}</span>
+                    <span style={{ color: "var(--color-emerald)", fontSize: "1.5rem" }}>↗</span>
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
 
-                        <Link
-                            href="#contact"
-                            className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-brand-yellow text-brand-navy font-bold text-sm tracking-wide rounded-full hover:bg-white transition-all transform hover:scale-105"
-                        >
-                            <span>Let's Talk</span>
-                            <Sparkles className="w-4 h-4" />
-                        </Link>
-                    </div>
-                </div>
-            </motion.nav>
+            <div className="container-custom py-6">
+              <Link
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="block w-full text-center font-semibold py-4 rounded-lg transition-all"
+                style={{ backgroundColor: "var(--color-emerald)", color: "#000" }}
+              >
+                Start a Project
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            {/* Search Overlay */}
-            <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-
-            {/* Full Screen Menu Overlay */}
-            <AnimatePresence>
-                {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="fixed inset-0 z-50 bg-brand-navy/95 backdrop-blur-xl text-white flex flex-col"
-                    >
-                        <div className="container-custom py-8 flex justify-between items-center">
-                            <span className="font-display text-2xl font-bold">WUSLA</span>
-                            <button
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="w-12 h-12 rounded-full border border-brand-navy/20 flex items-center justify-center hover:bg-brand-navy hover:text-brand-accent transition-all"
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
-
-                        <div className="flex-1 container-custom flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-6">
-                            {navLinks.map((link, i) => (
-                                <motion.div
-                                    key={link.name}
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
-                                >
-                                    <Link
-                                        href={link.href}
-                                        className="font-display text-6xl md:text-8xl font-bold tracking-tighter hover:text-white transition-colors relative group block"
-                                        onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                        <span className="absolute -left-12 top-1/2 -translate-y-1/2 text-2xl font-hand opacity-0 group-hover:opacity-100 transition-opacity">
-                                            0{i + 1}
-                                        </span>
-                                        {link.name}
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        <div className="container-custom py-10 border-t border-brand-navy/10 flex flex-col md:flex-row justify-between items-center gap-4 opacity-60 text-sm font-medium">
-                            <p>© 2026 WUSLA. All Rights Reserved.</p>
-                            <div className="flex gap-6">
-                                <a href="#" className="hover:underline">Instagram</a>
-                                <a href="#" className="hover:underline">LinkedIn</a>
-                                <a href="#" className="hover:underline">Twitter</a>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
-    );
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.4; }
+        }
+      `}</style>
+    </>
+  );
 }
-

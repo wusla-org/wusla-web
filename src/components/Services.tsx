@@ -1,108 +1,193 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { Smartphone, Globe, Layout, Database, ChevronRight, Activity } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const services = [
-    {
-        icon: <Smartphone className="w-8 h-8 text-brand-accent" />,
-        title: "Mobile Ecosystems",
-        description: "Native-performance apps for iOS and Android. Gesture-driven interfaces that feel alive.",
-        colSpan: "md:col-span-2"
-    },
-    {
-        icon: <Layout className="w-8 h-8 text-white" />,
-        title: "UI/UX Design",
-        description: "Radical minimalism meets functional beauty. Designs that convert.",
-        colSpan: "md:col-span-1"
-    },
-    {
-        icon: <Globe className="w-8 h-8 text-white" />,
-        title: "Web Platforms",
-        description: "Next.js applications optimized for speed, SEO, and AI interaction.",
-        colSpan: "md:col-span-1"
-    },
-    {
-        icon: <Database className="w-8 h-8 text-brand-accent" />,
-        title: "Full-Stack Solutions",
-        description: "End-to-end development from database design to frontend implementation. Secure and scalable.",
-        colSpan: "md:col-span-2"
-    }
+  {
+    id: "01",
+    title: "Mobile Apps",
+    short: "iOS & Android",
+    description:
+      "Cross-platform and native mobile applications that users actually love. From MVP to full product, built for performance and retention.",
+    tags: ["React Native", "Swift", "Kotlin", "Expo"],
+  },
+  {
+    id: "02",
+    title: "Web Platforms",
+    short: "SaaS & Portals",
+    description:
+      "Full-stack web applications — SaaS dashboards, client portals, marketing sites. Built on modern stacks, optimised for scale.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Vercel"],
+  },
+  {
+    id: "03",
+    title: "Desktop Software",
+    short: "Cross-platform Apps",
+    description:
+      "Custom desktop tooling for Windows, macOS, and Linux. Internal platforms, data tools, and workflow software your team will actually use.",
+    tags: ["Electron", "Tauri", "Rust", "Node.js"],
+  },
+  {
+    id: "04",
+    title: "UI / UX Design",
+    short: "Product Design",
+    description:
+      "Design that converts. From wireframe to polished product — user research, prototyping, and production-ready design systems.",
+    tags: ["Figma", "Prototyping", "Design Systems", "Motion"],
+  },
+  {
+    id: "05",
+    title: "Dedicated Team",
+    short: "Monthly Contract",
+    description:
+      "Your full software team embedded into your workflow, on a monthly contract. Slack, GitHub, standups — however you work.",
+    tags: ["Contract", "Long-term", "Embedded", "Agile"],
+  },
+  {
+    id: "06",
+    title: "Fast MVPs",
+    short: "2–4 Week Delivery",
+    description:
+      "Validate your idea with real users before burning runway. We scope, design, and ship a production-ready MVP in weeks.",
+    tags: ["MVP", "Rapid Build", "Validation", "Launch"],
+  },
 ];
 
-function MagicCard({ service, index }: { service: { icon: React.ReactNode; title: string; description: string; colSpan: string }, index: number }) {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - left);
-        mouseY.set(clientY - top);
-    }
-
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className={`${service.colSpan} group relative rounded-none bg-white/5 border border-white/10 overflow-hidden hover:border-brand-accent/50 transition-colors duration-500`}
-            onMouseMove={handleMouseMove}
-        >
-            <motion.div
-                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
-                style={{
-                    background: useMotionTemplate`
-            radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(0, 111, 74, 0.1),
-              transparent 80%
-            )
-          `,
-                }}
-            />
-            <div className="relative h-full p-10 flex flex-col justify-between z-10">
-                <div>
-                    <div className="mb-6 p-3 bg-white/5 rounded-full w-fit group-hover:scale-110 transition-transform duration-300 border border-white/5 group-hover:border-brand-accent/30">
-                        {service.icon}
-                    </div>
-                    <h3 className="text-3xl font-display font-bold text-white mb-4 uppercase tracking-tight">{service.title}</h3>
-                    <p className="text-secondary leading-relaxed mb-6 group-hover:text-white/80 transition-colors">
-                        {service.description}
-                    </p>
-                </div>
-
-                <div className="flex items-center text-sm font-bold text-brand-accent opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 uppercase tracking-widest">
-                    Learn More <ChevronRight className="w-4 h-4 ml-1" />
-                </div>
-            </div>
-        </motion.div>
-    );
-}
-
 export default function Services() {
-    return (
-        <section id="services" className="py-20 md:py-32 bg-surface rounded-[40px] md:rounded-[60px] mx-2 md:mx-4 my-4 overflow-hidden relative">
-            <div className="container-custom relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                    <div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 uppercase tracking-tighter">
-                            Our <span className="text-stroke-accent">Expertise</span>
-                        </h2>
-                        <p className="text-secondary text-lg max-w-xl">
-                            We don&apos;t just write code. We engineer digital ecosystems designed to dominate your market.
-                        </p>
-                    </div>
-                    <Activity className="w-12 h-12 text-brand-accent animate-pulse hidden md:block" />
-                </div>
+  const [active, setActive] = useState(0);
+  const current = services[active];
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {services.map((service, index) => (
-                        <MagicCard key={index} service={service} index={index} />
-                    ))}
+  return (
+    <section id="services" className="py-24 md:py-32" style={{ backgroundColor: "var(--color-bg-elevated)" }}>
+      <div className="container-custom">
+
+        {/* Header */}
+        <div className="mb-16">
+          <div className="section-label">01 / What We Build</div>
+          <h2
+            className="font-display font-bold tracking-tight leading-[1.1]"
+            style={{ fontSize: "clamp(2.2rem,5vw,4rem)", color: "var(--color-text)" }}
+          >
+            Everything your product needs —<br />
+            <span style={{ color: "var(--color-emerald)" }}>under one roof.</span>
+          </h2>
+        </div>
+
+        {/* Tabbed layout */}
+        <div className="grid lg:grid-cols-[340px_1fr] gap-8">
+
+          {/* Left — service list */}
+          <div
+            className="rounded-[14px] overflow-hidden"
+            style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-bg-card)" }}
+          >
+            {services.map((s, i) => (
+              <button
+                key={s.id}
+                onClick={() => setActive(i)}
+                className="w-full flex items-center justify-between px-5 py-4 text-left transition-all duration-150 group"
+                style={{
+                  borderBottom: i < services.length - 1 ? "1px solid var(--color-border)" : "none",
+                  backgroundColor: active === i ? "var(--color-bg-elevated)" : "transparent",
+                  borderLeft: active === i ? "2px solid var(--color-emerald)" : "2px solid transparent",
+                }}
+              >
+                <div className="flex items-center gap-4">
+                  <span
+                    className="text-xs font-mono font-semibold"
+                    style={{ color: active === i ? "var(--color-emerald)" : "var(--color-text-muted)" }}
+                  >
+                    {s.id}
+                  </span>
+                  <div>
+                    <p
+                      className="text-sm font-semibold"
+                      style={{ color: active === i ? "var(--color-text)" : "var(--color-text-muted)" }}
+                    >
+                      {s.title}
+                    </p>
+                    <p className="text-xs mt-0.5" style={{ color: "var(--color-text-muted)", opacity: 0.7 }}>
+                      {s.short}
+                    </p>
+                  </div>
                 </div>
-            </div>
-        </section>
-    );
+                {active === i && (
+                  <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "var(--color-emerald)" }} />
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Right — detail panel */}
+          <div
+            className="rounded-[14px] p-10 flex flex-col justify-between"
+            style={{
+              border: "1px solid var(--color-border)",
+              backgroundColor: "var(--color-bg-card)",
+              minHeight: "420px",
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="flex-1"
+              >
+                <span
+                  className="text-xs font-mono font-bold uppercase tracking-widest mb-4 block"
+                  style={{ color: "var(--color-emerald)" }}
+                >
+                  {current.id} / {current.short}
+                </span>
+                <h3
+                  className="font-display font-bold mb-5 leading-tight"
+                  style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)", color: "var(--color-text)" }}
+                >
+                  {current.title}
+                </h3>
+                <p
+                  className="text-base leading-relaxed mb-8 max-w-xl"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  {current.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-10">
+                  {current.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                      style={{
+                        backgroundColor: "var(--color-emerald-dim)",
+                        color: "var(--color-emerald)",
+                        border: "1px solid rgba(0,208,132,0.2)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <Link
+              href="#contact"
+              className="inline-flex items-center gap-2 font-semibold text-sm transition-colors duration-150"
+              style={{ color: "var(--color-emerald)" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.gap = "12px")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.gap = "8px")}
+            >
+              Let&apos;s build this <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
-
