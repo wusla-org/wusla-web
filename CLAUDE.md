@@ -15,47 +15,58 @@ No test suite is configured.
 
 ## Architecture
 
-**Stack**: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, Lenis
+**Stack**: Next.js (App Router), React 19, TypeScript, Tailwind CSS 4, Framer Motion, Lucide React
 
 ### Pages & Routes
 
-- `/` — Main marketing homepage (`src/app/page.tsx`)
-- `/portfolio` — Full portfolio page, client-side filtered by category
-- `/projects` — Projects listing
-- `/aether` — Aether product page (with assets in `public/assets/aether/`)
-- `/privacy/aether` — Privacy policy for Aether
+- `/` — Main marketing homepage (`src/app/page.tsx`) — fully migrated to current design system
+- `/portfolio` — Portfolio listing page (`src/app/portfolio/page.tsx`) — **NOT migrated**: uses old design system CSS classes (`bg-white-pure`, `text-teal-accent`, `grid-asymmetric`, `container-fluid`, etc.) that are not defined in `globals.css`. Renders with broken styles.
+- `/projects` — Projects listing (`src/app/projects/page.tsx`)
 
-### Component Architecture
+### Homepage Component Assembly
 
-All section components live in `src/components/` and are assembled in `src/app/page.tsx`:
+`src/app/page.tsx` assembles these server components in order:
+`Navbar` → `Hero` → `Services` → `WhyUs` → `Work` → `Contact` → `Footer`
 
-- **`CurtainLoader`** — Full-screen page transition overlay (fires/listens for `route-transition-start` custom event, blocks scroll during load)
-- **`SmoothScroll`** — Mounts Lenis smooth scroll globally (render-null client component in root layout)
-- **`TransitionLink`** — Wrapper around Next.js `Link` that dispatches `route-transition-start` before navigation
-- **`MouseSpotlight`** — Cursor-following radial gradient effect
-- **`Parallax`** — Scroll-based parallax utility
+All live in `src/components/`. The `Work` component has its projects hardcoded inline (not from `portfolio.json`).
 
 ### Styling System
 
-Tailwind CSS 4 with custom tokens defined in `src/app/globals.css` via `@theme inline`:
+Tailwind CSS 4 with all custom design tokens defined in `src/app/globals.css` via `@theme inline`:
 
-- **Background**: `#242424` (charcoal) — dark-only design, no light mode
-- **Accent**: `#006F4A` (deep emerald) — `brand-accent` / `text-accent`
-- **Fonts**: `--font-sans` (Inter), `--font-display` (Oswald), `--font-hand` (Caveat)
-- Custom utility: `.container-custom` (max-width 1280px, responsive padding)
-- Custom utility: `.text-stroke`, `.text-stroke-accent` for outlined text
+**Color variables** (use as `var(--color-*)` in inline styles, not as Tailwind classes):
+- `--color-bg: #070C10` — page background
+- `--color-bg-elevated: #0D1520` — section backgrounds (e.g. Work section)
+- `--color-bg-card: #111D2B` — card/terminal backgrounds
+- `--color-border: #1A2A3A` / `--color-border-bright: #253D52`
+- `--color-emerald: #00D084` — primary brand accent
+- `--color-emerald-dark: #00A86B` — hover state for emerald
+- `--color-emerald-dim: rgba(0,208,132,0.10)` — subtle emerald tint
+- `--color-text: #E2EBF0` / `--color-text-muted: #4E6880`
 
-Font variables are loaded in `layout.tsx` via `next/font/google` and applied as CSS variables on `<html>`.
+**Font variables** (loaded in `layout.tsx` via `next/font/google`):
+- `--font-display: var(--font-syne)` — Syne, for headings (`font-display` utility class)
+- `--font-body: var(--font-dm-sans)` — DM Sans, for body text (`font-body` utility class)
+
+**Layout utilities** (defined in `globals.css`):
+- `.container-custom` — max-width 1200px, responsive padding
+- `.section-label` — small uppercase emerald label with trailing line, used for section numbers
+- `.glow-emerald` / `.glow-emerald-sm` — box-shadow glow utilities
+
+**Dot-grid texture**: Applied via `body::before` as a fixed full-screen pseudo-element. All page sections need `position: relative; z-index: 1` to render above it (already set for `header`, `footer`, `section`, `main`).
+
+### Interaction Pattern
+
+Hover states on interactive elements are applied via `onMouseEnter`/`onMouseLeave` inline handlers mutating `element.style.*` — Tailwind `hover:` classes are not used because Tailwind 4 doesn't have access to the CSS variable values at compile time.
 
 ### Data
 
-- **Portfolio projects**: `public/data/portfolio.json` — fetched client-side via `fetch('/data/portfolio.json')` in the portfolio page
-- **GitHub repos**: `src/utils/github.ts` — fetches from `github.com/users/wusla-org/repos` at runtime
+- **Portfolio data**: `public/data/portfolio.json` — `Project[]` and `categories` array, fetched client-side in `/portfolio`
+- **GitHub repos**: `src/utils/github.ts` → `fetchRepositories()` — hits GitHub API for `wusla-org`, returns top 6 by last-updated
 
 ### Key Conventions
 
-- Components that need browser APIs or interactivity use `"use client"` — server components are the default
-- Framer Motion `motion.*` components and `AnimatePresence` are used throughout for animations
-- Page-level animation pattern: `initial`/`animate` for mount, `whileInView` + `viewport={{ once: true }}` for scroll reveals
-- `src/app/layout.tsx` injects Organization JSON-LD schema; `src/app/page.tsx` injects WebSite schema
+- All components using browser APIs or state are `"use client"` — default to server components
+- Framer Motion pattern: `initial`/`animate` for mount animations; `whileInView` + `viewport={{ once: true }}` for scroll reveals
+- Typography sizing uses `clamp()` for fluid responsive text (e.g. `fontSize: "clamp(3rem, 7vw, 6rem)"`)
 - `next.config.ts` allows remote images from `images.unsplash.com` only

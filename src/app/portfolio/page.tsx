@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { motion, Variants } from 'framer-motion';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface Project {
   id: number;
@@ -34,394 +36,305 @@ interface PortfolioData {
   };
 }
 
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
+const categoryIcon: Record<string, string> = {
+  "Mobile Development": "📱",
+  "Cloud Solutions": "☁️",
+  "AI Integration": "🤖",
+};
+
 export default function Portfolio() {
   const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [selected, setSelected] = useState("All");
+  const [filtered, setFiltered] = useState<Project[]>([]);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    async function fetchPortfolio() {
-      try {
-        const response = await fetch('/data/portfolio.json');
-        const data: PortfolioData = await response.json();
+    fetch("/data/portfolio.json")
+      .then((r) => r.json())
+      .then((data: PortfolioData) => {
         setPortfolioData(data);
-        setFilteredProjects(data.projects);
-      } catch (error) {
-        console.error('Error fetching portfolio data:', error);
-      }
-    }
-
-    fetchPortfolio();
+        setFiltered(data.projects);
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
-    if (portfolioData) {
-      if (selectedCategory === 'All') {
-        setFilteredProjects(portfolioData.projects);
-      } else {
-        setFilteredProjects(
-          portfolioData.projects.filter(project => project.category === selectedCategory)
-        );
-      }
-    }
-  }, [selectedCategory, portfolioData]);
-
-  const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8 }
-    }
-  };
-
-  const staggerContainer: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  if (!portfolioData) {
-    return (
-      <div className="bg-white-pure min-h-screen flex items-center justify-center">
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="w-8 h-8 border-2 border-teal-accent border-t-transparent rounded-full mx-auto mb-4"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          />
-          <p className="text-gray-600">Loading work...</p>
-        </motion.div>
-      </div>
+    if (!portfolioData) return;
+    setFiltered(
+      selected === "All"
+        ? portfolioData.projects
+        : portfolioData.projects.filter((p) => p.category === selected)
     );
-  }
+  }, [selected, portfolioData]);
 
   return (
-    <div className="bg-white-pure min-h-screen">
-      {/* Navigation */}
-      <motion.nav
-        className="nav-minimal nav-scrolled"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+    <>
+      <Navbar />
+      <main
+        className="min-h-[100dvh]"
+        style={{ backgroundColor: "var(--color-bg)", color: "var(--color-text)" }}
       >
-        <div className="container-fluid flex items-center justify-between">
-          <Link href="/" className="text-gray-900 font-bold text-2xl tracking-wide">
-            WUSLA
-          </Link>
-          <div className="hidden lg:flex space-x-12">
-            <Link href="/#work" className="link-minimal link-underline">Work</Link>
-            <Link href="/portfolio" className="text-teal-accent font-medium">Portfolio</Link>
-            <Link href="/#about" className="link-minimal link-underline">About</Link>
-            <Link href="/#contact" className="link-minimal link-underline">Contact</Link>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Header */}
-      <section className="section-spacing-lg">
-        <div className="container-fluid">
-          <motion.div
-            className="center-content mb-24"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <motion.h1
-              className="text-hero mb-8"
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              Our Work
-            </motion.h1>
-            <motion.p
-              className="text-subheading max-w-3xl"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              Selected projects that showcase our approach to creative technology solutions
-            </motion.p>
-          </motion.div>
-
-          {/* Capabilities Overview */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-12 max-w-4xl mx-auto"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {[
-              { value: portfolioData.capabilities.totalTechnologies, label: "Technologies" },
-              { value: portfolioData.capabilities.focusAreas, label: "Focus Areas" },
-              { value: portfolioData.capabilities.approachType, label: "Approach" },
-              { value: portfolioData.capabilities.clientBase, label: "Client Range" }
-            ].map((item) => (
-              <motion.div
-                key={item.label}
-                className="text-center"
-                variants={fadeInUp}
-              >
-                <div className="text-display text-gray-900 mb-2">{item.value}</div>
-                <div className="text-caption">{item.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <section className="bg-gray-50 py-16">
-        <div className="container-fluid">
-          <motion.div
-            className="flex flex-wrap justify-center gap-8"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {portfolioData.categories.map((category, index) => (
-              <motion.button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`text-caption font-medium transition-all duration-500 pb-2 relative ${
-                  selectedCategory === category
-                    ? 'text-teal-accent'
-                    : 'text-gray-600 hover:text-teal-accent'
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -2 }}
-              >
-                {category}
-                {selectedCategory === category && (
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-teal-accent"
-                    layoutId="activeTab"
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </motion.button>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section className="section-spacing">
-        <div className="container-fluid">
-          <motion.div
-            className="space-y-32"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="grid-asymmetric project-card"
-                variants={fadeInUp}
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-              >
-                <div>
-                  <motion.p
-                    className="text-caption mb-2"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                  >
-                    {project.category}
-                  </motion.p>
-                  <motion.h3
-                    className="text-heading mb-4"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    {project.title}
-                  </motion.h3>
-                  <motion.p
-                    className="text-body mb-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    {project.description}
-                  </motion.p>
-
-                  <motion.div
-                    className="space-y-3 text-caption mb-8"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <div>
-                      <span className="text-gray-500">Client:</span> {project.client}
-                    </div>
-                    {project.scope && (
-                      <div>
-                        <span className="text-gray-500">Scope:</span> {project.scope}
-                      </div>
-                    )}
-                    {project.status && (
-                      <div>
-                        <span className="text-gray-500">Status:</span> <span className="text-teal-accent font-medium">{project.status}</span>
-                      </div>
-                    )}
-                    <div>
-                      <span className="text-gray-500">Timeline:</span> {new Date(project.completedDate).toLocaleDateString()}
-                    </div>
-                  </motion.div>
-
-                  {/* Technologies */}
-                  <motion.div
-                    className="mb-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    <p className="text-caption text-gray-500 mb-3">Technologies</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <motion.span
-                          key={tech}
-                          className="text-caption px-3 py-1 bg-gray-100 text-gray-800"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.7 + techIndex * 0.05 }}
-                          whileHover={{ scale: 1.05 }}
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  {/* Links */}
-                  {(project.liveUrl || project.githubUrl || project.playStoreUrl || project.videoUrl) && (
-                    <motion.div
-                      className="flex gap-6"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                    >
-                      {project.liveUrl && (
-                        <motion.a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-minimal"
-                          whileHover={{ scale: 1.02 }}
-                        >
-                          View Live
-                        </motion.a>
-                      )}
-                      {project.githubUrl && (
-                        <motion.a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-minimal"
-                          whileHover={{ scale: 1.02 }}
-                        >
-                          View Code
-                        </motion.a>
-                      )}
-                      {project.playStoreUrl && (
-                        <motion.a
-                          href={project.playStoreUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="btn-minimal"
-                          whileHover={{ scale: 1.02 }}
-                        >
-                          Play Store
-                        </motion.a>
-                      )}
-                    </motion.div>
-                  )}
-                </div>
-
-                {/* Project Visual */}
-                <motion.div
-                  className="bg-beige-soft h-96 flex items-center justify-center rounded-xl"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.div
-                    className="text-center text-gray-600"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <div className="text-4xl mb-4">
-                      {project.category === 'Mobile Development' ? '📱' :
-                       project.category === 'Cloud Solutions' ? '☁️' :
-                       project.category === 'AI Integration' ? '🤖' : '💻'}
-                    </div>
-                    <div className="text-caption">{project.category}</div>
-                  </motion.div>
-                </motion.div>
-
-                {/* Testimonial */}
-                {project.testimonial && (
-                  <motion.div
-                    className="col-span-2 mt-12 max-w-3xl"
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    <blockquote className="text-body text-gray-600 italic">
-                      &ldquo;{project.testimonial}&rdquo;
-                    </blockquote>
-                  </motion.div>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {filteredProjects.length === 0 && (
+        {/* Header */}
+        <section className="pt-36 pb-20">
+          <div className="container-custom">
             <motion.div
-              className="center-content py-24"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE_OUT }}
             >
-              <p className="text-body">No projects found in this category.</p>
+              <div className="section-label">Our Work</div>
+              <h1
+                className="font-display font-bold tracking-tight leading-[1.0] mb-6"
+                style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: "var(--color-text)" }}
+              >
+                Selected<br />
+                <span style={{ color: "var(--color-emerald)" }}>Projects</span>
+              </h1>
+              <p
+                className="text-lg leading-relaxed max-w-xl"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                A cross-section of what we&apos;ve shipped — across mobile, web, cloud, and AI.
+              </p>
             </motion.div>
-          )}
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 py-16">
-        <div className="container-fluid">
-          <motion.div
-            className="center-content space-y-4"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            {/* Capabilities */}
+            {portfolioData && (
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2, ease: EASE_OUT }}
+                className="grid grid-cols-2 md:grid-cols-4 gap-px mt-16 rounded-[14px] overflow-hidden"
+                style={{ border: "1px solid var(--color-border)" }}
+              >
+                {[
+                  { value: portfolioData.capabilities.totalTechnologies, label: "Technologies" },
+                  { value: portfolioData.capabilities.focusAreas, label: "Focus Areas" },
+                  { value: portfolioData.capabilities.approachType, label: "Approach" },
+                  { value: portfolioData.capabilities.clientBase, label: "Client Range" },
+                ].map((item, i) => (
+                  <div
+                    key={item.label}
+                    className="flex flex-col justify-center px-6 py-6"
+                    style={{
+                      backgroundColor: "var(--color-bg-card)",
+                      borderRight: i < 3 ? "1px solid var(--color-border)" : "none",
+                    }}
+                  >
+                    <p
+                      className="font-display font-bold leading-none mb-1"
+                      style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", color: "var(--color-emerald)" }}
+                    >
+                      {item.value}
+                    </p>
+                    <p className="text-xs font-medium" style={{ color: "var(--color-text-muted)" }}>
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        </section>
+
+        {/* Category filter */}
+        {portfolioData && (
+          <section
+            className="py-8 sticky top-16 z-30"
+            style={{ backgroundColor: "rgba(7,12,16,0.9)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--color-border)" }}
           >
-            <p className="text-caption">© 2024 WUSLA. Creative Technology Solutions.</p>
-            <p className="text-caption">Based in India, serving global clients</p>
-          </motion.div>
-        </div>
-      </footer>
-    </div>
+            <div className="container-custom">
+              <div className="flex flex-wrap gap-3">
+                {["All", ...portfolioData.categories].map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelected(cat)}
+                    className="text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-200"
+                    style={{
+                      backgroundColor: selected === cat ? "var(--color-emerald)" : "var(--color-bg-card)",
+                      color: selected === cat ? "#000" : "var(--color-text-muted)",
+                      border: "1px solid",
+                      borderColor: selected === cat ? "var(--color-emerald)" : "var(--color-border)",
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Projects */}
+        <section className="py-20">
+          <div className="container-custom">
+            {!portfolioData ? (
+              <div className="flex flex-col gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="h-64 rounded-[14px] animate-pulse"
+                    style={{ backgroundColor: "var(--color-bg-card)" }}
+                  />
+                ))}
+              </div>
+            ) : filtered.length === 0 ? (
+              <p className="text-center py-20" style={{ color: "var(--color-text-muted)" }}>
+                No projects in this category.
+              </p>
+            ) : (
+              <div className="flex flex-col gap-6">
+                {filtered.map((project, i) => (
+                  <motion.article
+                    key={project.id}
+                    initial={reduce ? false : { opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    transition={{ duration: 0.55, delay: i * 0.07, ease: EASE_OUT }}
+                    className="grid md:grid-cols-[1fr_auto] gap-8 rounded-[14px] p-8 md:p-10"
+                    style={{
+                      border: "1px solid var(--color-border)",
+                      backgroundColor: "var(--color-bg-card)",
+                    }}
+                  >
+                    <div>
+                      <div className="flex flex-wrap items-center gap-3 mb-4">
+                        <span
+                          className="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
+                          style={{
+                            backgroundColor: "var(--color-emerald-dim)",
+                            color: "var(--color-emerald)",
+                            border: "1px solid rgba(0,208,132,0.2)",
+                          }}
+                        >
+                          {project.category}
+                        </span>
+                        {project.status && (
+                          <span className="text-xs font-semibold" style={{ color: "var(--color-emerald)" }}>
+                            {project.status}
+                          </span>
+                        )}
+                      </div>
+
+                      <h2
+                        className="font-display font-bold mb-3 leading-tight"
+                        style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", color: "var(--color-text)" }}
+                      >
+                        {project.title}
+                      </h2>
+
+                      <p className="text-sm leading-relaxed mb-6 max-w-2xl" style={{ color: "var(--color-text-muted)" }}>
+                        {project.description}
+                      </p>
+
+                      <div className="flex flex-col gap-1.5 text-xs mb-6" style={{ color: "var(--color-text-muted)" }}>
+                        <span><span className="font-semibold">Client:</span> {project.client}</span>
+                        {project.scope && <span><span className="font-semibold">Scope:</span> {project.scope}</span>}
+                        <span>
+                          <span className="font-semibold">Completed:</span>{" "}
+                          {new Date(project.completedDate).toLocaleDateString("en-IN", { year: "numeric", month: "long" })}
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs font-medium px-3 py-1.5 rounded-full"
+                            style={{ border: "1px solid var(--color-border)", color: "var(--color-text-muted)" }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap gap-4">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold transition-opacity duration-150"
+                            style={{ color: "var(--color-emerald)" }}
+                          >
+                            View Live ↗
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold transition-opacity duration-150"
+                            style={{ color: "var(--color-text-muted)" }}
+                          >
+                            View Code ↗
+                          </a>
+                        )}
+                        {project.playStoreUrl && (
+                          <a
+                            href={project.playStoreUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-semibold transition-opacity duration-150"
+                            style={{ color: "var(--color-text-muted)" }}
+                          >
+                            Play Store ↗
+                          </a>
+                        )}
+                      </div>
+
+                      {project.testimonial && (
+                        <blockquote
+                          className="mt-6 text-sm leading-relaxed italic border-l-2 pl-4"
+                          style={{ borderColor: "var(--color-emerald)", color: "var(--color-text-muted)" }}
+                        >
+                          &ldquo;{project.testimonial}&rdquo;
+                        </blockquote>
+                      )}
+                    </div>
+
+                    {/* Category icon */}
+                    <div
+                      className="hidden md:flex items-center justify-center w-28 h-28 rounded-2xl text-4xl shrink-0"
+                      style={{ backgroundColor: "var(--color-bg-elevated)", border: "1px solid var(--color-border)" }}
+                      aria-hidden
+                    >
+                      {categoryIcon[project.category] ?? "💻"}
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-20" style={{ backgroundColor: "var(--color-bg-elevated)" }}>
+          <div className="container-custom text-center">
+            <h2
+              className="font-display font-bold mb-6"
+              style={{ fontSize: "clamp(2rem,4vw,3rem)", color: "var(--color-text)" }}
+            >
+              Want to be our next project?
+            </h2>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 font-semibold text-base px-8 py-4 rounded-lg btn-press"
+              style={{
+                backgroundColor: "var(--color-emerald)",
+                color: "#000",
+                transition: "background-color 200ms var(--ease-out), transform 160ms var(--ease-out)",
+              }}
+            >
+              Start a Project
+            </Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }

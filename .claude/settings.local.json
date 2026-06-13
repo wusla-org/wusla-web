@@ -19,7 +19,9 @@
       "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/public/assets/wusla_square.png)",
       "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/src/app/icon.png)",
       "Bash(grep -l \"SearchOverlay\\\\|CurtainLoader\\\\|SmoothScroll\\\\|Parallax\\\\|TransitionLink\\\\|MouseSpotlight\\\\|Portfolio\\\\|FeaturedProject\" /Users/mohammedarsh/Documents/wusla/wusla-web/src/components/*.tsx)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(npx skills *)",
+      "Bash(npx impeccable *)"
     ],
     "deny": [],
     "ask": []

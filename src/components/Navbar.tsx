@@ -3,23 +3,47 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const links = [
-  { label: "Services", href: "#services" },
-  { label: "Our Work", href: "#work" },
-  { label: "Why Us",   href: "#why-us" },
-  { label: "Contact",  href: "#contact" },
+  { label: "Services", href: "#services", id: "services" },
+  { label: "Why Us",   href: "#why-us",   id: "why-us" },
+  { label: "Work",     href: "#work",     id: "work" },
+  { label: "Contact",  href: "#contact",  id: "contact" },
 ];
+
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen]         = useState(false);
+  const [active, setActive]     = useState<string>("");
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", fn);
-    return () => window.removeEventListener("scroll", fn);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Scroll-spy: highlight the nav link for the section in view.
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5] },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -27,71 +51,66 @@ export default function Navbar() {
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          backgroundColor: scrolled ? "rgba(7,12,16,0.85)" : "transparent",
-          backdropFilter:   scrolled ? "blur(16px)" : "none",
-          borderBottom:     scrolled ? "1px solid var(--color-border)" : "none",
-          padding:          scrolled ? "14px 0" : "20px 0",
+          backgroundColor: scrolled ? "rgba(8,9,11,0.72)" : "transparent",
+          backdropFilter:  scrolled ? "blur(18px) saturate(140%)" : "none",
+          boxShadow: scrolled
+            ? "inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 0 var(--color-border), 0 20px 40px -32px rgba(0,0,0,0.8)"
+            : "none",
+          padding: scrolled ? "12px 0" : "22px 0",
+          transitionTimingFunction: "var(--ease-out)",
         }}
       >
         <div className="container-custom flex items-center justify-between">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <span className="font-display text-xl font-bold tracking-tight" style={{ color: "var(--color-text)" }}>
+          {/* Wordmark */}
+          <Link href="/" className="flex items-baseline gap-1.5 btn-press" aria-label="WUSLA home">
+            <span className="font-display text-lg font-bold tracking-tight" style={{ color: "var(--color-text)" }}>
               wusla
             </span>
             <span
-              className="w-2 h-2 rounded-full"
-              style={{
-                backgroundColor: "var(--color-emerald)",
-                boxShadow: "0 0 8px var(--color-emerald)",
-                animation: "pulse 2s infinite",
-              }}
+              className="w-1.5 h-1.5 rounded-full animate-pulse-dot"
+              style={{ backgroundColor: "var(--color-emerald)", boxShadow: "0 0 8px var(--color-emerald)" }}
             />
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-9">
             {links.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className="text-sm font-medium transition-colors duration-150"
-                style={{ color: "var(--color-text-muted)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+                data-active={active === l.id}
+                className="link-underline text-sm font-medium transition-colors duration-200"
+                style={{ color: active === l.id ? "var(--color-text)" : "var(--color-text-muted)" }}
               >
                 {l.label}
               </Link>
             ))}
           </nav>
 
-          {/* CTA + mobile */}
+          {/* CTA + mobile toggle */}
           <div className="flex items-center gap-3">
             <Link
               href="#contact"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-lg transition-all duration-200"
+              className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-[10px] btn-press"
               style={{
-                backgroundColor: "var(--color-emerald)",
-                color: "#000",
+                color: "var(--color-text)",
+                border: "1px solid var(--color-border-bright)",
+                transition: "border-color 200ms var(--ease-out), background-color 200ms var(--ease-out), transform 160ms var(--ease-out)",
               }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--color-emerald-dark)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(0,208,132,0.35)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.backgroundColor = "var(--color-emerald)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "var(--color-bg-card)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
             >
-              Start a Project
+              Start a project
+              <ArrowUpRight className="w-4 h-4" style={{ color: "var(--color-emerald)" }} />
             </Link>
 
             <button
-              className="md:hidden p-2 rounded-lg transition-colors"
-              style={{ color: "var(--color-text-muted)" }}
+              className="md:hidden p-2 rounded-lg btn-press"
+              style={{ color: "var(--color-text)" }}
               onClick={() => setOpen(true)}
               aria-label="Open menu"
+              aria-expanded={open}
             >
               <Menu className="w-5 h-5" />
             </button>
@@ -106,20 +125,22 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex flex-col"
+            transition={{ duration: 0.2, ease: EASE_OUT }}
+            className="fixed inset-0 z-50 flex flex-col md:hidden"
             style={{ backgroundColor: "var(--color-bg)" }}
           >
             <div
               className="container-custom flex items-center justify-between py-5"
               style={{ borderBottom: "1px solid var(--color-border)" }}
             >
-              <span className="font-display text-xl font-bold" style={{ color: "var(--color-text)" }}>
+              <span className="font-display text-lg font-bold" style={{ color: "var(--color-text)" }}>
                 wusla<span style={{ color: "var(--color-emerald)" }}>.</span>
               </span>
               <button
                 onClick={() => setOpen(false)}
-                className="p-2 rounded-lg"
+                className="p-2 rounded-lg btn-press"
                 style={{ color: "var(--color-text-muted)" }}
+                aria-label="Close menu"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -129,23 +150,18 @@ export default function Navbar() {
               {links.map((l, i) => (
                 <motion.div
                   key={l.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05, ease: EASE_OUT, duration: 0.3 }}
                 >
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between py-5 font-display text-3xl font-bold transition-colors"
-                    style={{
-                      color: "var(--color-text)",
-                      borderBottom: "1px solid var(--color-border)",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-emerald)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+                    className="flex items-center justify-between py-5 font-display text-3xl font-bold"
+                    style={{ color: "var(--color-text)", borderBottom: "1px solid var(--color-border)" }}
                   >
                     <span>{l.label}</span>
-                    <span style={{ color: "var(--color-emerald)", fontSize: "1.5rem" }}>↗</span>
+                    <ArrowUpRight className="w-6 h-6" style={{ color: "var(--color-emerald)" }} />
                   </Link>
                 </motion.div>
               ))}
@@ -155,22 +171,15 @@ export default function Navbar() {
               <Link
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="block w-full text-center font-semibold py-4 rounded-lg transition-all"
-                style={{ backgroundColor: "var(--color-emerald)", color: "#000" }}
+                className="block w-full text-center font-semibold py-4 rounded-[10px] btn-press"
+                style={{ backgroundColor: "var(--color-emerald)", color: "#04140D" }}
               >
-                Start a Project
+                Start a project
               </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0.4; }
-        }
-      `}</style>
     </>
   );
 }

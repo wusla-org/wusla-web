@@ -27,12 +27,12 @@
     "export": "next build && next export"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.544.0",
     "next": "^16.1.6",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "resend": "^6.12.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
