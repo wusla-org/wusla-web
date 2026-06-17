@@ -1,39 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
 import Reveal from "./Reveal";
 
 const projects = [
   {
     num: "01",
-    category: "Web Platform",
-    name: "Auditorium",
+    category: "Travel Platform",
+    name: "BeWingo India",
     description:
-      "A live audio experience platform built on Cloudflare Workers. Real-time rooms, low-latency streaming, and a clean interface that just works.",
-    tags: ["Cloudflare Workers", "Web Audio API", "TypeScript"],
-    metric: "< 200ms latency",
-    url: "https://auditorium.wuslateam.workers.dev/",
+      "A travel discovery and booking platform for the Indian market. Built for speed, clarity, and a seamless end-to-end booking experience.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    metric: "Live",
+    url: "https://bewingoindia.com/",
   },
   {
     num: "02",
-    category: "SaaS Dashboard",
-    name: "Client Portal",
+    category: "E-Commerce",
+    name: "Muzari",
     description:
-      "An internal project management and invoicing portal for a logistics company. Cut their admin overhead by 60% in the first month.",
-    tags: ["Next.js", "PostgreSQL", "Stripe"],
-    metric: "60% less admin",
-    url: null,
+      "A modern commerce platform serving the Indian audience. Clean product browsing, fast checkout, and a mobile-first experience throughout.",
+    tags: ["React", "Node.js", "Tailwind CSS"],
+    metric: "Live",
+    url: "https://muzari.in/",
   },
   {
     num: "03",
-    category: "Mobile App",
-    name: "Field Sales App",
+    category: "Web App",
+    name: "PG Campus Kalikav",
     description:
-      "Offline-first Android app for a regional FMCG distributor. Orders, route planning, and real-time sync when connectivity returns.",
-    tags: ["React Native", "SQLite", "REST API"],
-    metric: "Offline-first",
-    url: null,
+      "Campus accommodation management for Kalikav. Streamlines PG listings, room bookings, and resident coordination in one place.",
+    tags: ["Next.js", "Vercel", "TypeScript"],
+    metric: "Live",
+    url: "https://pgcampuskalikav.vercel.app/",
+  },
+  {
+    num: "04",
+    category: "Sports Platform",
+    name: "WAFY Sports",
+    description:
+      "A sports discovery and community platform connecting athletes, teams, and enthusiasts across regions with a polished, fast interface.",
+    tags: ["React", "Next.js", "Vercel"],
+    metric: "Live",
+    url: "https://sportify-wafy-sports.vercel.app/",
   },
 ];
 
@@ -52,13 +62,27 @@ export default function Work() {
               Products we&apos;ve shipped, built to last.
             </h2>
           </div>
-          <Link
-            href="#contact"
-            className="link-underline font-mono text-xs uppercase tracking-widest hidden sm:inline-block"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            Start yours →
-          </Link>
+          <div className="hidden sm:flex items-center gap-6">
+            <a
+              href="https://github.com/wusla-org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest transition-colors duration-200"
+              style={{ color: "var(--color-text-muted)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-text)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+            >
+              <Github className="w-3.5 h-3.5" />
+              GitHub
+            </a>
+            <Link
+              href="#contact"
+              className="link-underline font-mono text-xs uppercase tracking-widest"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              Start yours →
+            </Link>
+          </div>
         </Reveal>
 
         <div className="flex flex-col gap-5">
@@ -149,6 +173,35 @@ export default function Work() {
             );
           })}
         </div>
+
+        {/* GitHub org CTA */}
+        <Reveal className="mt-10">
+          <a
+            href="https://github.com/wusla-org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-between px-7 py-5 md:px-10 rounded-xl transition-colors duration-200"
+            style={{ border: "1px solid var(--color-border)", borderRadius: "var(--radius-card)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--color-border-bright)")}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--color-border)")}
+          >
+            <div className="flex items-center gap-4">
+              <Github className="w-5 h-5 shrink-0" style={{ color: "var(--color-text-muted)" }} />
+              <div>
+                <p className="font-display font-semibold text-sm" style={{ color: "var(--color-text)" }}>
+                  See all our open-source work
+                </p>
+                <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--color-text-muted)" }}>
+                  github.com/wusla-org
+                </p>
+              </div>
+            </div>
+            <ArrowUpRight
+              className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              style={{ color: "var(--color-text-muted)" }}
+            />
+          </a>
+        </Reveal>
       </div>
     </section>
   );
