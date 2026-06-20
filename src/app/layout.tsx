@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     "WUSLA acts as your dedicated software team on contract. Mobile apps, web platforms, desktop software, and UI/UX design for startups and growing businesses.",
   keywords: ["software team", "mobile app development", "web development", "startup", "WUSLA", "Kerala"],
   authors: [{ name: "WUSLA", url: BASE_URL }],
+  verification: {
+    google: "google2a791643ace2a52e",
+  },
   openGraph: {
     title: "WUSLA — Your Dedicated Software Team",
     description: "Mobile apps, web platforms & more — on contract, on your terms.",
