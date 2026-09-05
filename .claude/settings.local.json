@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:cloud-7-storage.webflow.io)",
+      "WebFetch(domain:n8n.io)",
+      "Bash(npm run build:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Read(/D:\\WUSLA\\website\\wusla-website/**)",
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run lint)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:magicteal.com)",
+      "Bash(npx next build:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx next:*)",
+      "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/public/assets/wusla_square.png)",
+      "Bash(cp /Users/mohammedarsh/Documents/wusla/wusla-web/wusla_square.png /Users/mohammedarsh/Documents/wusla/wusla-web/src/app/icon.png)",
+      "Bash(grep -l \"SearchOverlay\\\\|CurtainLoader\\\\|SmoothScroll\\\\|Parallax\\\\|TransitionLink\\\\|MouseSpotlight\\\\|Portfolio\\\\|FeaturedProject\" /Users/mohammedarsh/Documents/wusla/wusla-web/src/components/*.tsx)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx skills *)",
+      "Bash(npx impeccable *)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
