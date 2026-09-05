@@ -17,6 +17,11 @@
 /.next/
 /out/
 
+# nuxt
+/.nuxt/
+/.output/
+/.data/
+
 # production
 /build
 

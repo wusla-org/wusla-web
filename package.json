@@ -4,8 +4,8 @@
   "private": false,
   "description": "WUSLA - Professional web development, mobile apps, and cloud solutions. Building digital excellence with modern technology stacks.",
   "keywords": [
-    "nextjs",
-    "react",
+    "nuxt",
+    "vue",
     "tailwindcss",
     "web-development",
     "portfolio",
@@ -20,32 +20,32 @@
     "url": "https://github.com/wusla-team/wusla-website.git"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "deploy": "nuxt build && wrangler deploy",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.20.6",
-    "framer-motion": "^12.23.12",
-    "lucide-react": "^0.544.0",
-    "next": "^16.1.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "resend": "^6.12.4"
+    "@nuxt/fonts": "^0.11.4",
+    "@nuxtjs/robots": "^5.2.6",
+    "@nuxtjs/sitemap": "^7.2.10",
+    "@tailwindcss/vite": "^4",
+    "@vueuse/core": "^13.5.0",
+    "gsap": "^3.12.7",
+    "lucide-vue-next": "^0.544.0",
+    "nuxt": "^4.1.2",
+    "tailwindcss": "^4",
+    "vue": "^3.5.17",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
+    "@nuxt/eslint": "^1.17.0",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "^16.1.6",
-    "tailwindcss": "^4",
+    "eslint": "^10",
+    "nitro-cloudflare-dev": "^0.2.2",
     "typescript": "^5",
     "wrangler": "^4.129.0"
   }

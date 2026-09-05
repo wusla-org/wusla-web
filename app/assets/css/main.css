@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ── Warm paper palette (light, editorial) ── */
+  --color-bg:            #FAFAF9;
+  --color-bg-elevated:   #F3F0EA;
+  --color-bg-card:       #FFFFFF;
+  --color-border:        #E3DED5;
+  --color-border-bright: #D6D3D1;
+
+  /* ── Ink (structural dark — the hero editor panel, primary buttons) ── */
+  --color-ink:      #1C1917;
+  --color-ink-soft: #29241F;
+
+  /* ── Ochre accent (used sparingly, same restraint as before) ── */
+  --color-accent:      #A16207;
+  --color-accent-dark: #7C4D0A;
+  --color-accent-dim:  rgba(161, 98, 7, 0.08);
+
+  /* ── Text (warm near-black) ── */
+  --color-text:       #0C0A09;
+  --color-text-muted: #6B6560;
+  --color-text-faint: #A39C92;
+  --color-white:      #FFFFFF;
+
+  /* ── Typography ── */
+  --font-display: 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Layout ── */
+  --container-width: 1240px;
+  --radius-sm:   2px;
+  --radius-card: 4px;
+  --radius-lg:   4px;
+  --radius-btn:  2px;
+
+  /* ── Easing ── */
+  --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* ── Shadows (subtle — editorial/print, borders do most of the work) ── */
+  --shadow-card:   0 1px 2px rgba(28, 25, 23, 0.06);
+  --shadow-lift:   0 16px 32px -12px rgba(28, 25, 23, 0.14), 0 0 0 1px var(--color-border-bright);
+  --shadow-accent: 0 0 0 1px rgba(161, 98, 7, 0.25), 0 12px 32px -12px rgba(161, 98, 7, 0.30);
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family:            var(--font-body);
+  background-color:       var(--color-bg);
+  color:                  var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering:         optimizeLegibility;
+  line-height:            1.6;
+  position:               relative;
+}
+
+/* Fine film grain — breaks the flatness of a light page without a visible pattern */
+body::before {
+  content:        '';
+  position:       fixed;
+  inset:          0;
+  z-index:        0;
+  pointer-events: none;
+  opacity:        0.02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Content above texture */
+#__nuxt, main, header, footer, section { position: relative; z-index: 1; }
+
+/* ── Typography helpers ── */
+.font-display { font-family: var(--font-display); }
+.font-body    { font-family: var(--font-body); }
+.font-mono    { font-family: var(--font-mono); }
+
+h1, h2, h3, .display {
+  letter-spacing: -0.03em;
+  text-wrap:      balance;
+}
+
+.nums         { font-variant-numeric: tabular-nums; }
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty; }
+
+/* ── Color helpers ── */
+.text-accent     { color: var(--color-accent); }
+.text-ink        { color: var(--color-ink); }
+.text-text       { color: var(--color-text); }
+.text-text-muted { color: var(--color-text-muted); }
+.bg-bg           { background-color: var(--color-bg); }
+.bg-bg-elevated  { background-color: var(--color-bg-elevated); }
+.bg-bg-card      { background-color: var(--color-bg-card); }
+.bg-ink          { background-color: var(--color-ink); }
+.border-border   { border-color: var(--color-border); }
+
+/* ── Surface (the one card primitive) ── */
+.surface {
+  background-color: var(--color-bg-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-card);
+  box-shadow:       var(--shadow-card);
+}
+
+/* ── Mono metadata label ── */
+.mono-label {
+  font-family:    var(--font-mono);
+  font-size:      0.72rem;
+  font-weight:    500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+  display:        inline-flex;
+  align-items:    center;
+  gap:            0.6rem;
+}
+.mono-label::before {
+  content:       '';
+  width:         6px;
+  height:        6px;
+  border-radius: 1px;
+  background:    var(--color-accent);
+  box-shadow:    0 0 8px rgba(161, 98, 7, 0.45);
+  flex-shrink:   0;
+}
+
+.section-label {
+  font-family:    var(--font-mono);
+  font-size:      0.72rem;
+  font-weight:    500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+}
+
+/* ── Animated link underline ── */
+.link-underline { position: relative; }
+.link-underline::after {
+  content:          '';
+  position:         absolute;
+  left:             0;
+  bottom:           -3px;
+  height:           1px;
+  width:            100%;
+  background:       currentColor;
+  transform:        scaleX(0);
+  transform-origin: left center;
+  transition:       transform 240ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-underline:hover::after { transform: scaleX(1); }
+}
+.link-underline[data-active="true"]::after { transform: scaleX(1); }
+
+/* ── Glow utilities ── */
+.glow-accent    { box-shadow: var(--shadow-accent); }
+.glow-accent-sm { box-shadow: 0 0 16px rgba(161, 98, 7, 0.20); }
+
+/* ── Container ── */
+.container-custom {
+  width:         100%;
+  max-width:     var(--container-width);
+  margin-left:   auto;
+  margin-right:  auto;
+  padding-left:  1.5rem;
+  padding-right: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-custom { padding-left: 2.5rem; padding-right: 2.5rem; }
+}
+@media (min-width: 1280px) {
+  .container-custom { padding-left: 3.5rem; padding-right: 3.5rem; }
+}
+
+/* ── Pressable elements ── */
+.btn-press        { transition: transform 160ms var(--ease-out); }
+.btn-press:active { transform: scale(0.97); }
+
+/* ── Form fields (CSS focus only) ── */
+.field {
+  background-color: var(--color-bg-elevated);
+  border:           1px solid var(--color-border);
+  color:            var(--color-text);
+  transition:       border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
+}
+.field::placeholder { color: var(--color-text-faint); }
+.field:focus {
+  outline:      none;
+  border-color: var(--color-accent);
+  box-shadow:   0 0 0 3px rgba(161, 98, 7, 0.12);
+}
+
+/* ── Hover lift (CSS-only) ── */
+.lift {
+  transition: transform 280ms var(--ease-out),
+              box-shadow 280ms var(--ease-out),
+              border-color 280ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .lift:hover {
+    transform:    translateY(-4px);
+    box-shadow:   var(--shadow-lift);
+    border-color: var(--color-border-bright);
+  }
+}
+
+/* ── Hairline divider ── */
+.hairline {
+  height:     1px;
+  width:      100%;
+  background: linear-gradient(90deg, transparent, var(--color-border-bright), transparent);
+}
+
+/* ── Keyframes ── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+@keyframes caret-blink {
+  0%, 49%  { opacity: 1; }
+  50%, 99% { opacity: 0; }
+  100%     { opacity: 1; }
+}
+
+.animate-pulse-dot { animation: pulse 2.4s var(--ease-in-out) infinite; }
+.animate-caret      { animation: caret-blink 1.05s steps(1) infinite; }
+
+/* ── Selection & scrollbar ── */
+::selection { background-color: rgba(161, 98, 7, 0.18); color: var(--color-text); }
+
+::-webkit-scrollbar       { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb {
+  background:    var(--color-border-bright);
+  border:        3px solid var(--color-bg);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline:        2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius:  2px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:       0.01ms !important;
+  }
+}
