@@ -1,126 +1,13 @@
 <script setup lang="ts">
-import { projects, getCapabilities } from "~~/content/projects";
-
-useSeoMeta({ title: "Portfolio" });
-
-const capabilities = getCapabilities();
-const stats = [
-  { value: capabilities.totalTechnologies, label: "Technologies" },
-  { value: capabilities.focusAreas, label: "Focus Areas" },
-  { value: capabilities.approachType, label: "Approach" },
-  { value: capabilities.projectsShipped, label: "Projects Shipped" },
-];
-
-const headerEl = ref<HTMLElement | null>(null);
-useScrollTimeline(headerEl, ({ gsap }) => {
-  gsap.fromTo(headerEl.value, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" });
-});
+import { ArrowUpRight } from "lucide-vue-next";
+import { projects } from "~~/content/projects";
+useSeoMeta({ title: "Selected work", description: "A selection of public products and platforms built with WUSLA." });
 </script>
 
 <template>
-  <div class="min-h-[100dvh]" style="background-color: var(--color-bg); color: var(--color-text)">
-    <section class="pt-36 pb-20">
-      <div class="container-custom">
-        <div ref="headerEl">
-          <div class="section-label">Our Work</div>
-          <h1 class="font-display font-bold tracking-tight leading-[1.0] mb-6" style="font-size: clamp(3rem, 8vw, 7rem); color: var(--color-text)">
-            Selected<br >
-            <span style="color: var(--color-accent)">Projects</span>
-          </h1>
-          <p class="text-lg leading-relaxed max-w-xl" style="color: var(--color-text-muted)">
-            A cross-section of what we've shipped — across web, mobile, and platform engineering.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-px mt-16 overflow-hidden" style="border: 1px solid var(--color-border); border-radius: 14px">
-          <div
-            v-for="(item, i) in stats"
-            :key="item.label"
-            class="flex flex-col justify-center px-6 py-6"
-            :style="{ backgroundColor: 'var(--color-bg-card)', borderRight: i < 3 ? '1px solid var(--color-border)' : 'none' }"
-          >
-            <p class="font-display font-bold leading-none mb-1" style="font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--color-accent)">
-              {{ item.value }}
-            </p>
-            <p class="text-xs font-medium" style="color: var(--color-text-muted)">{{ item.label }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="container-custom">
-        <div class="flex flex-col gap-6">
-          <Reveal v-for="(project, i) in projects" :key="project.num" as="article" :delay="i * 0.07">
-            <div class="grid md:grid-cols-[1fr_auto] gap-8 p-8 md:p-10" style="border: 1px solid var(--color-border); background-color: var(--color-bg-card); border-radius: 14px">
-              <div>
-                <div class="flex flex-wrap items-center gap-3 mb-4">
-                  <span
-                    class="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
-                    style="background-color: var(--color-accent-dim); color: var(--color-accent); border: 1px solid rgba(161, 98, 7, 0.2)"
-                  >
-                    {{ project.category }}
-                  </span>
-                  <span class="text-xs font-semibold" style="color: var(--color-accent)">{{ project.metric }}</span>
-                </div>
-
-                <h2 class="font-display font-bold mb-3 leading-tight" style="font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--color-text)">
-                  {{ project.name }}
-                </h2>
-
-                <p class="text-sm leading-relaxed mb-6 max-w-2xl" style="color: var(--color-text-muted)">{{ project.description }}</p>
-
-                <div class="flex flex-wrap gap-2 mb-6">
-                  <span
-                    v-for="tech in project.tags"
-                    :key="tech"
-                    class="text-xs font-medium px-3 py-1.5 rounded-full"
-                    style="border: 1px solid var(--color-border); color: var(--color-text-muted)"
-                  >
-                    {{ tech }}
-                  </span>
-                </div>
-
-                <a v-if="project.url" :href="project.url" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold" style="color: var(--color-accent)">
-                  View Live ↗
-                </a>
-              </div>
-
-              <div
-                class="hidden md:flex items-center justify-center w-28 h-28 shrink-0"
-                style="background-color: var(--color-bg-elevated); border: 1px solid var(--color-border); border-radius: 16px"
-                aria-hidden="true"
-              >
-                <span class="font-display font-bold nums" style="font-size: 2.2rem; color: var(--color-border-bright)">{{ project.num }}</span>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20" style="background-color: var(--color-bg-elevated)">
-      <div class="container-custom text-center">
-        <h2 class="font-display font-bold mb-6" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--color-text)">
-          Want to be our next project?
-        </h2>
-        <NuxtLink to="/#contact" class="portfolio-cta inline-flex items-center gap-2 font-semibold text-base px-8 py-4 btn-press" style="border-radius: var(--radius-btn)">
-          Start a Project
-        </NuxtLink>
-      </div>
-    </section>
-  </div>
+  <main class="portfolio-page"><section class="portfolio-hero"><div class="container-custom"><p>Selected public work</p><h1>Built for use,<br>not for show.</h1><div class="hero-line"><span>WUSLA has helped bring platforms, products, and useful digital experiences into the world.</span><b>01—04</b></div></div></section><section class="project-index"><div class="container-custom"><a v-for="project in projects" :key="project.num" :href="project.url" target="_blank" rel="noopener noreferrer" class="project"><span>{{ project.num }}</span><div><p>{{ project.category }}</p><h2>{{ project.name }}</h2><p class="description">{{ project.description }}</p><div class="tags"><span v-for="tag in project.tags" :key="tag">{{ tag }}</span></div></div><ArrowUpRight :size="24" /></a></div></section><section class="portfolio-close"><div class="container-custom"><p>There is more work behind the scenes. Some of it is public. Some of it is still becoming.</p><NuxtLink to="/#contact">Start a project <ArrowUpRight :size="18" /></NuxtLink></div></section></main>
 </template>
 
 <style scoped>
-.portfolio-cta {
-  background-color: var(--color-ink);
-  color: var(--color-bg);
-  transition:
-    box-shadow 200ms var(--ease-out),
-    transform 160ms var(--ease-out);
-}
-.portfolio-cta:hover {
-  box-shadow: var(--shadow-accent);
-}
+.portfolio-page{background:#F5FAF7;color:#093A2C}.portfolio-hero{padding:12rem 0 7rem;background:#F6F4EA}.portfolio-hero>div>p:first-child,.project>div>p:first-child{font:600 .7rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:#008A63}.portfolio-hero h1{font-size:clamp(3.7rem,8vw,8.5rem);line-height:.84;letter-spacing:-.09em;font-weight:720;margin:1.6rem 0 4.5rem}.hero-line{display:flex;justify-content:space-between;gap:2rem;border-top:1px solid #B8D3C5;padding-top:1rem;color:#527166}.hero-line span{max-width:29rem;line-height:1.5}.hero-line b{font:500 .7rem var(--font-mono);letter-spacing:.1em;color:#008A63}.project-index{padding:2rem 0 8rem}.project{display:grid;grid-template-columns:5rem minmax(0,1fr) 2rem;gap:2rem;padding:3.5rem 0;border-bottom:1px solid #B8D3C5;transition:padding .2s var(--ease-out)}.project:first-child{border-top:1px solid #B8D3C5}.project:hover{padding-left:1rem;background:#E7F2EC}.project>span{font:500 .75rem var(--font-mono);color:#008A63}.project h2{font-size:clamp(2.1rem,4vw,4.3rem);line-height:.95;letter-spacing:-.065em;font-weight:690;margin:1rem 0}.description{max-width:41rem;color:#527166;line-height:1.55}.tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}.tags span{font:500 .68rem var(--font-mono);letter-spacing:.05em;color:#527166}.project svg{color:#008A63}.portfolio-close{padding:7rem 0;background:#006B4E;color:#F5FAF7}.portfolio-close p{max-width:26ch;font-size:clamp(2.5rem,5vw,5.5rem);line-height:.94;letter-spacing:-.07em;font-weight:680}.portfolio-close a{display:inline-flex;align-items:center;gap:.55rem;background:#D7F3E4;color:#004D38;padding:1rem 1.1rem;margin-top:2.5rem;font-weight:720}@media(max-width:767px){.portfolio-hero{padding:8rem 0 5rem}.portfolio-hero h1{margin-bottom:3rem}.project-index{padding-bottom:5rem}.project{grid-template-columns:2.5rem 1fr 1.2rem;gap:1rem;padding:2.5rem 0}.portfolio-close{padding:5rem 0}}
 </style>

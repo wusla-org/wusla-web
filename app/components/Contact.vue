@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle, AlertCircle } from "lucide-vue-next";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-const services = ["Mobile App", "Web Platform", "Desktop App", "UI / UX Design", "Dedicated Team", "Fast MVP"];
+const services = ["New product", "Existing product", "Mobile application", "Web platform", "Desktop software", "Product design", "Technical partnership"];
 
 const form = reactive({ name: "", email: "", service: "", message: "" });
 const status = ref<Status>("idle");
@@ -32,7 +32,7 @@ function reset() {
 const infoRows = [
   { k: "Email", type: "email" as const },
   { k: "Location", type: "text" as const, v: "Kerala, India" },
-  { k: "Response time", type: "text" as const, v: "Within 24 hours — usually faster" },
+  { k: "Response time", type: "text" as const, v: "We will reply as soon as we can." },
 ];
 </script>
 
@@ -43,10 +43,10 @@ const infoRows = [
         <Reveal>
           <div class="mono-label mb-5">Contact</div>
           <h2 class="font-display font-bold leading-[1.0] mb-7" style="font-size: clamp(2.6rem, 5.5vw, 4.6rem); color: var(--color-text)">
-            Let's build something.
+            Start a conversation.
           </h2>
           <p class="text-base leading-relaxed mb-12 max-w-md text-pretty" style="color: var(--color-text-muted)">
-            Tell us about your idea. We'll reply within 24 hours with a clear plan — no sales pitch, no obligation.
+            Tell us what you are building, where you need support, or what needs to improve.
           </p>
 
           <div class="flex flex-col gap-7">
@@ -65,7 +65,7 @@ const infoRows = [
             <div v-if="status === 'success'" class="success-panel flex flex-col items-center justify-center py-14 gap-4 text-center">
               <CheckCircle class="w-11 h-11" style="color: var(--color-accent)" />
               <h3 class="font-display font-bold text-2xl" style="color: var(--color-text)">Message sent</h3>
-              <p class="text-sm max-w-xs" style="color: var(--color-text-muted)">We'll get back to you within 24 hours.</p>
+              <p class="text-sm max-w-xs" style="color: var(--color-text-muted)">Thanks. We will be in touch soon.</p>
               <button class="link-underline mt-2 font-mono text-xs uppercase tracking-widest" style="color: var(--color-text-muted)" @click="reset">
                 Send another message
               </button>
@@ -121,7 +121,7 @@ const infoRows = [
               </button>
 
               <p class="font-mono text-[11px] text-center" style="color: var(--color-text-faint)">
-                We reply within 24 hours — usually much faster.
+                Your details are used only to respond to this enquiry.
               </p>
             </form>
           </div>
@@ -132,6 +132,16 @@ const infoRows = [
 </template>
 
 <style scoped>
+.surface {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0 !important;
+  box-shadow: none;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.field { border-radius: 0 !important; }
 .contact-label {
   font-family: var(--font-mono);
   font-size: 11px;

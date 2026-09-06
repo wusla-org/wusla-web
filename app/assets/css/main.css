@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ── Warm paper palette (light, editorial) ── */
-  --color-bg:            #FAFAF9;
-  --color-bg-elevated:   #F3F0EA;
+  /* ── WUSLA emerald palette ── */
+  --color-bg:            #F5FAF7;
+  --color-bg-elevated:   #E7F2EC;
   --color-bg-card:       #FFFFFF;
-  --color-border:        #E3DED5;
-  --color-border-bright: #D6D3D1;
+  --color-border:        #C9DED3;
+  --color-border-bright: #B8D3C5;
 
   /* ── Ink (structural dark — the hero editor panel, primary buttons) ── */
-  --color-ink:      #1C1917;
-  --color-ink-soft: #29241F;
+  --color-ink:      #064E3B;
+  --color-ink-soft: #076148;
 
-  /* ── Ochre accent (used sparingly, same restraint as before) ── */
-  --color-accent:      #A16207;
-  --color-accent-dark: #7C4D0A;
-  --color-accent-dim:  rgba(161, 98, 7, 0.08);
+  /* ── Emerald is the brand color, not a decorative afterthought ── */
+  --color-accent:      #008A63;
+  --color-accent-dark: #006B4E;
+  --color-accent-dim:  rgba(0, 138, 99, 0.10);
 
   /* ── Text (warm near-black) ── */
-  --color-text:       #0C0A09;
-  --color-text-muted: #6B6560;
-  --color-text-faint: #A39C92;
+  --color-text:       #092E24;
+  --color-text-muted: #527166;
+  --color-text-faint: #819B91;
   --color-white:      #FFFFFF;
 
   /* ── Typography ── */
@@ -43,7 +43,7 @@
   /* ── Shadows (subtle — editorial/print, borders do most of the work) ── */
   --shadow-card:   0 1px 2px rgba(28, 25, 23, 0.06);
   --shadow-lift:   0 16px 32px -12px rgba(28, 25, 23, 0.14), 0 0 0 1px var(--color-border-bright);
-  --shadow-accent: 0 0 0 1px rgba(161, 98, 7, 0.25), 0 12px 32px -12px rgba(161, 98, 7, 0.30);
+  --shadow-accent: 0 0 0 1px rgba(26, 77, 60, 0.25), 0 12px 32px -12px rgba(26, 77, 60, 0.30);
 }
 
 /* ── Base ── */
@@ -126,7 +126,7 @@ h1, h2, h3, .display {
   height:        6px;
   border-radius: 1px;
   background:    var(--color-accent);
-  box-shadow:    0 0 8px rgba(161, 98, 7, 0.45);
+  box-shadow:    0 0 8px rgba(26, 77, 60, 0.45);
   flex-shrink:   0;
 }
 
@@ -160,7 +160,7 @@ h1, h2, h3, .display {
 
 /* ── Glow utilities ── */
 .glow-accent    { box-shadow: var(--shadow-accent); }
-.glow-accent-sm { box-shadow: 0 0 16px rgba(161, 98, 7, 0.20); }
+.glow-accent-sm { box-shadow: 0 0 16px rgba(26, 77, 60, 0.20); }
 
 /* ── Container ── */
 .container-custom {
@@ -193,7 +193,7 @@ h1, h2, h3, .display {
 .field:focus {
   outline:      none;
   border-color: var(--color-accent);
-  box-shadow:   0 0 0 3px rgba(161, 98, 7, 0.12);
+  box-shadow:   0 0 0 3px rgba(26, 77, 60, 0.12);
 }
 
 /* ── Hover lift (CSS-only) ── */
@@ -232,7 +232,7 @@ h1, h2, h3, .display {
 .animate-caret      { animation: caret-blink 1.05s steps(1) infinite; }
 
 /* ── Selection & scrollbar ── */
-::selection { background-color: rgba(161, 98, 7, 0.18); color: var(--color-text); }
+::selection { background-color: rgba(26, 77, 60, 0.18); color: var(--color-text); }
 
 ::-webkit-scrollbar       { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
