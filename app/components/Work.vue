@@ -10,7 +10,7 @@ import { projects } from "~~/content/projects";
         <div class="max-w-2xl">
           <div class="mono-label mb-5">Selected work</div>
           <h2 class="font-display font-bold leading-[1.05]" style="font-size: clamp(2.1rem, 4.6vw, 3.6rem); color: var(--color-text)">
-            Products we've shipped, built to last.
+            Selected client work, built to last.
           </h2>
         </div>
         <div class="hidden sm:flex items-center gap-6">

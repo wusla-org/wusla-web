@@ -14,18 +14,18 @@ export const HERO_CODE = `export default function Hero() {
   return (
     <section className="hero">
       <span className="label">
-        Software team on contract
+        Product studio
       </span>
 
       <h1>
-        Your dedicated
-        software team.
+        Your product
+        &amp; technology partner.
       </h1>
 
       <p>
-        WUSLA plugs in as your engineering
-        team — mobile, web, and desktop
-        products. The code is 100% yours.
+        We design and build our own
+        software products — and take on
+        select client work, on our terms.
       </p>
 
       <div className="actions">

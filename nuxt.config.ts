@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", type: "image/png", href: "/assets/wusla_square.png" }],
+      meta: [{ name: "theme-color", content: "#1A4D3C" }],
     },
   },
 
@@ -26,7 +27,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://wusla.com",
+    url: "https://wusla.co",
   },
 
   nitro: {

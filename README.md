@@ -1,168 +1,76 @@
-# 🚀 WUSLA - Building Digital Excellence
+# WUSLA
 
-A modern, responsive business website built with Next.js 15, React 19, and Tailwind CSS 4. Showcasing professional web development, mobile apps, and cloud solutions with stunning animations and interactive technology showcase.
+WUSLA is a product studio: we build our own software products, and partner
+selectively with businesses on mobile apps, web platforms, desktop software,
+and UI/UX design. This repo is the marketing site at [wusla.co](https://wusla.co).
 
-![WUSLA Website](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-cyan?style=for-the-badge&logo=tailwindcss)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+## Tech Stack
 
-## ✨ Features
+- **Framework**: Nuxt 4 (Vue 3)
+- **Styling**: Tailwind CSS 4 (design tokens in `app/assets/css/main.css`)
+- **Animation**: GSAP, driven by the `useScrollTimeline` composable
+- **Icons**: lucide-vue-next
+- **Deployment**: Cloudflare Workers, via `nitro-cloudflare-dev` / Wrangler
 
-- **🎨 Modern Design**: Clean, professional interface with dark/light mode support
-- **⚡ Performance Optimized**: Built with Next.js 15 and React 19 for blazing fast performance
-- **📱 Fully Responsive**: Seamless experience across all devices and screen sizes
-- **🎭 Interactive Animations**: Smooth floating animations and hover effects
-- **🛠️ Technology Showcase**: Infinite scrolling technology grid with authentic brand logos
-- **🎯 Smart Tooltips**: Intelligent positioning that adapts to viewport location
-- **🌟 Advanced Effects**: Comprehensive feathering, gradients, and visual enhancements
-- **🔍 SEO Optimized**: Complete meta tags, Open Graph, and Twitter Card support
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 15 (App Router)
-- **Frontend**: React 19, TypeScript
-- **Styling**: Tailwind CSS 4
-- **Fonts**: Geist Sans & Geist Mono
-- **Icons**: Custom SVG brand logos
-- **Deployment**: Vercel (recommended)
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
+## Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/wusla-team/wusla-website.git
-
-# Navigate to project directory
-cd wusla-website
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev       # http://localhost:3000
 ```
 
-Visit `http://localhost:3000` to view the website.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-wusla-website/
-├── src/
-│   ├── app/
-│   │   ├── globals.css          # Global styles and animations
-│   │   ├── layout.tsx           # Root layout with metadata
-│   │   └── page.tsx             # Main homepage component
-├── public/                      # Static assets
-├── package.json                 # Project dependencies
-└── README.md                    # Project documentation
+wusla-web/
+├── app/
+│   ├── assets/css/main.css   # design tokens (@theme inline) + base styles
+│   ├── components/           # Navbar, Hero (hero/), Products, Services,
+│   │                          # WhyUs, Work, Contact, Footer, Reveal
+│   ├── pages/                # index.vue, portfolio.vue, projects.vue
+│   ├── app.vue                # root layout, SEO meta / JSON-LD
+│   └── error.vue
+├── content/projects.ts       # real shipped client project data (used by Work.vue)
+├── server/api/contact.post.ts# contact form handler (sends via Resend)
+├── public/                   # static assets
+├── nuxt.config.ts
+└── wrangler.jsonc / open-next-adjacent Cloudflare config
 ```
 
-## 🎨 Key Components
-
-### Hero Section
-- Animated gradient backgrounds
-- Floating blur effects
-- Clean typography with brand colors
-- Responsive call-to-action buttons
-
-### Services Section
-- Six detailed service cards
-- Hover effects and animations
-- Comprehensive technology listings
-- Interactive elements
-
-### Technology Showcase
-- **Infinite Scrolling**: Three rows of technology icons
-- **Authentic Brand Logos**: React, Node.js, Python, MongoDB, AWS, Docker, etc.
-- **Smart Tooltips**: Contextual positioning
-- **Smooth Animations**: Floating and scaling effects
-- **Perfect Feathering**: Seamless edge transitions
-
-### Contact Section
-- Interactive contact form
-- Company information
-- Responsive layout
-
-## 🎯 Performance Features
-
-- **Client-Side Rendering**: Optimized for interactivity
-- **Smart Animations**: CSS-only animations for better performance
-- **Responsive Images**: Optimized loading and display
-- **SEO Optimized**: Complete meta tags and structured data
-
-## 🚀 Deployment
-
-### Deploy to Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Visit [vercel.com](https://vercel.com)
-3. Import your GitHub repository
-4. Deploy with one click
-5. Get your live URL: `https://yoursite.vercel.app`
-
-### Build Commands
+## Commands
 
 ```bash
-# Development
-npm run dev
-
-# Production build
-npm run build
-
-# Start production server
-npm run start
-
-# Lint code
-npm run lint
+npm run dev       # Start development server
+npm run build     # Production build
+npm run generate  # Static generation
+npm run preview   # Preview the production build locally
+npm run deploy    # Build and deploy to Cloudflare Workers (wrangler deploy)
+npm run lint      # ESLint check
 ```
 
-## 🎨 Customization
+No test suite is configured.
 
-### Colors
-The website uses a teal-based color scheme defined in `globals.css`:
-- Primary: `#008080` (Wusla teal)
-- Light: `#20b2aa` (Wusla light)
-- Dark: `#006666` (Wusla dark)
+## Design System
 
-### Typography
-- **Sans Serif**: Geist Sans (modern, clean)
-- **Monospace**: Geist Mono (code snippets)
+Colors are defined as CSS custom properties in `app/assets/css/main.css`
+under `@theme inline` — a warm, editorial paper palette (off-white
+background, near-black ink) with a deep evergreen accent (`#1A4D3C`, sampled
+from the logo). Use `var(--color-*)` in inline styles rather than Tailwind
+color classes, since Tailwind 4 can't resolve the CSS variables at compile
+time — hover states are likewise applied via inline style mutation, not
+`hover:` classes.
 
-## 🤝 Contributing
+## Data
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- **Client project data**: `content/projects.ts` — real shipped work shown
+  in the `Work` section on the homepage.
+- **Portfolio page**: `public/data/portfolio.json`, fetched client-side by
+  `app/pages/portfolio.vue`.
+- **GitHub repos**: `app/utils/github.ts` → `fetchRepositories()`, hits the
+  GitHub API for `wusla-org`.
 
-## 📄 License
+## Contact
 
-This project is licensed under the MIT License.
-
-## 🔗 Links
-
-- **Website**: [wusla.com](https://wusla.com)
-- **GitHub**: [github.com/wusla-team](https://github.com/wusla-team)
-- **Contact**: hello@wusla.com
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- Tailwind CSS for the utility-first CSS framework
-- Vercel for seamless deployment
-- All the open-source technology brands for their awesome logos
-
----
-
-**Built with ❤️ by WUSLA Team**
-
-*Building the future of technology, one innovative project at a time.*
+- **Website**: [wusla.co](https://wusla.co)
+- **GitHub**: [github.com/wusla-org](https://github.com/wusla-org)
+- **Contact**: wuslateam@gmail.com

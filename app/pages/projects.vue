@@ -47,7 +47,7 @@ function formatDate(dateStr: string) {
               <span
                 v-if="repo.language"
                 class="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
-                style="background-color: var(--color-accent-dim); color: var(--color-accent); border: 1px solid rgba(161, 98, 7, 0.2)"
+                style="background-color: var(--color-accent-dim); color: var(--color-accent); border: 1px solid rgba(26, 77, 60, 0.2)"
               >
                 {{ repo.language }}
               </span>

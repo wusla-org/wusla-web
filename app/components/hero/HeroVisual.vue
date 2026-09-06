@@ -69,7 +69,7 @@ onMounted(() => {
               :style="{
                 height: `${h}%`,
                 borderRadius: '4px 4px 0 0',
-                background: i === bars.length - 2 ? 'linear-gradient(180deg, var(--color-accent), rgba(161,98,7,0.2))' : 'var(--color-border-bright)',
+                background: i === bars.length - 2 ? 'linear-gradient(180deg, var(--color-accent), rgba(26,77,60,0.2))' : 'var(--color-border-bright)',
               }"
             />
           </div>
@@ -95,7 +95,7 @@ onMounted(() => {
       </div>
 
       <div class="deploy-chip">
-        <span class="w-2 h-2 rounded-full animate-pulse-dot" style="background-color: var(--color-accent); box-shadow: 0 0 8px rgba(161, 98, 7, 0.5)" />
+        <span class="w-2 h-2 rounded-full animate-pulse-dot" style="background-color: var(--color-accent); box-shadow: 0 0 8px rgba(26, 77, 60, 0.5)" />
         <span class="font-mono text-xs font-medium" style="color: var(--color-text)">deployed</span>
         <span class="font-mono text-xs nums" style="color: var(--color-text-muted)">· 3.2s</span>
       </div>
@@ -116,7 +116,7 @@ onMounted(() => {
   position: absolute;
   pointer-events: none;
   inset: -12% -8% -8% -8%;
-  background: radial-gradient(60% 55% at 65% 35%, rgba(161, 98, 7, 0.14), transparent 70%);
+  background: radial-gradient(60% 55% at 65% 35%, rgba(26, 77, 60, 0.14), transparent 70%);
   filter: blur(28px);
 }
 .stack {

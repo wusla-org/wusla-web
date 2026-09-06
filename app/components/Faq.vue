@@ -1,0 +1,5 @@
+<script setup lang="ts">
+import { siteFaqs } from "~~/content/faq";
+</script>
+<template><section id="faq" class="faq-section" aria-labelledby="faq-title"><div class="container-custom"><div class="faq-head"><p class="section-label">Questions, answered</p><h2 id="faq-title">Clear from the first conversation.</h2></div><div class="faq-list"><details v-for="faq in siteFaqs" :key="faq.question"><summary>{{ faq.question }}</summary><p>{{ faq.answer }}</p></details></div></div></section></template>
+<style scoped>.faq-section{padding:7rem 0}.faq-head{max-width:38rem}.faq-head h2{font-size:clamp(2.2rem,4vw,4rem);line-height:1.04;font-weight:700;margin-top:1rem}.faq-list{max-width:52rem;margin:3.5rem 0 0 auto}.faq-list details{padding:1.5rem 0;border-top:1px solid var(--color-border)}summary{cursor:pointer;font-weight:650;font-size:1.08rem;color:var(--color-text);padding-right:2rem}.faq-list p{max-width:42rem;color:var(--color-text-muted);margin-top:1rem}.faq-list details:last-child{border-bottom:1px solid var(--color-border)}</style>

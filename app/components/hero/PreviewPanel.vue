@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-vue-next";
 import { REVEAL, STAGE } from "./heroSource";
 import HeroVisual from "./HeroVisual.vue";
 
-const trust = ["Full code ownership", "Ships in 2–4 weeks", "Fixed monthly pricing"];
+const trust = ["Full code ownership", "Ships fast", "Limited client slots"];
 
 function range(key: keyof typeof REVEAL) {
   const [start, end] = REVEAL[key];
@@ -23,15 +23,15 @@ const dockSpan = 1 - STAGE.dockStart;
 <template>
   <div class="preview-row flex items-center">
     <div class="copy-col" style="flex: 1; min-width: 0">
-      <div class="reveal-block mono-label mb-7" style="--t: var(--t-label)">Software team on contract</div>
+      <div class="reveal-block mono-label mb-7" style="--t: var(--t-label)">Product studio</div>
 
       <h1 class="font-display mb-7 font-extrabold leading-[0.98]" style="font-size: clamp(2.6rem, 5.2vw, 5.4rem); color: var(--color-text)">
-        <span class="reveal-block block" style="--t: var(--t-headlineA)">Your dedicated</span>
-        <span class="reveal-block block" style="--t: var(--t-headlineB)">software team.</span>
+        <span class="reveal-block block" style="--t: var(--t-headlineA)">Your product</span>
+        <span class="reveal-block block" style="--t: var(--t-headlineB)">&amp; technology partner.</span>
       </h1>
 
       <p class="reveal-block text-pretty mb-10 max-w-xl text-lg leading-relaxed" style="--t: var(--t-paragraph); color: var(--color-text-muted)">
-        WUSLA plugs in as your engineering team — mobile, web, and desktop products, shipped fast. On your terms, and the code is 100% yours.
+        We design and build our own software products — and partner selectively with businesses who want the same craft applied to theirs.
       </p>
 
       <div class="reveal-block mb-12 flex flex-col gap-3.5 sm:flex-row" style="--t: var(--t-actions)">

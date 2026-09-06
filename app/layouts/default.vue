@@ -1,11 +1,9 @@
 <script setup lang="ts">
-const route = useRoute();
-const showNavigation = computed(() => route.path !== "/");
 </script>
 
 <template>
   <div>
-    <Navbar v-if="showNavigation" />
+    <Navbar />
     <main>
       <slot />
     </main>

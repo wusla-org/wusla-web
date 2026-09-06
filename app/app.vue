@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const BASE_URL = "https://wusla.co";
 const OG_IMAGE = `${BASE_URL}/assets/wusla_square.png`;
+const route = useRoute();
+const canonicalUrl = computed(() => new URL(route.path, BASE_URL).toString());
 
-useHead({
+useHead(() => ({
   htmlAttrs: { lang: "en" },
   titleTemplate: (title) => (title ? `${title} | WUSLA` : "WUSLA | Independent Software Company"),
-  link: [{ rel: "canonical", href: BASE_URL }],
+  link: [{ rel: "canonical", href: canonicalUrl.value }],
   meta: [{ name: "google-site-verification", content: "google2a791643ace2a52e" }],
   script: [
     {
@@ -14,9 +16,16 @@ useHead({
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "WUSLA",
+        alternateName: "WUSLA Software",
         url: BASE_URL,
         logo: OG_IMAGE,
+        description: "WUSLA is an independent software company in Kerala, India. It builds original software applications and partners with companies on product design and engineering.",
         email: "wuslateam@gmail.com",
+        areaServed: [
+          { "@type": "AdministrativeArea", name: "Kerala" },
+          { "@type": "Country", name: "India" },
+        ],
+        knowsAbout: ["Software product development", "Product design", "Web platforms", "Mobile applications", "Technical strategy"],
         contactPoint: {
           "@type": "ContactPoint",
           email: "wuslateam@gmail.com",
@@ -35,8 +44,19 @@ useHead({
         ],
       }),
     },
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "WUSLA",
+        url: BASE_URL,
+        inLanguage: "en-IN",
+        publisher: { "@type": "Organization", name: "WUSLA", url: BASE_URL },
+      }),
+    },
   ],
-});
+}));
 
 useSeoMeta({
   description:

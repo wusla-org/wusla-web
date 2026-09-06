@@ -49,7 +49,7 @@
 /* ── Base ── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   font-family:            var(--font-body);
@@ -59,7 +59,12 @@ body {
   text-rendering:         optimizeLegibility;
   line-height:            1.6;
   position:               relative;
+  overflow-x:             clip;
 }
+
+img, svg { max-width: 100%; }
+
+button, a, input, select, textarea { touch-action: manipulation; }
 
 /* Fine film grain — breaks the flatness of a light page without a visible pattern */
 body::before {
@@ -176,6 +181,10 @@ h1, h2, h3, .display {
 }
 @media (min-width: 1280px) {
   .container-custom { padding-left: 3.5rem; padding-right: 3.5rem; }
+}
+@media (max-width: 480px) {
+  .container-custom { padding-left: 1.125rem; padding-right: 1.125rem; }
+  .field { font-size: 1rem; }
 }
 
 /* ── Pressable elements ── */

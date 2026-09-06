@@ -14,8 +14,8 @@ export default defineEventHandler(async (event) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "WUSLA Contact <contact@wusla.com>",
-      to: "hello@wusla.com",
+      from: "WUSLA Contact <contact@wusla.co>",
+      to: "wuslateam@gmail.com",
       reply_to: email,
       subject: `New enquiry from ${name}${service ? ` — ${service}` : ""}`,
       text: `Name: ${name}\nEmail: ${email}\nService: ${service || "Not specified"}\n\n${message}`,

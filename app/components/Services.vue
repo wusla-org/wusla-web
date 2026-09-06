@@ -36,18 +36,18 @@ const services = [
   },
   {
     id: "05",
-    title: "Dedicated Team",
-    short: "Monthly Contract",
+    title: "Technical Partnership",
+    short: "Long-term Collaboration",
     description:
-      "Your full software team embedded into your workflow, on a monthly contract. Slack, GitHub, standups — however you work.",
-    tags: ["Contract", "Long-term", "Embedded", "Agile"],
+      "For select partners, we go beyond a single build — ongoing product strategy, engineering, and iteration as a true technical partner.",
+    tags: ["Strategy", "Long-term", "Product Thinking", "Partnership"],
   },
   {
     id: "06",
-    title: "Fast MVPs",
-    short: "2–4 Week Delivery",
+    title: "Rapid Builds",
+    short: "Weeks, Not Months",
     description:
-      "Validate your idea with real users before burning runway. We scope, design, and ship a production-ready MVP in weeks.",
+      "When speed matters, we scope tightly and ship a production-ready first version fast — without cutting corners on quality.",
     tags: ["MVP", "Rapid Build", "Validation", "Launch"],
   },
 ];
@@ -60,9 +60,9 @@ const current = computed(() => services[active.value]);
   <section id="services" class="py-28 md:py-36" style="background-color: var(--color-bg-elevated)">
     <div class="container-custom">
       <Reveal class="mb-16 max-w-3xl">
-        <div class="mono-label mb-5">What we build</div>
+        <div class="mono-label mb-5">What we create</div>
         <h2 class="font-display font-bold leading-[1.05]" style="font-size: clamp(2.1rem, 4.6vw, 3.6rem); color: var(--color-text)">
-          Everything your product needs, under one roof.
+          Software that moves your company forward.
         </h2>
       </Reveal>
 
@@ -125,7 +125,7 @@ const current = computed(() => services[active.value]);
             </Transition>
 
             <NuxtLink to="#contact" class="services-cta group inline-flex items-center gap-2 font-semibold text-sm mt-10">
-              Start a project
+              Start a conversation
               <ArrowRight class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" style="color: var(--color-accent)" />
             </NuxtLink>
           </div>

@@ -9,7 +9,7 @@ const TOKEN =
 const COLOR = {
   default: "var(--color-text)",
   comment: "var(--color-text-faint)",
-  string: "rgba(161, 98, 7, 0.8)",
+  string: "rgba(26, 77, 60, 0.8)",
   keyword: "var(--color-accent)",
   attr: "var(--color-text-muted)",
   tag: "var(--color-text-muted)",
