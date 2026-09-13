@@ -32,6 +32,7 @@ for (const width of [360, 390, 768, 1366, 1920, 3440]) {
 test('mobile navigation closes with Escape and navigates to capabilities', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
   const menu = page.getByRole('button', { name: 'Menu' });
   await menu.click();
   await expect(page.getByRole('navigation', { name: 'Mobile navigation' })).toBeVisible();
@@ -45,6 +46,7 @@ test('mobile navigation closes with Escape and navigates to capabilities', async
 
 test('theme persists on navigation and reload', async ({ page }) => {
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
   await page.getByRole('button', { name: 'Switch colour theme' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Company' }).click();
@@ -57,9 +59,25 @@ test('home stays readable without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(process.env.TEST_BASE_URL || 'http://127.0.0.1:3100');
-  await expect(page.getByRole('heading', { name: 'Move your product forward.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Anyone can generate. We make it worth shipping.' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Start a project', exact: true }).first()).toBeVisible();
   await context.close();
+});
+
+test('homepage release story and service selector communicate the conversion journey', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  await expect(page.locator('.navigation-wordmark')).toHaveText('WUSLA');
+  await expect(page.locator('.navigation-wordmark')).not.toContainText('↗');
+  await expect(page.locator('.nav-project svg')).toHaveCount(0);
+  await expect(page.locator('.hp-release-picture img')).toHaveAttribute('src', '/assets/work/bewingo-india.webp');
+
+  const service = page.getByRole('button', { name: /Make the product work better/ });
+  await service.click();
+  await expect(service).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.hp-service-evidence img')).toHaveAttribute('src', '/assets/work/wafy-sports.webp');
+
+  await expect(page.locator('.hp-cta').getByRole('link', { name: 'Start a project', exact: true })).toHaveAttribute('href', '/start');
 });
 
 async function fillBrief(page: Page) {
