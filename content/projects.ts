@@ -16,20 +16,20 @@ export interface Project {
 export const projects: Project[] = [
   {
     num: "01",
-    category: "Travel Platform",
+    category: "Brand Website / Export",
     name: "BeWingo India",
     description:
-      "A travel discovery and booking platform for the Indian market. Built for speed, clarity, and a seamless end-to-end booking experience.",
+      "A digital home for Kerala spices, with a product catalogue, sourcing story, and export enquiries.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     metric: "Live",
     url: "https://bewingoindia.com/",
   },
   {
     num: "02",
-    category: "E-Commerce",
-    name: "Muzari",
+    category: "Business Website / Agriculture",
+    name: "Muzari Exports",
     description:
-      "A modern commerce platform serving the Indian audience. Clean product browsing, fast checkout, and a mobile-first experience throughout.",
+      "A public website presenting Indian agricultural produce, sourcing, and export enquiries for international buyers.",
     tags: ["React", "Node.js", "Tailwind CSS"],
     metric: "Live",
     url: "https://muzari.in/",
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     description:
       "Campus accommodation management for Kalikav. Streamlines PG listings, room bookings, and resident coordination in one place.",
     tags: ["Next.js", "Vercel", "TypeScript"],
-    metric: "Live",
+    metric: "Archived",
     url: "https://pgcampuskalikav.vercel.app/",
   },
   {
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     category: "Sports Platform",
     name: "WAFY Sports",
     description:
-      "A sports discovery and community platform connecting athletes, teams, and enthusiasts across regions with a polished, fast interface.",
+      "A sports competition application with event information, results, and championship standings.",
     tags: ["React", "Next.js", "Vercel"],
     metric: "Live",
     url: "https://sportify-wafy-sports.vercel.app/",

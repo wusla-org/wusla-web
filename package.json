@@ -26,7 +26,8 @@
     "preview": "nuxt preview",
     "deploy": "nuxt build && wrangler deploy",
     "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.11.4",
@@ -43,9 +44,11 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.17.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^20",
     "eslint": "^10",
     "nitro-cloudflare-dev": "^0.2.2",
+    "sharp": "^0.35.4",
     "typescript": "^5",
     "wrangler": "^4.129.0"
   }

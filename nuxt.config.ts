@@ -2,7 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-09-05",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   modules: ["@nuxt/fonts", "@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxt/eslint"],
 
@@ -13,16 +13,17 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "~/assets/css/studio.css"],
 
   vite: {
     plugins: [tailwindcss()],
   },
 
   fonts: {
+    defaults: { styles: ["normal"], subsets: ["latin"] },
     families: [
-      { name: "Inter", provider: "google", global: true },
-      { name: "JetBrains Mono", provider: "google", global: true },
+      { name: "Manrope", provider: "google", global: true },
+      { name: "IBM Plex Mono", provider: "google", global: true, weights: [400, 500] },
     ],
   },
 
@@ -32,6 +33,21 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: "cloudflare_module",
+    prerender: {
+      routes: ["/", "/portfolio", "/capabilities", "/company", "/applications", "/start", "/portfolio/bewingo-india", "/portfolio/muzari", "/portfolio/wafy-sports", "/portfolio/pg-campus"],
+      failOnError: true,
+    },
+  },
+
+  routeRules: {
+    "/": { prerender: true },
+    "/portfolio": { prerender: true },
+    "/portfolio/**": { prerender: true },
+    "/capabilities": { prerender: true },
+    "/company": { prerender: true },
+    "/applications": { prerender: true },
+    "/start": { prerender: true },
+    "/api/contact": { headers: { "Cache-Control": "no-store" } },
   },
 
   future: {

@@ -24,9 +24,9 @@
   --color-white:      #FFFFFF;
 
   /* ── Typography ── */
-  --font-display: 'Inter', sans-serif;
-  --font-body:    'Inter', sans-serif;
-  --font-mono:    'JetBrains Mono', monospace;
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'Manrope', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
 
   /* ── Layout ── */
   --container-width: 1240px;

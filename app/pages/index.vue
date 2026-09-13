@@ -4,8 +4,8 @@ import { siteFaqs } from "~~/content/faq";
 const baseUrl = "https://wusla.co";
 
 useSeoMeta({
-  title: "Independent software company",
-  description: "WUSLA builds original software applications and partners with ambitious companies on important product work.",
+  title: "Move your product forward",
+  description: "WUSLA turns complex ideas and difficult software into clear, useful products through strategy, design, and engineering.",
   ogUrl: baseUrl,
 });
 

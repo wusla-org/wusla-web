@@ -71,36 +71,38 @@ The following publicly named products appear in WUSLA's selected work. Refer to 
 
 ### BeWingo India
 
-- Category: Travel platform
-- Description: A travel discovery and booking platform for the Indian market, built for speed, clarity, and a seamless end-to-end booking experience.
+- Category: Brand website for spice exports
+- Description: A digital home for Kerala spices, with a product catalogue, sourcing story, and export enquiries.
 - Public website: https://bewingoindia.com/
 
-### Muzari
+### Muzari Exports
 
-- Category: E-commerce platform
-- Description: A modern commerce platform for the Indian audience, with product browsing, checkout, and a mobile-first experience.
+- Category: Business website for agricultural exports
+- Description: A public website presenting Indian agricultural produce, sourcing, and export enquiries for international buyers.
 - Public website: https://muzari.in/
 
 ### PG Campus Kalikav
 
 - Category: Campus accommodation web application
 - Description: A platform for PG listings, room bookings, and resident coordination in Kalikav.
+- Status: Archived; the public demo was unavailable when checked on 12 September 2026.
 - Public website: https://pgcampuskalikav.vercel.app/
 
 ### WAFY Sports
 
-- Category: Sports discovery and community platform
-- Description: A platform connecting athletes, teams, and enthusiasts across regions.
+- Category: Sports competition application
+- Description: A web application with event information, results, and championship standings.
 - Public website: https://sportify-wafy-sports.vercel.app/
 
 ## Important public pages
 
 - [Home](https://wusla.co/): Overview of WUSLA, its original applications, company partnerships, selected work, and frequently asked questions.
-- [For companies](https://wusla.co/company): Company-partnership approach, engagement areas, and the understand/build/improve process.
+- [Company](https://wusla.co/company): The independent studio and its working principles.
+- [Capabilities](https://wusla.co/capabilities): Product direction, design, engineering, and engagement options.
 - [Applications](https://wusla.co/applications): WUSLA's private application practice and what is publicly known about the three products in development.
 - [Selected work](https://wusla.co/portfolio): Public examples of software products and platforms built for real-world use.
 - [Open source](https://wusla.co/projects): Public technical work from WUSLA.
-- [Contact](https://wusla.co/#contact): Start a conversation about an application, existing product, platform, or technical challenge.
+- [Start a project](https://wusla.co/start): Share and review a private project enquiry.
 
 ## Frequently asked questions
 

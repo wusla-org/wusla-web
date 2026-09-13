@@ -1,12 +1,8 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <div>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Navbar />
-    <main>
-      <slot />
-    </main>
+    <main id="main-content" tabindex="-1"><slot /></main>
     <Footer />
   </div>
 </template>

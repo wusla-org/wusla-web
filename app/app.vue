@@ -11,6 +11,9 @@ useHead(() => ({
   meta: [{ name: "google-site-verification", content: "google2a791643ace2a52e" }],
   script: [
     {
+      innerHTML: "try{var t=localStorage.getItem('wusla-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}",
+    },
+    {
       type: "application/ld+json",
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
