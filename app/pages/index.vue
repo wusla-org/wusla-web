@@ -59,7 +59,7 @@ useHead({ bodyAttrs: { class: "w-body" } });
     >
       <div class="w-contact-actions">
         <NuxtLink to="/start" class="w-btn">Start a project</NuxtLink>
-        <a class="w-link-bone" href="mailto:wuslateam@gmail.com">wuslateam@gmail.com</a>
+        <a class="w-link-bone" href="mailto:hello@wusla.co">hello@wusla.co</a>
       </div>
     </HomeChapter>
   </div>

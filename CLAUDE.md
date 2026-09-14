@@ -99,7 +99,7 @@ of `heroSource.ts` for how the typing/reveal/dock stages are defined.
 - **Contact form**: `app/components/Contact.vue` posts to
   `server/api/contact.post.ts`, which sends via the Resend REST API
   (`RESEND_API_KEY` from `event.context.cloudflare.env`) to
-  `wuslateam@gmail.com`.
+  `hello@wusla.co`.
 
 ### Key Conventions
 

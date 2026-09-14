@@ -301,7 +301,7 @@ async function submitBrief() {
           <p>We will read it carefully and reply to <strong>{{ brief.email }}</strong>.</p>
           <div class="success-actions">
             <NuxtLink to="/">Return to WUSLA <ArrowRight :size="17" aria-hidden="true" /></NuxtLink>
-            <a href="mailto:wuslateam@gmail.com">Add something by email <ExternalLink :size="15" aria-hidden="true" /></a>
+            <a href="mailto:hello@wusla.co">Add something by email <ExternalLink :size="15" aria-hidden="true" /></a>
           </div>
         </div>
 
@@ -309,7 +309,7 @@ async function submitBrief() {
           <button v-if="step > 0" type="button" class="back-button" :disabled="submissionStatus === 'sending'" @click="goBack">
             <ArrowLeft :size="17" aria-hidden="true" /> Back
           </button>
-          <span v-else class="direct-email">Prefer email? <a href="mailto:wuslateam@gmail.com">wuslateam@gmail.com</a></span>
+          <span v-else class="direct-email">Prefer email? <a href="mailto:hello@wusla.co">hello@wusla.co</a></span>
 
           <button v-if="step < steps.length - 1" type="button" class="next-button" :disabled="!canContinue" @click="goNext">
             {{ step === 4 ? 'Review your note' : 'Continue' }} <ArrowRight :size="18" aria-hidden="true" />
@@ -322,7 +322,7 @@ async function submitBrief() {
 
         <div class="progress-rule" aria-hidden="true"><span :style="{ width: `${progress}%` }" /></div>
         <p v-if="submissionStatus === 'error'" class="error-message" role="alert">
-          The note could not be sent. Please try again or email <a href="mailto:wuslateam@gmail.com">wuslateam@gmail.com</a>.
+          The note could not be sent. Please try again or email <a href="mailto:hello@wusla.co">hello@wusla.co</a>.
         </p>
         <p class="sr-only" role="status">{{ submissionStatus === 'sending' ? 'Sending your project note.' : '' }}</p>
       </section>

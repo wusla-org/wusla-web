@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
   const apiKey = event.context.cloudflare?.env?.RESEND_API_KEY;
   if (!apiKey) {
-    throw createError({ statusCode: 503, statusMessage: 'Enquiries are temporarily unavailable. Please email wuslateam@gmail.com.' });
+    throw createError({ statusCode: 503, statusMessage: 'Enquiries are temporarily unavailable. Please email hello@wusla.co.' });
   }
   let response: Response;
   try {
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: 'WUSLA Contact <contact@wusla.co>',
-        to: 'wuslateam@gmail.com',
+        to: 'hello@wusla.co',
         reply_to: email,
         subject: `New enquiry from ${name}${service ? ` - ${service}` : ''}`,
         text: `Name: ${name}\nEmail: ${email}\nService: ${service || 'Not specified'}\n\n${message}`,

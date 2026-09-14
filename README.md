@@ -73,4 +73,4 @@ time — hover states are likewise applied via inline style mutation, not
 
 - **Website**: [wusla.co](https://wusla.co)
 - **GitHub**: [github.com/wusla-org](https://github.com/wusla-org)
-- **Contact**: wuslateam@gmail.com
+- **Contact**: hello@wusla.co

@@ -23,7 +23,7 @@ useHead(() => ({
         url: BASE_URL,
         logo: OG_IMAGE,
         description: "WUSLA is an independent software company in Kerala, India. It builds original software applications and partners with companies on product design and engineering.",
-        email: "wuslateam@gmail.com",
+        email: "hello@wusla.co",
         areaServed: [
           { "@type": "AdministrativeArea", name: "Kerala" },
           { "@type": "Country", name: "India" },
@@ -31,7 +31,7 @@ useHead(() => ({
         knowsAbout: ["Software product development", "Product design", "Web platforms", "Mobile applications", "Technical strategy"],
         contactPoint: {
           "@type": "ContactPoint",
-          email: "wuslateam@gmail.com",
+          email: "hello@wusla.co",
           contactType: "customer support",
           availableLanguage: ["English", "Malayalam"],
         },

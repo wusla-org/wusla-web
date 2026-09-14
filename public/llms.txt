@@ -18,7 +18,7 @@ The company works from the real business constraint outward: understanding the p
 - Based in: Kerala, India
 - Working language: English; Malayalam support is available for contact
 - Website: https://wusla.co/
-- Email: wuslateam@gmail.com
+- Email: hello@wusla.co
 - GitHub: https://github.com/wusla-org
 
 ## Core positioning
