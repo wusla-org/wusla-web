@@ -9,11 +9,14 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [{ rel: "icon", type: "image/png", href: "/assets/wusla_square.png" }],
-      meta: [{ name: "theme-color", content: "#1A4D3C" }],
+      meta: [{ name: "theme-color", content: "#FBFBEA" }],
     },
   },
 
-  css: ["~/assets/css/main.css", "~/assets/css/studio.css"],
+  // main.css is the Tailwind entry; studio.css still styles the six inner
+  // routes. wusla.css is the 2026 system and loads last so it wins. The
+  // first two go away once the inner routes are ported.
+  css: ["~/assets/css/main.css", "~/assets/css/studio.css", "~/assets/css/wusla.css"],
 
   vite: {
     plugins: [tailwindcss()],
@@ -22,6 +25,9 @@ export default defineNuxtConfig({
   fonts: {
     defaults: { styles: ["normal"], subsets: ["latin"] },
     families: [
+      { name: "Geist", provider: "google", global: true, weights: [300, 400, 500, 600, 700] },
+      { name: "Newsreader", provider: "google", global: true, weights: [400, 500], styles: ["normal", "italic"] },
+      // Still used by the inner routes until they are ported.
       { name: "Manrope", provider: "google", global: true },
       { name: "IBM Plex Mono", provider: "google", global: true, weights: [400, 500] },
     ],

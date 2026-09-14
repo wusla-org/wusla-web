@@ -2,7 +2,7 @@
   "name": "wusla-website",
   "version": "1.0.0",
   "private": false,
-  "description": "WUSLA — a product studio building its own software products, and partnering selectively on client mobile, web, and desktop work.",
+  "description": "WUSLA is a software studio in Kerala building web, mobile and desktop products.",
   "keywords": [
     "nuxt",
     "vue",
