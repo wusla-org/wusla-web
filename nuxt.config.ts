@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   // main.css is the Tailwind entry; studio.css still styles the six inner
   // routes. wusla.css is the 2026 system and loads last so it wins. The
   // first two go away once the inner routes are ported.
-  css: ["~/assets/css/main.css", "~/assets/css/studio.css", "~/assets/css/wusla.css"],
+  css: ["~/assets/css/main.css", "~/assets/css/wusla.css"],
 
   vite: {
     plugins: [tailwindcss()],

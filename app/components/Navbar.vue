@@ -45,8 +45,6 @@ function closeMenu() {
         </ul>
       </nav>
 
-      <ThemeToggle />
-
       <NuxtLink to="/start" class="w-btn w-btn-sm w-nav-cta">Start a project</NuxtLink>
 
       <button

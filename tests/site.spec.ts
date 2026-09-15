@@ -44,17 +44,13 @@ test('mobile navigation closes with Escape and navigates to capabilities', async
   await expect(page.getByRole('navigation', { name: 'Mobile navigation' })).toHaveCount(0);
 });
 
-test('theme persists on navigation and reload', async ({ page }) => {
-  await page.goto('/');
-  await page.waitForLoadState('networkidle');
-  await page.getByRole('button', { name: 'Switch colour theme' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Company' }).click();
-  await page.reload();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.goto('/');
-  await page.waitForLoadState('networkidle');
-  expect(await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor)).toBe('rgb(16, 15, 10)');
+test('there is no theme toggle and every route shares the cream ground', async ({ page }) => {
+  for (const path of pages) {
+    await page.goto(path);
+    await page.waitForLoadState('networkidle');
+    await expect(page.getByRole('button', { name: 'Switch colour theme' })).toHaveCount(0);
+    expect(await page.locator('body').evaluate(el => getComputedStyle(el).backgroundColor), path).toBe('rgb(251, 251, 234)');
+  }
 });
 
 test('home stays readable without JavaScript', async ({ browser }) => {

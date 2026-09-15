@@ -1,11 +1,29 @@
 <script setup lang="ts">
-import type { StudioProject } from '~~/content/studio';
-defineProps<{ project: StudioProject; featured?: boolean }>();
+import type { StudioProject } from "~~/content/studio";
+import WReveal from "~/components/WReveal.vue";
+
+defineProps<{ project: StudioProject }>();
 </script>
+
 <template>
-  <NuxtLink :to="`/portfolio/${project.slug}`" class="project-preview" :class="{ featured }">
-    <div v-if="project.image" class="project-image" :class="`project-${project.slug}`"><img :src="project.image" :alt="`${project.name} website`" width="1200" height="833" loading="lazy" decoding="async"></div>
-    <div v-else class="archived-project"><span class="eyebrow">Archived project</span><p>{{ project.name }}</p><span>Campus accommodation management</span></div>
-    <div class="project-caption"><div><p class="project-category">{{ project.category }}</p><h3>{{ project.name }}</h3></div><span class="round-arrow" aria-hidden="true">↗</span></div><p class="project-summary">{{ project.summary }}</p>
-  </NuxtLink>
+  <WReveal as="div">
+    <NuxtLink :to="`/portfolio/${project.slug}`" class="w-work-card">
+      <div v-if="project.image" class="w-work-shot">
+        <img :src="project.image" :alt="`${project.name} website`" width="1200" height="833" loading="lazy" decoding="async">
+      </div>
+      <div v-else class="w-work-archived">
+        <p class="w-eyebrow">Archived project</p>
+        <p>{{ project.name }}</p>
+        <p class="w-fine">Campus accommodation management</p>
+      </div>
+      <div class="w-work-caption">
+        <div>
+          <p class="w-work-category">{{ project.category }}</p>
+          <h3 class="w-item-title">{{ project.name }}</h3>
+        </div>
+        <span class="w-work-arrow" aria-hidden="true">↗</span>
+      </div>
+      <p class="w-work-summary">{{ project.summary }}</p>
+    </NuxtLink>
+  </WReveal>
 </template>
