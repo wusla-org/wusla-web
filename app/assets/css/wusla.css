@@ -621,6 +621,56 @@ main#main-content > .w-page { margin-top: -84px; }
 @media (max-width: 900px) { .w-repo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .w-repo-grid { grid-template-columns: 1fr; } }
 
+/* ---- mobile CTA bar ------------------------------------------------------ */
+/* On a phone the pill nav hides its "Start a project" button behind the
+   menu, so the site's one conversion action goes out of view for the whole
+   scroll. This bar keeps it reachable everywhere except /start itself,
+   where it would just duplicate the page's own submit action. */
+
+.w-mobile-cta { display: none; }
+
+@media (max-width: 760px) {
+  body.w-has-mobilecta { padding-bottom: calc(4.75rem + env(safe-area-inset-bottom)); }
+
+  .w-mobile-cta {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 48;
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+    padding: .625rem max(1rem, env(safe-area-inset-left)) calc(.625rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
+    background: color-mix(in srgb, var(--w-cream) 92%, transparent);
+    border-top: 1px solid var(--w-hair);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+  }
+  .w-mobile-cta-btn { flex: 1 1 auto; min-height: 48px; }
+  .w-mobile-cta-mail {
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px;
+    border: 1px solid var(--w-hair);
+    border-radius: 999px;
+    color: var(--w-ink);
+    text-decoration: none;
+    font-size: 1.125rem;
+  }
+}
+
+/* ---- mobile touch + rhythm tuning ----------------------------------------- */
+
+@media (max-width: 520px) {
+  .w-hero { padding-top: clamp(6.5rem, 22vw, 8rem); }
+  .w-band { padding-block: clamp(3.5rem, 14vw, 5.5rem); }
+  .w-chapter { padding-block: clamp(4.5rem, 18vw, 7rem); }
+  .w-nav { width: calc(100% - 1.25rem); top: .625rem; }
+  .w-nav-in { height: 52px; padding-left: 1.125rem; }
+  .w-menu-btn { min-height: 44px; padding-inline: 1rem; }
+  .w-drawer a { padding-block: .5625rem; }
+  .w-btn { min-height: 48px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .w-marquee { animation: none; }
 }
