@@ -10,6 +10,11 @@ useSeoMeta({
 
 useHead({ bodyAttrs: { class: "w-body" } });
 
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Company", path: "/company" },
+]);
+
 const principles = [
   { title: "Stay close to the problem.", copy: "Understand what people are trying to do before deciding what the software should be." },
   { title: "Make decisions together.", copy: "Keep product thinking, design, and engineering close enough to inform one another." },

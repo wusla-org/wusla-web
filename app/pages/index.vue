@@ -6,27 +6,36 @@ import HomeWork from "~/components/home/HomeWork.vue";
 import HomeCapabilities from "~/components/home/HomeCapabilities.vue";
 import HomeApplications from "~/components/home/HomeApplications.vue";
 import HomeProcess from "~/components/home/HomeProcess.vue";
-
-const baseUrl = "https://wusla.co";
+import HomeFaq from "~/components/home/HomeFaq.vue";
+import { siteFaqs } from "~~/content/faq";
 
 useSeoMeta({
   title: "Software people keep using",
   description:
     "WUSLA is a software studio in Kerala building web, mobile and desktop products. Four client projects live, with their real addresses.",
-  ogUrl: baseUrl,
 });
 
 /* Opts body into the cream ground. Nuxt removes the class again on
    navigation to a route that does not ask for it. */
 useHead({ bodyAttrs: { class: "w-body" } });
 
-/*
- * The FAQPage JSON-LD that used to sit here has been removed. It was
- * generated from content/faq.ts, but this page renders no visible FAQ,
- * and structured data describing content a visitor cannot see is a
- * markup violation rather than an SEO gain. It belongs on a page that
- * actually shows the questions.
- */
+/* HomeFaq renders every question below as visible copy, so the FAQPage
+   markup describes content a visitor can actually read rather than data
+   invisibly attached to the page. */
+useHead({
+  script: [{
+    type: "application/ld+json",
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: siteFaqs.map(faq => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+      })),
+    }),
+  }],
+});
 </script>
 
 <template>
@@ -51,6 +60,8 @@ useHead({ bodyAttrs: { class: "w-body" } });
     <HomeApplications />
 
     <HomeProcess />
+
+    <HomeFaq />
 
     <HomeChapter
       id="contact"

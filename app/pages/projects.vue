@@ -10,6 +10,11 @@ useSeoMeta({
 
 useHead({ bodyAttrs: { class: "w-body" } });
 
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Open source", path: "/projects" },
+]);
+
 const repos = ref<Repository[]>([]);
 const loading = ref(true);
 

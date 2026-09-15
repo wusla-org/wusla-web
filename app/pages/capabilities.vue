@@ -11,6 +11,32 @@ useSeoMeta({
 
 useHead({ bodyAttrs: { class: "w-body" } });
 
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Capabilities", path: "/capabilities" },
+]);
+
+useHead({
+  script: [{
+    type: "application/ld+json",
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      serviceType: "Software product direction, design and engineering",
+      provider: { "@type": "Organization", name: "WUSLA", url: "https://wusla.co" },
+      areaServed: { "@type": "Country", name: "India" },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Ways to work with WUSLA",
+        itemListElement: engagements.map(item => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: item.title, description: item.copy },
+        })),
+      },
+    }),
+  }],
+});
+
 function asSentence(outputs: string[]) {
   const [first, ...rest] = outputs;
   if (!first) return "";

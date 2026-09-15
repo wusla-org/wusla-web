@@ -621,6 +621,37 @@ main#main-content > .w-page { margin-top: -84px; }
 @media (max-width: 900px) { .w-repo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .w-repo-grid { grid-template-columns: 1fr; } }
 
+/* ---- faq ------------------------------------------------------------------ */
+
+.w-faq { display: flex; flex-direction: column; max-width: 62ch; }
+.w-faq-item {
+  padding-block: 1.375rem;
+  box-shadow: inset 0 1px 0 var(--w-hair);
+}
+.w-faq-item:last-child { box-shadow: inset 0 1px 0 var(--w-hair), inset 0 -1px 0 var(--w-hair); }
+.w-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.011em;
+  cursor: pointer;
+  list-style: none;
+}
+.w-faq-item summary::-webkit-details-marker { display: none; }
+.w-faq-item summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--w-ink-soft);
+  transition: transform 220ms var(--w-ease);
+}
+.w-faq-item[open] summary::after { transform: rotate(45deg); }
+.w-faq-item p { margin: .875rem 0 0; color: var(--w-ink-soft); max-width: 56ch; }
+
 /* ---- mobile CTA bar ------------------------------------------------------ */
 /* On a phone the pill nav hides its "Start a project" button behind the
    menu, so the site's one conversion action goes out of view for the whole

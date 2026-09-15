@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
+import { studioProjects } from "./content/studio";
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-09-05",
@@ -13,9 +14,7 @@ export default defineNuxtConfig({
     },
   },
 
-  // main.css is the Tailwind entry; studio.css still styles the six inner
-  // routes. wusla.css is the 2026 system and loads last so it wins. The
-  // first two go away once the inner routes are ported.
+  // main.css is the Tailwind entry point; wusla.css is the design system.
   css: ["~/assets/css/main.css", "~/assets/css/wusla.css"],
 
   vite: {
@@ -37,9 +36,23 @@ export default defineNuxtConfig({
     url: "https://wusla.co",
   },
 
+  // The four case-study pages are a dynamic [slug] route, so the sitemap
+  // module can't discover them by scanning the file-based routes. List
+  // them explicitly from the same data the pages render from.
+  sitemap: {
+    urls: () => studioProjects.map(project => ({ loc: `/portfolio/${project.slug}` })),
+  },
+
   nitro: {
     preset: "cloudflare_module",
     prerender: {
+      // Every route worth prerendering is already listed here. Crawling
+      // the rendered HTML for more links on top of that queues the same
+      // dynamic [slug] routes a second time (once from this list, once
+      // discovered from /portfolio's own links), and that duplicate,
+      // concurrent render is what was overwriting each case-study page
+      // with the /portfolio listing's HTML.
+      crawlLinks: false,
       routes: ["/", "/portfolio", "/capabilities", "/company", "/applications", "/start", "/portfolio/bewingo-india", "/portfolio/muzari", "/portfolio/wafy-sports", "/portfolio/pg-campus"],
       failOnError: true,
     },

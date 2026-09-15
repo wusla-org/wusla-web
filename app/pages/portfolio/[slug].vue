@@ -10,9 +10,34 @@ useSeoMeta({
   title: project.name,
   description: project.summary,
   ogImage: project.image ? `https://wusla.co${project.image}` : undefined,
+  ogImageWidth: project.image ? 1200 : undefined,
+  ogImageHeight: project.image ? 833 : undefined,
+  twitterCard: project.image ? "summary_large_image" : "summary",
 });
 
 useHead({ bodyAttrs: { class: "w-body" } });
+
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Selected work", path: "/portfolio" },
+  { name: project.name, path: `/portfolio/${project.slug}` },
+]);
+
+useHead({
+  script: [{
+    type: "application/ld+json",
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.name,
+      description: project.summary,
+      url: `https://wusla.co/portfolio/${project.slug}`,
+      image: project.image ? `https://wusla.co${project.image}` : undefined,
+      creator: { "@type": "Organization", name: "WUSLA", url: "https://wusla.co" },
+      ...(project.archived ? {} : { mainEntityOfPage: project.url }),
+    }),
+  }],
+});
 </script>
 
 <template>

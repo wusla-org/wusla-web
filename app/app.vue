@@ -11,9 +11,6 @@ useHead(() => ({
   meta: [{ name: "google-site-verification", content: "google2a791643ace2a52e" }],
   script: [
     {
-      innerHTML: "try{var t=localStorage.getItem('wusla-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}",
-    },
-    {
       type: "application/ld+json",
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
@@ -61,18 +58,22 @@ useHead(() => ({
   ],
 }));
 
+/* No ogTitle/ogDescription/twitterTitle/twitterDescription here on purpose:
+   unhead infers them from each page's own title/description, so a link to
+   /portfolio/bewingo-india shows that project's title when shared, not a
+   generic site-wide one. A page can still set ogImage explicitly (the
+   portfolio detail pages do, using the real project screenshot) to beat
+   this fallback. */
 useSeoMeta({
   description:
     "WUSLA is an independent software company building original applications and partnering with ambitious companies on important product work.",
-  ogTitle: "WUSLA | Independent Software Company",
-  ogDescription: "Original applications in development. A focused technology team for ambitious companies.",
-  ogUrl: BASE_URL,
+  ogUrl: () => canonicalUrl.value,
   ogSiteName: "WUSLA",
   ogType: "website",
   ogImage: OG_IMAGE,
+  ogImageWidth: 512,
+  ogImageHeight: 512,
   twitterCard: "summary",
-  twitterTitle: "WUSLA | Independent Software Company",
-  twitterDescription: "Original applications in development. A focused technology team for ambitious companies.",
   twitterImage: OG_IMAGE,
   robots: "index, follow",
 });

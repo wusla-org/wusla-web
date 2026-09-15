@@ -9,6 +9,27 @@ useSeoMeta({
 });
 
 useHead({ bodyAttrs: { class: "w-body" } });
+
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Selected work", path: "/portfolio" },
+]);
+
+useHead({
+  script: [{
+    type: "application/ld+json",
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      itemListElement: studioProjects.map((project, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: project.name,
+        url: `https://wusla.co/portfolio/${project.slug}`,
+      })),
+    }),
+  }],
+});
 </script>
 
 <template>

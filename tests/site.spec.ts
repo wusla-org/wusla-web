@@ -18,6 +18,27 @@ test('every marketing route renders with a heading and no broken images', async 
   expect(errors).toEqual([]);
 });
 
+test('each case study renders its own page, not the portfolio index', async ({ page }) => {
+  // pages/portfolio.vue and pages/portfolio/[slug].vue used to be a
+  // filename/directory collision that Nuxt treats as parent/child nested
+  // routes. Without a <NuxtPage/> in the parent, every /portfolio/<slug>
+  // URL silently rendered the portfolio listing instead of the case
+  // study, title tag, h1 and all. The fix was moving the listing to
+  // pages/portfolio/index.vue so the two are siblings, not nested.
+  const cases: [string, string][] = [
+    ['/portfolio/bewingo-india', 'BeWingo India'],
+    ['/portfolio/muzari', 'Muzari Exports'],
+    ['/portfolio/wafy-sports', 'WAFY Sports'],
+    ['/portfolio/pg-campus', 'PG Campus Kalikav'],
+  ];
+  for (const [path, name] of cases) {
+    await page.goto(path);
+    await expect(page).toHaveTitle(new RegExp(`^${name} \\| WUSLA`));
+    await expect(page.locator('h1')).toHaveText(name);
+    await expect(page.locator('.w-detail-head')).toHaveCount(1);
+  }
+});
+
 for (const width of [360, 390, 768, 1366, 1920, 3440]) {
   test(`layouts fit the viewport at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

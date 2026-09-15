@@ -9,6 +9,11 @@ useSeoMeta({
 });
 
 useHead({ bodyAttrs: { class: "w-body" } });
+
+useBreadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Applications", path: "/applications" },
+]);
 </script>
 
 <template>
