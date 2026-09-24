@@ -300,6 +300,7 @@ async function submitBrief() {
           <p>We will read it carefully and reply to <strong>{{ brief.email }}</strong>.</p>
           <div class="success-actions">
             <NuxtLink to="/">Return to WUSLA <ArrowRight :size="17" aria-hidden="true" /></NuxtLink>
+            <NuxtLink to="/book">Prefer a call? Book a time <ArrowRight :size="15" aria-hidden="true" /></NuxtLink>
             <a href="mailto:hello@wusla.co">Add something by email <ExternalLink :size="15" aria-hidden="true" /></a>
           </div>
         </div>

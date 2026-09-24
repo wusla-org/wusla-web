@@ -53,7 +53,7 @@ export default defineNuxtConfig({
       // concurrent render is what was overwriting each case-study page
       // with the /portfolio listing's HTML.
       crawlLinks: false,
-      routes: ["/", "/portfolio", "/capabilities", "/company", "/applications", "/start", "/portfolio/bewingo-india", "/portfolio/muzari", "/portfolio/wafy-sports", "/portfolio/pg-campus"],
+      routes: ["/", "/portfolio", "/capabilities", "/company", "/applications", "/start", "/book", "/portfolio/bewingo-india", "/portfolio/muzari", "/portfolio/wafy-sports", "/portfolio/pg-campus"],
       failOnError: true,
     },
   },
@@ -66,7 +66,9 @@ export default defineNuxtConfig({
     "/company": { prerender: true },
     "/applications": { prerender: true },
     "/start": { prerender: true },
+    "/book": { prerender: true },
     "/api/contact": { headers: { "Cache-Control": "no-store" } },
+    "/api/book": { headers: { "Cache-Control": "no-store" } },
   },
 
   future: {
