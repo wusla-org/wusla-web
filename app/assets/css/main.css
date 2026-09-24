@@ -80,6 +80,24 @@ body::before {
 /* Content above texture */
 #__nuxt, main, header, footer, section { position: relative; z-index: 1; }
 
+/* Off-screen until a keyboard user tabs to it, then jumps into view. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-white);
+  padding: 10px 18px;
+  border-radius: var(--radius-btn);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
 /* ── Typography helpers ── */
 .font-display { font-family: var(--font-display); }
 .font-body    { font-family: var(--font-body); }
