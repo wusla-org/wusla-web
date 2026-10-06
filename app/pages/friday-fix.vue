@@ -12,6 +12,27 @@ useHead({ bodyAttrs: { class: 'w-body' } });
 const form = reactive({ name: '', email: '', software: '', problem: '', permission: false });
 const status = ref<'idle' | 'sending' | 'success' | 'error'>('idle');
 const error = ref('');
+const page = ref<HTMLElement | null>(null);
+
+useScrollTimeline(page, ({ gsap }) => {
+  gsap.utils.toArray<HTMLElement>('.fix-section h2, .fix-section > .section-copy, .apply-intro, .application-surface, .faq-list').forEach((element) => {
+    gsap.fromTo(element, { y: 28, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.75, ease: 'power3.out',
+      scrollTrigger: { trigger: element, start: 'top 92%', once: true },
+    });
+  });
+  gsap.utils.toArray<HTMLElement>('.example-grid, .terms-list, .process-list, .promise-strip').forEach((group) => {
+    gsap.fromTo(group.children, { y: 24, opacity: 0 }, {
+      y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: group, start: 'top 88%', once: true },
+    });
+  });
+  gsap.utils.toArray<HTMLElement>('.process-list li').forEach((step) => {
+    gsap.fromTo(step, { '--line-scale': 0 }, { '--line-scale': 1, ease: 'none',
+      scrollTrigger: { trigger: step, start: 'top 88%', end: 'top 50%', scrub: 0.5 },
+    });
+  });
+});
 const examples = [
   { title: 'A form that won’t send.', copy: 'Repair an existing submission flow that fails or never reaches its destination.' },
   { title: 'A feature that stopped working.', copy: 'Find and fix an error in something your software already does.' },
@@ -50,7 +71,7 @@ async function submit() {
 </script>
 
 <template>
-  <div class="w-page fix-page">
+  <div ref="page" class="w-page fix-page">
     <a href="#fix-content" class="skip-link">Skip to content</a>
     <header class="fix-nav fix-shell">
       <NuxtLink to="/" class="fix-mark" aria-label="WUSLA home">WUSLA</NuxtLink>
@@ -66,9 +87,7 @@ async function submit() {
           <p class="hero-description">10 software projects. Fixed for free. Bring us the broken feature you’ve been putting up with.</p>
           <a href="#apply" class="fix-button">Apply for a fix <ArrowUpRight :size="19" aria-hidden="true" /></a>
         </div>
-        <figure class="hero-art">
-          <img src="/assets/friday-fix-bandage.webp" alt="A small bandage joining two code brackets" width="1200" height="800" fetchpriority="high">
-        </figure>
+        <FridayFixRepair class="hero-art" />
       </section>
 
       <section class="promise-strip fix-shell" aria-label="Campaign scope">
@@ -187,7 +206,8 @@ h3 { font-size: 1.2rem; font-weight: 500; margin: 0 0 .65rem; letter-spacing: -.
 .terms-list article { display: flex; gap: 1rem; }
 .terms-list svg { color: var(--w-emerald); flex-shrink: 0; margin-top: .2rem; }
 .process-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin: 3rem 0 0; }
-.process-list li { border-top: 1px solid var(--w-hair); padding-top: 1.5rem; }
+.process-list li { position: relative; border-top: 1px solid var(--w-hair); padding-top: 1.5rem; }
+.process-list li::before { content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 2px; background: var(--w-emerald); transform: scaleX(var(--line-scale, 1)); transform-origin: left; }
 .process-list span { display: block; font-size: 1.2rem; font-weight: 500; margin-bottom: 1rem; }
 .apply-section { display: grid; grid-template-columns: 1fr 1.15fr; gap: 5rem; border-top: 1px solid var(--w-hair); }
 .small-note { font-size: .85rem; color: var(--w-ink-soft); max-width: 35ch; margin-top: 2rem; }
@@ -216,7 +236,7 @@ details p { color: var(--w-ink-soft); font-size: .95rem; margin: 1rem 0 0; }
 .fix-footer p { font-size: .85rem; color: var(--w-ink-soft); margin: 0; }
 .fix-footer a:last-child { display: flex; align-items: center; gap: .5rem; margin-left: auto; font-size: .85rem; color: var(--w-ink); text-decoration: none; }
 section[id] { scroll-margin-top: 1.5rem; }
-@media (prefers-reduced-motion: no-preference) { .hero-copy { animation: fix-enter .7s both; } .hero-art { animation: fix-enter .9s .1s both; } @keyframes fix-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } } }
+@media (prefers-reduced-motion: no-preference) { .hero-copy { animation: fix-enter .7s both; } @keyframes fix-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } } }
 @media (max-width: 767px) {
   .fix-nav { height: 76px; gap: 1rem; justify-content: space-between; }
   .nav-terms { display: none; }
